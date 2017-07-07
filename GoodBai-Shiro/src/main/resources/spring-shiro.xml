@@ -54,7 +54,7 @@
     <!-- 具体的 路径拦截器，登录验证路径在这里拦截 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/res/index4.jsp" />
+        <property name="loginUrl" value="/index.jsp" />
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter" />

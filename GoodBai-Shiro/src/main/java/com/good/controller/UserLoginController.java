@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.good.base.JSONUtil;
-
 @Controller
 public class UserLoginController {
 
@@ -20,6 +18,7 @@ public class UserLoginController {
 		map.put("rows", null);
 		map.put("page", 2);
 		System.out.println("----- UserLoginController-queryAll");
-		return JSONUtil.toJsonString(map);
+		//JSONUtil.toJsonString(map)
+		return "view/index2";
 	}
 }

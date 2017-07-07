@@ -24,7 +24,6 @@
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd"
 	default-autowire="byName">
 	
-    <import resource="db.xml" />
     
 	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->
     <mvc:annotation-driven /> 
@@ -92,4 +91,6 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/" p:suffix=".jsp" /> 
     
+    <import resource="db.xml" />
+    <import resource="spring-shiro.xml" />
 </beans>
