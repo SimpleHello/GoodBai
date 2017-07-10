@@ -86,6 +86,5 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
        p:prefix="/" p:suffix=".jsp" /> 
     
-    <import resource="db.xml" />
-    <import resource="spring-shiro.xml" />
+    
 </beans>

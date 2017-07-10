@@ -32,14 +32,7 @@
 	<!-- auto scan bean base package , 可以有多个值，以逗号分开-->
 	<context:component-scan base-package="com.good.*" annotation-config="true"/>
 
-	<bean class="com.good.base.properties.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:config.properties</value>
-				<value>classpath:log4j.properties</value>
-			</list>
-		</property>
-	</bean>
+
 	
 	<!-- 数据源bean -->
 		
