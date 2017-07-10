@@ -7,14 +7,14 @@
   
    <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.version>4.2.2.RELEASE</spring.version>
 		<jackson.version>2.5.0</jackson.version>
 	</properties>
 	<dependencies>
 		<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-jms</artifactId>
-  		<version>4.1.6.RELEASE</version>
+  		<version>4.2.2.RELEASE</version>
   	</dependency>
 	<dependency>
   		<groupId>org.apache.activemq</groupId>
