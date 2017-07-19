@@ -7,15 +7,12 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ByteSource;
 
 import com.good.entity.system.Permission;
 import com.good.entity.system.Role;
@@ -71,14 +68,14 @@ public class GIPSRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
 		// TODO Auto-generated method stub
-		System.out.println("----> go here doGetAuthenticationInfo");
-		UsernamePasswordToken token = (UsernamePasswordToken)arg0; 
-		System.out.println(" 登录了:"+token.getUsername());
-        User user = getUser(token.getUsername()) ;//userService.findByAccountName(token.getUsername()) ;//通过帐号获取用户实例
-        if (user != null && ByteSource.Util.bytes(token.getPassword()).equals(ByteSource.Util.bytes(user.getPassword()))) {//用户校验
-            setSessionInfo(user);
-            return  new SimpleAuthenticationInfo(user.getUserame(), user.getPassword(), user.getNickName());   //验证成功之后进行授权
-        }
+//		System.out.println("----> go here doGetAuthenticationInfo");
+//		UsernamePasswordToken token = (UsernamePasswordToken)arg0; 
+//		System.out.println(" 登录了:"+token.getUsername());
+//        User user = getUser(token.getUsername()) ;//userService.findByAccountName(token.getUsername()) ;//通过帐号获取用户实例
+//        if (user != null && ByteSource.Util.bytes(token.getPassword()).equals(ByteSource.Util.bytes(user.getPassword()))) {//用户校验
+//            setSessionInfo(user);
+//            return  new SimpleAuthenticationInfo(user.getUsename(), user.getPassword(), user.getNickName());   //验证成功之后进行授权
+//        }
 
         return null ;
 	}
@@ -121,7 +118,7 @@ public class GIPSRealm extends AuthorizingRealm {
 		 user.setRoles(lii);
 		 user.setPassword("123");
 		 user.setNickName(name+"nick");
-		 user.setUserame(name);
+		 user.setUsename(name);
 		 return user;
 	 }
 

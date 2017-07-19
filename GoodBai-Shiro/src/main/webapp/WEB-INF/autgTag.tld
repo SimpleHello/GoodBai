@@ -10,7 +10,7 @@
     <tag>
         <description>权限控制标签</description>
         <name>auth</name>
-        <tag-class>com.demo.common.tag.PrivilegeTag</tag-class>  <!--标签控制类-->
+        <tag-class>com.good.shiro.PrivilegeTag</tag-class>  <!--标签控制类-->
         <body-content>JSP</body-content>
         <attribute>
             <name>privilege</name>
