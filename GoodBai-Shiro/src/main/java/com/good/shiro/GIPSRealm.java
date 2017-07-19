@@ -68,58 +68,11 @@ public class GIPSRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
 		// TODO Auto-generated method stub
-//		System.out.println("----> go here doGetAuthenticationInfo");
-//		UsernamePasswordToken token = (UsernamePasswordToken)arg0; 
-//		System.out.println(" 登录了:"+token.getUsername());
-//        User user = getUser(token.getUsername()) ;//userService.findByAccountName(token.getUsername()) ;//通过帐号获取用户实例
-//        if (user != null && ByteSource.Util.bytes(token.getPassword()).equals(ByteSource.Util.bytes(user.getPassword()))) {//用户校验
-//            setSessionInfo(user);
-//            return  new SimpleAuthenticationInfo(user.getUsename(), user.getPassword(), user.getNickName());   //验证成功之后进行授权
-//        }
 
         return null ;
 	}
 	
-	 private void setSessionInfo(User user){
 
-	        Subject sub = SecurityUtils.getSubject();
-	        Session session = sub.getSession();
 
-//	        //显示的设置权限和角色，避免下次再去数据库获取，提高效率
-//	        List<Role> roles = user.getRoles();
-//	        for (int i = 0; i < roles.size(); i++) {
-//	            Role role = roles.get(i);
-//	            List<Permission> perms = role.getPermissions();
-//	            for (Permission permission : perms) {}
-//	            role.setPermissions(perms);
-//	            roles.set(i,role);
-//	        }
-//	        user.setRoles(roles);
-
-	        session.setAttribute("CURRENT_USER", user);
-	    }
-	 
-	 private User getUser(String name){
-		 boolean isM = false;
-		 Role x = new Role(name);
-		 List<Permission> li = new ArrayList<Permission>();
-		 li.add(new Permission("query","001"));
-		 li.add(new Permission("del","004"));
-		 if("admin".equals(name)){
-			 li.add(new Permission("update","002"));
-			 li.add(new Permission("add","003"));
-			 isM = true;
-		 }
-		 x.setIsManager(isM);
-		 x.setPermissions(li);
-		 User user = new User();
-		 List<Role> lii =  new ArrayList<Role>();
-		 lii.add(x);
-		 user.setRoles(lii);
-		 user.setPassword("123");
-		 user.setNickName(name+"nick");
-		 user.setUsename(name);
-		 return user;
-	 }
 
 }
