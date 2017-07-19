@@ -78,7 +78,7 @@ public class GIPSRealm extends AuthorizingRealm {
 		System.out.println(" 登录了:" + token.getUsername());
 		User user = getUser(token.getUsername());// userService.findByAccountName(token.getUsername()) 通过帐号获取用户实例
 		if (user != null && ByteSource.Util.bytes(token.getPassword()).equals(ByteSource.Util.bytes(user.getPassword()))) {// 用户校验
-			// setSessionInfo(user);
+			setSessionInfo(user);
 //			return new SimpleAuthenticationInfo(user,user.getUsername(), user.getPassword()); // 验证成功之后进行授权
 			return new SimpleAuthenticationInfo(user, user.getPassword(),getName()); // 验证成功之后进行授权
 		}
