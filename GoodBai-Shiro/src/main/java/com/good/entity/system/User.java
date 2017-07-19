@@ -12,7 +12,8 @@ public class User extends IEntity{
 	 */
 	private static final long serialVersionUID = -1146628034025928299L;
 	
-	private String usename ;
+	private String id;
+	private String username ;
     private String password ;
     private String nickName ;
     private String mobilePhone ;
@@ -22,14 +23,34 @@ public class User extends IEntity{
     private List<Role> roles ;
     
     
-
+    public User(){}
+    
+    public User(User user){
+    	this.id= user.getId();
+    	this.username = user.getUsername();
+    	this.password = user.getPassword();
+    	this.nickName = user.getNickName();
+    	this.mobilePhone = user.getMobilePhone();
+    	this.email = user.getEmail();
+    	this.isDeleted = user.getIsDeleted();
+    	this.createTime = user.getCreateTime();
+    	this.roles = user.getRoles();
+    }
 	
 	
-	public String getUsename() {
-		return usename;
+	public String getId() {
+		return id;
 	}
-	public void setUsename(String usename) {
-		this.usename = usename;
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

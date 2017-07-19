@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 public class DaoHelper extends SqlSessionDaoSupport {
+	
 	private  SqlSessionTemplate sqlSessionTemplate;
 	
 	public SqlSessionTemplate getSqlSessionTemplate() {

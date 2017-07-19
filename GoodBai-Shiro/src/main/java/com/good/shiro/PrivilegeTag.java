@@ -42,8 +42,8 @@ public class PrivilegeTag  extends TagSupport {
                 break ;
             }
         }
-        String accountName = user.getUsename();
-        if (accountName.equals("admin") 
+        String accountName = user.getUsername();
+        if (accountName.equals("root") 
                 || accountName.equals("sysadmin") 
                 || b) {
             return true;

@@ -64,7 +64,7 @@
 							<form role="form" action="${ctx}/login/loginsubmit.do" method="post" class="login-form">
 								<div class="form-group">
 									<label class="sr-only" for="form-username">Username</label> <input
-										type="text" name="usename" placeholder="Username..."
+										type="text" name="username" placeholder="Username..."
 										class="form-username form-control" id="form-username">
 								</div>
 								<div class="form-group">

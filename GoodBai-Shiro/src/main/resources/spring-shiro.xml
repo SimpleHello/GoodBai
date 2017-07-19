@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-<beans xmlns="http://www.springframework.org/schema/beans" 
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-       xmlns:mvc="http://www.springframework.org/schema/mvc" 
-       xmlns:aop="http://www.springframework.org/schema/aop" 
-       xmlns:context="http://www.springframework.org/schema/context" 
-       xmlns:task="http://www.springframework.org/schema/task" 
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
+<!-- DispatcherServlet Context: defines this servlet's request-processing 
+	infrastructure -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
             http://www.springframework.org/schema/beans 
             http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
             http://www.springframework.org/schema/mvc 
@@ -20,65 +18,179 @@
             http://www.springframework.org/schema/task/spring-task-4.2.xsd
             http://www.springframework.org/schema/util
        		http://www.springframework.org/schema/util/spring-util-4.2.xsd">
-            
-    <!-- 自定义一个realm校验  -->
-    <bean id="gipsRealm" class="com.good.shiro.GIPSRealm" />
 
-    <!-- 自定义一个form校验拦截器   -->
-    <bean id="formAuthenticationFilter" class="com.good.shiro.CustomFormAuthenticationFilter">
-        <property name="usernameParam" value="username" />
-        <property name="passwordParam" value="password" />
-        <property name="loginUrl" value="/login/loginsubmit.do" />
-        <property name="rememberMeParam" value="rememberMe" />
-    </bean>
-     <!-- sessionManager管理器 ,采用shiro默认的缓存策略 -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" />
 
-    <!-- rememberMeManager管理器 -->
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <property name="cookie" ref="rememberMeCookie" />
-    </bean>
+	<!-- 会话Session ID生成器 -->
+	<bean id="sessionIdGenerator"
+		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
 
-    <!-- rememberMeCookie管理器 -->
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="rememberMe" />
-        <property name="maxAge" value="-1" />
-        <property name="httpOnly" value="true"/>
-    </bean>
+	<!-- 自定义一个realm校验 -->
+	<bean id="gipsRealm" class="com.good.shiro.GIPSRealm" />
 
-    <!-- securityManager管理器 -->
-    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="gipsRealm" />
-        <property name="cacheManager" ref="cacheManager" /> 
-        <property name="rememberMeManager" ref="rememberMeManager" /> 
-    </bean>
+	<!-- 自定义一个form校验拦截器 -->
+	<bean id="formAuthenticationFilter" class="com.good.shiro.CustomFormAuthenticationFilter">
+		<property name="usernameParam" value="username" />
+		<property name="passwordParam" value="password" />
+		<property name="loginUrl" value="/login/loginsubmit.do" />
+		<property name="rememberMeParam" value="rememberMe" />
+	</bean>
+	
+	<!-- sessionManager管理器 ,采用shiro默认的缓存策略 
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	-->
+	<!-- 
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:shiro-ehcache.xml" />
+		<property name="shared" value="true"></property>
+	</bean>
+ -->
+	<!-- rememberMeManager管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
 
-    
-    <!-- 具体的 路径拦截器，登录验证路径在这里拦截 -->
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-        <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/index.jsp" />
-        <property name="filters">
-            <util:map>
-                <entry key="authc" value-ref="formAuthenticationFilter" />
-            </util:map>
-        </property>
-        <property name="filterChainDefinitions">
-            <value>
-                /front/** = anon  <!-- 不需要拦截的路径   -->
-                /login/loginsubmit.do = authc <!-- 用 户 必 须 身 份 验 证 通 过 ,将触发doGetAuthenticationInfo -->
-                /login/logout.do = logout <!-- 退出操作 -->
-                /res/** = authc
-            </value>
-        </property>
-    </bean>
+	<!-- rememberMeCookie管理器 -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="maxAge" value="-1" />
+		<property name="httpOnly" value="true" />
+	</bean>
 
-    <!-- 开启注解功能，验证失败， 其会抛出 UnauthorizedException异常， 此时可以使用 Spring的 ExceptionHandler处理-->
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager" />
-    </bean>
+	<!-- securityManager管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="gipsRealm" />
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="cacheManager" ref="customShiroCacheManager" />
+		<property name="rememberMeManager" ref="rememberMeManager" />
+	</bean>
 
-    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- 用户缓存 -->
+	<bean id="customShiroCacheManager" class="com.good.shiro.cache.impl.CustomShiroCacheManager">
+		<property name="shiroCacheManager" ref="jedisShiroCacheManager" />
+	</bean>
+	
+	<!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
+	<bean id="jedisShiroCacheManager" class="com.good.shiro.cache.impl.JedisShiroCacheManager">
+		<property name="jedisManager" ref="jedisManager" />
+	</bean>
+	
+	<!-- session 创建、删除、查询 -->
+	<bean id="jedisShiroSessionRepository" class="com.good.shiro.cache.JedisShiroSessionRepository">
+		<property name="jedisManager" ref="jedisManager" />
+	</bean>
 
+	<!-- 手动操作Session，管理Session -->
+	<bean id="customSessionManager" class="com.good.shiro.session.CustomSessionManager">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />
+		<property name="customShiroSessionDAO" ref="customShiroSessionDAO" />
+	</bean>
+	<!-- 会话Cookie模板 -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<!--cookie的name，我故意取名叫xxxxbaidu -->
+		<constructor-arg value="test_shiro" />
+		<property name="httpOnly" value="true" />
+		<!--cookie的有效时间 -->
+		<property name="maxAge" value="-1" />
+		<!-- 配置存储Session Cookie的domain为 一级域名 如果需要相同一级域名下共享Session，就这么配置 -->
+		<!-- <property name="domain" value=".itboy.net"/> -->
+	</bean>
+
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler"
+		class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<!-- 间隔多少时间检查，不配置是60分钟 -->
+		<property name="interval" value="18000000" />
+		<property name="sessionManager" ref="sessionManager" />
+	</bean>
+
+	<!-- custom shiro session listener -->
+	<bean id="customShiroSessionDAO" class="com.good.shiro.CustomShiroSessionDAO">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+	</bean>
+
+	<!-- Session Manager -->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- 相隔多久检查一次session的有效性 -->
+		<property name="sessionValidationInterval" value="1800000" />
+		<!-- session 有效时间为半小时 （毫秒单位） -->
+		<property name="globalSessionTimeout" value="1800000" />
+		<property name="sessionDAO" ref="customShiroSessionDAO" />
+		<!-- session 监听，可以多个。 -->
+		<property name="sessionListeners">
+			<list>
+				<ref bean="customSessionListener" />
+			</list>
+		</property>
+		<!-- 间隔多少时间检查，不配置是60分钟 -->
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler" />
+		<!-- 是否开启 检测，默认开启 -->
+		<property name="sessionValidationSchedulerEnabled" value="true" />
+		<!-- 是否删除无效的，默认也是开启 -->
+		<property name="deleteInvalidSessions" value="true" />
+		<!-- 会话Cookie模板 -->
+		<property name="sessionIdCookie" ref="sessionIdCookie" />
+	</bean>
+
+	<!-- custom shiro session listener -->
+	<bean id="customSessionListener" class="com.good.listen.CustomSessionListener">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />
+	</bean>
+
+	<!-- 具体的 路径拦截器，登录验证路径在这里拦截 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/index.jsp" />
+		<property name="successUrl" value="/login/success.do" />
+		<property name="filters">
+			<util:map>
+				<entry key="authc" value-ref="formAuthenticationFilter" />
+			</util:map>
+		</property>
+		<property name="filterChainDefinitions">
+			<value>
+				/front/** = anon  <!-- 不需要拦截的路径 -->
+				/login/loginsubmit.do = authc <!-- 用 户 必 须 身 份 验 证 通 过 ,将触发doGetAuthenticationInfo -->
+				/login/logout.do = logout <!-- 退出操作 -->
+				/res/** = authc
+			</value>
+		</property>
+	</bean>
+
+	<!-- redis 的缓存 -->
+	<bean id="jedisManager" class="com.good.shiro.cache.JedisManager">
+		<property name="jedisPool" ref="jedisPool" />
+	</bean>
+
+	<!-- 开启注解功能，验证失败， 其会抛出 UnauthorizedException异常， 此时可以使用 Spring的 ExceptionHandler处理 -->
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- ============================================================================ -->
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="100" /><!-- 最大闲置 -->
+		<property name="minIdle" value="10" /><!-- 最小闲置 -->
+		<property name="testOnBorrow" value="true" /><!-- 可以获取 -->
+		<!-- <property name="testOnReturn" value="true"/> -->
+	</bean>
+	<!-- redis 配置,也可以把配置挪到properties配置文件中,再读取 -->
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig" /><!-- jedisPoolConfig -->
+		<constructor-arg index="1" value="10.0.6.36" /><!-- host -->
+		<constructor-arg index="2" value="6379" /><!-- port -->
+		<constructor-arg index="3" value="10000" /><!-- timeout -->
+		<constructor-arg index="4" value="admin" /><!-- password -->
+		<constructor-arg index="5" value="0" /><!-- database -->
+	</bean>
+	
 </beans>
