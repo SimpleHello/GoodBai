@@ -39,9 +39,7 @@ public class AuthUtil {
                 perms.add(permission);
             }
         }
-
         perms = filterRepAndSort(perms);
-
         return perms;
     }
 
