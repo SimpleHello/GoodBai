@@ -18,7 +18,7 @@
 
 </head>
 <body>
-<input type="button" style='font-size: 15px' value="发送消息" onclick="sendMessage()"></br>
+<input type="button" style='font-size: 15px' value="发送消息111" onclick="sendMessage()"></br>
 -------------------------:</br>
            <m:auth privilege="del"> <!--我们自定义标签-->
                 <li >
