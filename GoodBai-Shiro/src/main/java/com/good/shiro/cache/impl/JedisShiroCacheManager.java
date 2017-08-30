@@ -2,9 +2,9 @@ package com.good.shiro.cache.impl;
 
 import org.apache.shiro.cache.Cache;
 
-import com.good.shiro.cache.JedisManager;
 import com.good.shiro.cache.JedisShiroCache;
 import com.good.shiro.cache.ShiroCacheManager;
+import com.good.util.redis.JedisManager;
 
 /**
  * 

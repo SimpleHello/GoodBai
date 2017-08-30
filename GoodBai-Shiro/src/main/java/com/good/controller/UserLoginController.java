@@ -21,7 +21,6 @@ public class UserLoginController {
 		// TODO Auto-generated method stub
 		System.out.println("获取了数据:" + user.getUsername() + " password:" + user.getPassword());
 		TokenManager.login(user,false);
-		// JSONUtil.toJsonString(map)
 		return new ModelAndView("index2");
 	}
 
@@ -34,26 +33,4 @@ public class UserLoginController {
 		return new ModelAndView("index2");
 	}
 
-	private User getUser(String name) {
-		boolean isM = false;
-		Role x = new Role(name);
-		List<Permission> li = new ArrayList<Permission>();
-		li.add(new Permission("query", "001"));
-		li.add(new Permission("del", "004"));
-		if ("admin".equals(name)) {
-			li.add(new Permission("update", "002"));
-			li.add(new Permission("add", "003"));
-			isM = true;
-		}
-		x.setIsManager(isM);
-		x.setPermissions(li);
-		User user = new User();
-		List<Role> lii = new ArrayList<Role>();
-		lii.add(x);
-		user.setRoles(lii);
-		user.setPassword("123");
-		user.setNickName(name + "nick");
-		user.setUsername(name);
-		return user;
-	}
 }

@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.good.shiro.cache.JedisManager;
+import com.good.util.redis.JedisManager;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.good.util.SerializeUtil;
+import com.good.util.redis.JedisManager;
 
 /**
  * 

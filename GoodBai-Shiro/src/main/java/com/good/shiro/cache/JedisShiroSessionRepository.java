@@ -11,6 +11,7 @@ import com.good.shiro.session.CustomSessionManager;
 import com.good.shiro.session.SessionStatus;
 import com.good.shiro.session.ShiroSessionRepository;
 import com.good.util.SerializeUtil;
+import com.good.util.redis.JedisManager;
 /**
  * Session 管理
  * @author sojson.com

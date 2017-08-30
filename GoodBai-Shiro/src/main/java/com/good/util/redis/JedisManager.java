@@ -1,4 +1,4 @@
-package com.good.shiro.cache;
+package com.good.util.redis;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,6 +8,7 @@ import org.apache.shiro.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.good.shiro.cache.JedisShiroSessionRepository;
 import com.good.util.SerializeUtil;
 
 import redis.clients.jedis.Jedis;

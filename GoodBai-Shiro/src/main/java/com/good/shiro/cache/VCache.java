@@ -7,6 +7,7 @@ import java.util.TreeSet;
 
 import com.good.util.SerializeUtil;
 import com.good.util.SpringContextUtil;
+import com.good.util.redis.JedisManager;
 
 import redis.clients.jedis.Jedis;
 /**
