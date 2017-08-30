@@ -86,6 +86,7 @@ public class GIPSRealm extends AuthorizingRealm {
 	 private void setSessionInfo(User user){
 	        Subject sub = SecurityUtils.getSubject();
 	        Session session = sub.getSession();
+	        session.setTimeout(60*60*1000);
 	        session.setAttribute("CURRENT_USER", user);
 	    }
 	 
