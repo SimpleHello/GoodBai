@@ -1,4 +1,4 @@
-var Urlhead = "http://localhost:8081/mongdb01/"
+var ctx = "${ctx}";
 var Url = {
 		test:{
 			createPng:Urlhead+"ajax/createPng"
