@@ -1,6 +1,7 @@
 package com.good.controller;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,15 @@ public class UserLoginController {
 	public ModelAndView  queryAll(User user ,ModelMap modelMap) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("获取了数据:" + user.getName() + " password:" + user.getPassword());
-		tokenLogin(user,false);
-		return new ModelAndView("index2");
+		try{
+			tokenLogin(user,false);
+		}catch(UnknownAccountException e){
+			System.out.println("帐号密码失败");
+		}catch(Exception e){
+			System.out.println("登录失败");
+		}
+		
+		return new ModelAndView("main");
 	}
 
 	private void tokenLogin(User user,boolean rememberMe){

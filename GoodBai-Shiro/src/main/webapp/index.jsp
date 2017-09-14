@@ -61,10 +61,10 @@
 							</div>
 						</div>
 						<div class="form-bottom">
-							<form role="form" action="${ctx}/login/loginsubmit.do" method="post" class="login-form">
+							<form class="login-form">
 								<div class="form-group">
 									<label class="sr-only" for="form-username">Username</label> <input
-										type="text" name="usename" placeholder="Username..."
+										type="text" name="name" placeholder="Username..."
 										class="form-username form-control" id="form-username">
 								</div>
 								<div class="form-group">
@@ -73,7 +73,7 @@
 										class="form-password form-control" id="form-password">
 								</div>
 								<!-- 保存密码<input type = "checkbox" name = "rememberMe" /></label> -->
-								<button type="submit" class="btn">Sign in!</button>
+								<button type="button" class="btn" id="sys_login" onclick="sys_login()">Sign in!</button>
 							</form>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 	<script src="jquery-easyui/jquery-1.11.1.min.js"></script>
 	<script src="bootstrap3/js/bootstrap.min.js"></script>
 	<script src="jquery-easyui/jquery.backstretch.min.js"></script>
-	<script src="js/scripts.js"></script>
+	<script src="js/index.js"></script>
 
 
 
