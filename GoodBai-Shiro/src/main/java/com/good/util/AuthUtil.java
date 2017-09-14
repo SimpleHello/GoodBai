@@ -9,9 +9,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
-import com.good.entity.system.Permission;
-import com.good.entity.system.Role;
-import com.good.entity.system.User;
+import com.good.entity.system.user.Function;
+import com.good.entity.system.user.Role;
+import com.good.entity.system.user.User;
 
 public class AuthUtil {
 	 /**
@@ -30,12 +30,11 @@ public class AuthUtil {
      * 在用户中获取权限信息
      * @return
      */
-    public static List<Permission>  getCurrentUserPermissions() {
-
+    public static List<Function>  getCurrentUserPermissions() {
         User user = AuthUtil.getCurrentUser();
-        List<Permission> perms = new ArrayList<Permission>();
-        for (Role role : user.getRoles()) {
-            for (Permission permission : role.getPermissions()) {
+        List<Function> perms = new ArrayList<Function>();
+        for (Role role : user.getRoleList()) {
+            for (Function permission : role.getFuncList()) {
                 perms.add(permission);
             }
         }
@@ -49,7 +48,7 @@ public class AuthUtil {
      * @param perms
      * @return
      */
-    private static List<Permission> filterRepAndSort(List<Permission> perms) {
+    private static List<Function> filterRepAndSort(List<Function> perms) {
 
          for ( int i = 0 ; i < perms.size() - 1 ; i++ ) {  
              for ( int j = perms.size() - 1 ; j > i; j-- ) {  
@@ -59,10 +58,10 @@ public class AuthUtil {
               }   
             }   
 
-        Collections.sort(perms, new Comparator<Permission>() {
+        Collections.sort(perms, new Comparator<Function>() {
 
             @Override
-            public int compare(Permission p1, Permission p2) {
+            public int compare(Function p1, Function p2) {
                 return p1.getOrderNo() - p2.getOrderNo();
             }
 
