@@ -22,7 +22,7 @@
        		http://www.springframework.org/schema/util/spring-util-4.2.xsd">
             
     <!-- 自定义一个realm校验  -->
-    <bean id="gipsRealm" class="com.good.shiro.GIPSRealm" />
+    <bean id="gipsRealm" class="com.good.shiro.GoodBaiAuthRealm" />
 
     <!-- 自定义一个form校验拦截器   -->
     <bean id="formAuthenticationFilter" class="com.good.shiro.CustomFormAuthenticationFilter">

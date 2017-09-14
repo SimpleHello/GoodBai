@@ -3,6 +3,8 @@ package com.good.shiro;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -17,17 +19,22 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
-import com.good.entity.system.Permission;
-import com.good.entity.system.Role;
-import com.good.entity.system.User;
+import com.good.entity.system.user.Function;
+import com.good.entity.system.user.Role;
+import com.good.entity.system.user.User;
+import com.good.service.system.UserService;
 import com.good.util.AuthUtil;
 
-public class GIPSRealm extends AuthorizingRealm {
 
+public class GoodBaiAuthRealm extends AuthorizingRealm {
+
+	@Resource(name="userService")
+	private UserService userService;
+	
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
 		// TODO Auto-generated method stub
-		System.out.println(" go here doGetAuthorizationInfo --------111");
+		System.out.println(" 验证阶段2 验证 验证啊 ");
 		User user = AuthUtil.getCurrentUser();
         SimpleAuthorizationInfo simpleAuthorInfo = new SimpleAuthorizationInfo();  
         simpleAuthorInfo.addRoles(getRoles(user));
@@ -43,11 +50,11 @@ public class GIPSRealm extends AuthorizingRealm {
     private List<String> getPermCodes(User user) {
 
         List<String> perms = new ArrayList<String>();
-        List<Role> roles = user.getRoles();
+        List<Role> roles = user.getRoleList();
         for (Role role : roles) {
-            List<Permission> _perms = role.getPermissions();
-            for (Permission _perm : _perms) {
-                perms.add(_perm.getPermCode());
+            List<Function> _perms = role.getFuncList();
+            for (Function _perm : _perms) {
+                perms.add(_perm.getName());
             }
         }
         return perms;
@@ -62,8 +69,8 @@ public class GIPSRealm extends AuthorizingRealm {
     private List<String> getRoles(User user) {
 
         List<String> roles = new ArrayList<String>();
-        for (Role role : user.getRoles()) {
-            roles.add(role.getRoleName());
+        for (Role role : user.getRoleList()) {
+            roles.add(role.getName());
         }
         return roles;
     }
@@ -74,10 +81,18 @@ public class GIPSRealm extends AuthorizingRealm {
 		System.out.println("----> go here doGetAuthenticationInfo");
 		UsernamePasswordToken token = (UsernamePasswordToken)arg0; 
 		System.out.println(" 登录了:"+token.getUsername());
-        User user = getUser(token.getUsername()) ;//userService.findByAccountName(token.getUsername()) ;//通过帐号获取用户实例
+		if(token.getUsername()==null||token.getPassword()==null){
+			return null;
+		}
+		User user = null;
+		try{
+			user = userService.getUserByName(token.getUsername());//userService.findByAccountName(token.getUsername()) ;//通过帐号获取用户实例
+		}catch(Exception e){
+			
+		}
         if (user != null && ByteSource.Util.bytes(token.getPassword()).equals(ByteSource.Util.bytes(user.getPassword()))) {//用户校验
             setSessionInfo(user);
-            return  new SimpleAuthenticationInfo(user.getUsename(), user.getPassword(), user.getNickName());   //验证成功之后进行授权
+            return  new SimpleAuthenticationInfo(user.getName(), user.getPassword(), user.getName());   //验证成功之后进行授权
         }
         return null ;
 	}
@@ -90,27 +105,6 @@ public class GIPSRealm extends AuthorizingRealm {
 	        session.setAttribute("CURRENT_USER", user);
 	    }
 	 
-	 private User getUser(String name){
-		 boolean isM = false;
-		 Role x = new Role(name);
-		 List<Permission> li = new ArrayList<Permission>();
-		 li.add(new Permission("query","001"));
-		 li.add(new Permission("del","004"));
-		 if("admin".equals(name)){
-			 li.add(new Permission("update","002"));
-			 li.add(new Permission("add","003"));
-			 isM = true;
-		 }
-		 x.setIsManager(isM);
-		 x.setPermissions(li);
-		 User user = new User();
-		 List<Role> lii =  new ArrayList<Role>();
-		 lii.add(x);
-		 user.setRoles(lii);
-		 user.setPassword("123");
-		 user.setNickName(name+"nick");
-		 user.setUsename(name);
-		 return user;
-	 }
+
 
 }
