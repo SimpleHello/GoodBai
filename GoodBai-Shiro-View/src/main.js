@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import Home from './components/Home'
+import Menu3 from './components/Menu3'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import iView from 'iview';
@@ -16,6 +17,9 @@ Vue.use(iView);
 const routes = [{
   path : '/home',
   component : Home
+},{
+  path : '/menu3',
+  component : Menu3
 }];
 
 const router = new VueRouter({
