@@ -19,20 +19,11 @@
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <link rel="stylesheet" href="css/form-elements.css">
 <link rel="stylesheet" href="css/style.css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
 </head>
 
-<body>
-
+<body style="background-image:url('image/1.jpg')">
 	<!-- Top content -->
 	<div class="top-content">
-
 		<div class="inner-bg">
 			<div class="container">
 				<div class="row">
@@ -72,43 +63,16 @@
 										type="password" name="password" placeholder="Password..."
 										class="form-password form-control" id="form-password">
 								</div>
-								<!-- 保存密码<input type = "checkbox" name = "rememberMe" /></label> -->
 								<button type="button" class="btn" id="sys_login" onclick="sys_login()">Sign in!</button>
 							</form>
 						</div>
 					</div>
 				</div>
-				<!-- <div class="row">
-					<div class="col-sm-6 col-sm-offset-3 social-login">
-						<h3>...or login with:</h3>
-						<div class="social-login-buttons">
-							<a class="btn btn-link-1 btn-link-1-facebook" href="#"> <i
-								class="fa fa-facebook"></i> Facebook
-							</a> <a class="btn btn-link-1 btn-link-1-twitter" href="#"> <i
-								class="fa fa-twitter"></i> Twitter
-							</a> <a class="btn btn-link-1 btn-link-1-google-plus" href="#"> <i
-								class="fa fa-google-plus"></i> Google Plus
-							</a>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</div>
-
 	</div>
-
-
-	<!-- Javascript -->
-	<script src="jquery-easyui/jquery-1.11.1.min.js"></script>
-	<script src="bootstrap3/js/bootstrap.min.js"></script>
-	<script src="jquery-easyui/jquery.backstretch.min.js"></script>
-	<script src="js/index.js"></script>
-
-
-
 	<div class="backstretch"
-		style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 520px; width: 1903px; z-index: -999999; position: fixed;">
-
-
+		style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 520px; width: 1903px; z-index: -999999; position: fixed;" />
 </body>
+
 </html>

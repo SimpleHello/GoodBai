@@ -21,7 +21,7 @@
         },
         methods: {
             show: function () {
-                this.visible = true;
+                this.visible = false;
             }
         }
     })

@@ -3,27 +3,27 @@
 <head>
 <meta charset="utf-8">
 <title>iview example</title>
-<link rel="stylesheet" type="text/css" href="../iview/styles/iview.css">
-<script src="../iview/iview.min.js" type="text/javascript"></script>
-<script src="../iview/vue.min.js" type="text/javascript"></script>
+ <link rel="stylesheet" type="text/css" href="../iview/styles/iview.css">
+ <script type="text/javascript" src="../iview/vue.min.js"></script>
+ <script type="text/javascript" src="../iview/iview.min.js"></script>
 </head>
 <body>
-	<div id="app">
-		<i-button @click="show">Click me!</i-button>
-		<Modal v-model="visible" title="Welcome">��ӭʹ�� iView</Modal>
-	</div>
-	<script>
-		new Vue({
-			el : '#app',
-			data : {
-				visible : false
-			},
-			methods : {
-				show : function() {
-					this.visible = true;
-				}
-			}
-		})
-	</script>
+<div id="app">
+    <i-button @click="show">Clickxx me!</i-button>
+    <Modal v-model="visible" title="Welcome11">欢迎使用 iView123</Modal>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            visible: false
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            }
+        }
+    })
+  </script>
 </body>
 </html>
