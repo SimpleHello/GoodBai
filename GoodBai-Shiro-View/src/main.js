@@ -2,7 +2,25 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import Home from './components/Home'
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';    // 使用 CSS
+
+
+Vue.use(VueRouter)
+Vue.use(VueResource)
+Vue.use(iView);
+
+const routes = [{
+  path : '/home',
+  component : Home
+}];
+
+const router = new VueRouter({
+  routes
+});
 
 Vue.config.productionTip = false
 
@@ -10,6 +28,5 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: { App }
+  ...App
 })
