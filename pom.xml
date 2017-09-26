@@ -327,5 +327,6 @@
   </build>
 	<modules>
 		<module>GoodBai-Shiro</module>
+		<module>GoodBai-netty</module>
 	</modules>
 </project>

@@ -41,14 +41,14 @@
     <div class="layout">
         <Row type="flex">
             <Col span="5" class="layout-menu-left">
-                <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" @on-select="onMenuSelected">
+                <Menu active-name="1-1" theme="dark" width="auto" :open-names="['1']" @on-select="onMenuSelected">
                     <div class="layout-logo-left"></div>
                     <Submenu name="1">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
                             导航一
                         </template>
-                        <MenuItem name="1-1">选项 11x11</MenuItem>
+                        <MenuItem name="1-1">选项 11111</MenuItem>
                         <MenuItem name="1-2">选项 2x1</MenuItem>
                         <MenuItem name="1-3">选项 3</MenuItem>
                     </Submenu>
@@ -93,8 +93,12 @@
     export default {
         methods:{
             onMenuSelected:function(path){
+                console.log(path);
                 if("1-1"==path){
-                    this.$router.push({path:"/menu3"});
+                     console.log("1-1 jinru l ");
+                    this.$router.push({path:"/menu11"});
+                }else if("1-2"==path){
+                    this.$router.push({path:"/menu12"});
                 }else{
                     alert(path+" > 这个是无效链接");
                 }
