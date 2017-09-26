@@ -2,8 +2,9 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Menu11 from './components/Menu11'
+import Menu12 from './components/Menu12'
 import Home from './components/Home'
-import Menu3 from './components/Menu3'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import iView from 'iview';
@@ -18,8 +19,11 @@ const routes = [{
   path : '/home',
   component : Home
 },{
-  path : '/menu3',
-  component : Menu3
+  path : '/menu11',
+  component : Menu11
+},{
+  path : '/menu12',
+  component : Menu12
 }];
 
 const router = new VueRouter({
