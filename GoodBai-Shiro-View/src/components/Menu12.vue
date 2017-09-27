@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <p v-if="bean">this is a demo</p>
   </div>
 </template>
 
@@ -12,7 +13,8 @@ export default {
   name: 'hello',
   data () {
     return {
-      msg: testtx.testtx
+      msg: testtx.testtx,
+      bean:true
     }
   }
 }

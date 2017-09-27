@@ -1,40 +1,40 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import App from './App'
-import Menu11 from './components/Menu11'
-import Menu12 from './components/Menu12'
-import Home from './components/Home'
-import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+import Vue from 'vue';
 import iView from 'iview';
-import 'iview/dist/styles/iview.css';    // 使用 CSS
+import Config from './config';
+import Urls from './config/urls';
+import Router from './router';
+import Store from './store';
+import App from './app.vue';
+import 'iview/dist/styles/iview.css';
 
 
-Vue.use(VueRouter)
-Vue.use(VueResource)
 Vue.use(iView);
 
-const routes = [{
-  path : '/home',
-  component : Home
-},{
-  path : '/menu11',
-  component : Menu11
-},{
-  path : '/menu12',
-  component : Menu12
-}];
+// 初始化网站
+Store.dispatch('website_init');
 
-const router = new VueRouter({
-  routes
+// 开启debug模式
+Vue.config.debug = true;
+
+Router.beforeEach((to, from, next) => {
+    Store.commit('menu_default', to.path);
+    // if (!Config.withOutAuthRoutes.includes(to.path) && Store.getters.need_auth) {
+    //     Store.commit('auth_action', to.path);
+    //     return next('/auth/login');
+    // } else {
+        Store.commit('menu_open_sub', to.path);
+    // }
+
+    next();
 });
 
-Vue.config.productionTip = false
+Router.afterEach((to, from, next) => {
+    window.scrollTo(0, 0);
+});
 
-/* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  ...App
-})
+    el: '#app',
+    router: Router,
+    store: Store,
+    render: h => h(App)
+});
