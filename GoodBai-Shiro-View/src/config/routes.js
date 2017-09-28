@@ -1,42 +1,23 @@
-const routers = [
-    {path: '/', redirect: '/index'},
-    {path: '/index'},
-    {path: '/auth/login'},
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-    {path: '/home/notice'},
-    {path: '/home/notice_content'},
-    {path: '/home/faq'},
+Vue.use(VueRouter)
 
-    {path: '/account/index'},
-    {path: '/account/store'},
+const routes = [{
+  path : '/',
+  redirect:'/home'
+},{
+  path:'/home',
+  name:'home',
+  component:resolve=>require(['@/page/home.vue'],resolve),
+  children:[
+    {path:'/home/user', component:resolve=>require(['@/page/system/user.vue'],resolve)},
+    {path:'*',component:resolve=>require(['@/page/404.vue'],resolve)}
+  ]
+}];
 
-    {path: '/account/role'},
-    {path: '/account/user'},
+const router = new VueRouter({
+  routes
+});
 
-    {path: '/cms/index'},
-    {path: '/cms/push'},
-    {path: '/cms/news'},
-    {path: '/cms/notice'},
-    {path: '/cms/faq'},
-
-    {path: '/product/index'},
-    {path: '/product/push'},
-    {path: '/product/setting/destination'},
-    {path: '/product/setting/price'},
-
-    {path: '/product/tour/team'},
-    {path: '/product/tour/self'},
-
-
-    {path: '/setting/index'},
-    {path: '/setting/account'},
-    {path: '/setting/domain/cms'},
-    {path: '/setting/domain/guest'},
-    {path: '/setting/domain/admin'},
-
-
-    // {path: '/customer/index'}
-
-];
-
-export default routers;
+export default router;

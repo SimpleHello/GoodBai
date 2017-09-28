@@ -7,13 +7,12 @@
 
 <script>
 
-import testtx from "../js/test"
 
 export default {
   name: 'hello',
   data () {
     return {
-      msg: testtx.testtx,
+      msg: "123333",
       bean:true
     }
   }

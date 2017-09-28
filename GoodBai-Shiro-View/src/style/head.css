@@ -1,0 +1,29 @@
+.span-font{
+  color:rebeccapurple;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.layout-header{
+  height:70px;
+  position: relative;
+  width: 100%;
+  background: #242F42;
+  color: #fff;
+}
+
+
+.showLogin{
+  margin-left: 15px;
+}
+
+.showLoginx{
+
+}
+
+input{
+  width: 150px;
+}
+.width150{
+  width: 150px;
+}
