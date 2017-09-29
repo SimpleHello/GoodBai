@@ -3,13 +3,7 @@ import msg from 'iview/src/components/message';
 import URLS from '../config/urls';
 
 const instance = Axios.create({
-  baseURL: URLS.API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Accept, Authorization, X-Requested-With, Origin, Accept'
-  }
+  baseURL: URLS.API_URL
 })
 
 
