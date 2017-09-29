@@ -1,7 +1,7 @@
 package com.good.server.controller;
 
 import com.good.server.base.JsonResult;
-import com.good.server.entity.UserInfo;
+import com.good.server.entity.system.UserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

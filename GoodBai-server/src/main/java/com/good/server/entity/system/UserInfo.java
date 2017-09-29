@@ -1,25 +1,17 @@
-package com.good.server.entity;
+package com.good.server.entity.system;
 
-import java.io.Serializable;
+import com.good.server.base.IEntity;
 
 /**
  * Created by John on 2017/9/29.
  */
-public class UserInfo implements Serializable{
+public class UserInfo extends IEntity{
 
     private static final long serialVersionUID = 3462953374395191542L;
 
-    private int id;
+
     private String name;
     private String password;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
