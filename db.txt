@@ -1,0 +1,71 @@
+DROP TABLE IF EXISTS simple.sys_function;
+
+CREATE TABLE simple.sys_function
+	(
+	id       INT NOT NULL auto_increment,
+	name     VARCHAR (200),
+	parentId INT,
+	type     INT,
+	ctime    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	enable   TINYINT,
+	url      VARCHAR (200),
+	orderNo  INT,
+	descript VARCHAR (200),
+	PRIMARY KEY (id)
+	);
+
+DROP TABLE IF EXISTS simple.sys_role;
+
+CREATE TABLE simple.sys_role
+	(
+	id      INT NOT NULL auto_increment,
+	name    VARCHAR (200),
+	ctime   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	enable  TINYINT,
+	manager TINYINT,
+	PRIMARY KEY (id)
+	);
+
+DROP TABLE IF EXISTS simple.sys_role_function;
+
+CREATE TABLE simple.sys_role_function
+	(
+	id         INT NOT NULL auto_increment,
+	roleId     INT,
+	functionId INT,
+	ctime      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	enable     TINYINT,
+	PRIMARY KEY (id)
+	);
+
+DROP TABLE IF EXISTS simple.sys_user;
+
+CREATE TABLE simple.sys_user
+	(
+	id       INT NOT NULL auto_increment,
+	name     VARCHAR (200),
+	password VARCHAR (200),
+	ctime    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	enable   TINYINT,
+	PRIMARY KEY (id)
+	);
+
+DROP TABLE IF EXISTS simple.sys_user_role;
+
+CREATE TABLE simple.sys_user_role
+	(
+	id     INT NOT NULL auto_increment,
+	userId INT,
+	roleId INT,
+	ctime  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	enable TINYINT,
+	PRIMARY KEY (id)
+	);
+
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('system', 0, 1, '2017-09-29 17:35:44', 1, '', 1, '系统管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('business', 0, 1, '2017-09-29 17:36:55', 1, '', 1, '业务管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('userinfo', 1, 1, '2017-09-29 17:37:44', 1, '/sys/userinfo', 1, '用户管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('roleinfo', 1, 1, '2017-09-29 17:38:57', 1, '/sys/roleinfo', 2, '角色管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('newinfo', 2, 1, '2017-09-29 17:39:43', 1, '/buss/newinfo', 1, 'new管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('oldinfo', 2, 1, '2017-09-29 17:39:56', 1, '/buss/oldinfo', 1, 'old管理');
+INSERT INTO sys_user (name, password, ctime, enable) VALUES ('admin', 'admin', '2017-09-14 15:12:04', 1);
