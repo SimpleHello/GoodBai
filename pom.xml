@@ -328,5 +328,6 @@
 	<modules>
 		<module>GoodBai-Shiro</module>
 		<module>GoodBai-netty</module>
+		<module>GoodBai-server</module>
 	</modules>
 </project>

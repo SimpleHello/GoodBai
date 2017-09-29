@@ -40,4 +40,10 @@ public class JsonResult {
 		this.message=message;
 		this.rows=rows;
 	}
+
+	public JsonResult(String message){
+		this.error=1;
+		this.message=message;
+		this.rows=null;
+	}
 }
