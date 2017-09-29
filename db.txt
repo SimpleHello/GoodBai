@@ -62,10 +62,10 @@ CREATE TABLE simple.sys_user_role
 	PRIMARY KEY (id)
 	);
 
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('system', 0, 1, '2017-09-29 17:35:44', 1, '', 1, '系统管理');
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('business', 0, 1, '2017-09-29 17:36:55', 1, '', 1, '业务管理');
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('userinfo', 1, 1, '2017-09-29 17:37:44', 1, '/sys/userinfo', 1, '用户管理');
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('roleinfo', 1, 1, '2017-09-29 17:38:57', 1, '/sys/roleinfo', 2, '角色管理');
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('newinfo', 2, 1, '2017-09-29 17:39:43', 1, '/buss/newinfo', 1, 'new管理');
-INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('oldinfo', 2, 1, '2017-09-29 17:39:56', 1, '/buss/oldinfo', 1, 'old管理');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('system', 0, 1, '2017-09-29 17:35:44', 1, '', 1, '绯荤粺绠＄悊');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('business', 0, 1, '2017-09-29 17:36:55', 1, '', 1, '涓氬姟绠＄悊');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('userinfo', 1, 1, '2017-09-29 17:37:44', 1, '/sys/userinfo', 1, '鐢ㄦ埛绠＄悊');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('roleinfo', 1, 1, '2017-09-29 17:38:57', 1, '/sys/roleinfo', 2, '瑙掕壊绠＄悊');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('newinfo', 2, 1, '2017-09-29 17:39:43', 1, '/buss/newinfo', 1, 'new绠＄悊');
+INSERT INTO sys_function (name, parentId, type, ctime, enable, url, orderNo, descript) VALUES ('oldinfo', 2, 1, '2017-09-29 17:39:56', 1, '/buss/oldinfo', 1, 'old绠＄悊');
 INSERT INTO sys_user (name, password, ctime, enable) VALUES ('admin', 'admin', '2017-09-14 15:12:04', 1);
