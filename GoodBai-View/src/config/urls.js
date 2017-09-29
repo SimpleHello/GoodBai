@@ -4,5 +4,5 @@
 
 export default {
     // api请求地址
-    API_URL: 'http://localhost:8083/GoodBai-Shiro'
+    API_URL: 'http://localhost:8083/GoodBai-server'
 };

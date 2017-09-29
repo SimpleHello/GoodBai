@@ -82,7 +82,13 @@
 		<property name="prefix" value="/view/" />
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-	
 
-    
+	<!-- 解决跨域问题 -->
+	<mvc:cors>
+		<mvc:mapping path="/**"
+			 allowed-origins="*"
+			 allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+			 allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+			 allow-credentials="true" />
+		</mvc:cors>
 </beans>
