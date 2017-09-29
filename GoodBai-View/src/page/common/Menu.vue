@@ -1,66 +1,107 @@
 <template>
-  <div class="layout">
-    <div class="layout-slider">
-      <Row type="flex">
-        <i-col span="24" class="">
-          <Menu :active-name="leftNav[0].childrens[0].nodeId"   theme="dark" width="auto" :open-names="[]">
-            <div class="layout-logo-left"></div>
-            <Submenu :name="left.nodeId" v-for="(left,$index) in leftNav" :key="left.nodeId">
-              <template slot="title">
-                <Icon type="ios-navigate"></Icon>
-                {{left.nodeName}}
-              </template>
-              <Menu-item :name="c_node.nodeId" v-for="(c_node,$index) in left.childrens"
-                         @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">{{c_node.nodeName}}
-                <!--<router-link :to="c_node.reflink">{{c_node.nodeName}}</router-link>-->
-              </Menu-item>
-            </Submenu>
-          </Menu>
-        </i-col>
-      </Row>
-
-    </div>
-    <div class="layout-body">
-      <div class="layout-tab">
-        <Row type="flex">
-          <i-col span="24">
-            <ul class="layout-tab-title">
-              <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" @click="tabClick(tabs,$index)">
-                {{tabs.nodeName}}
-              </li>
-            </ul>
-          </i-col>
-        </Row>
-      </div>
-      <div class="layout-content">
-        <Row type="flex">
-          <i-col span="24">
-            <keep-alive>
-              <router-view></router-view>
-            </keep-alive>
-          </i-col>
-        </Row>
+  <div>
+    <div class="layout">
+      <div class="layout-header">
+        <div style="height: 10px;width: 100%"></div>
+        <Alert type="success" v-show="!loginEn" class="showLogin width150">
+          <span class="span-font">欢迎 ： {{name}}</span>
+        </Alert>
+          <span class="showLogin" style="top:10px">
+            <Input v-show="loginEn" v-model="name" placeholder="用户名" style="width: 150px"></Input>
+            <Input v-show="loginEn" v-model="password" placeholder="密码" style="width: 150px"></Input>
+            <Button v-show="loginEn" type="success" @click="login">{{buttonName}}</Button>
+          </span>
       </div>
     </div>
+      <div v-if="leftNav.length>0">
+        <div class="layout">
+          <div class="layout-slider">
+            <Row type="flex">
+              <i-col span="24" class="">
+                  <Menu  :active-name="leftNav[0].childrens[0].nodeId"   theme="dark" width="auto" :open-names="[]">
+                    <div class="layout-logo-left"></div>
+                    <Submenu :name="left.nodeId" v-for="(left,$index) in leftNav" :key="left.nodeId">
+                      <template slot="title">
+                        <Icon type="ios-navigate"></Icon>
+                        {{left.nodeName}}
+                      </template>
+                      <Menu-item :name="c_node.nodeId" v-for="(c_node,$index) in left.childrens"
+                                 @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">{{c_node.nodeName}}
+                      </Menu-item>
+                    </Submenu>
+                  </Menu>
+              </i-col>
+            </Row>
+          </div>
+          <div class="layout-body">
+            <div class="layout-tab">
+              <Row type="flex">
+                <i-col span="24">
+                  <ul class="layout-tab-title">
+                    <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" @click="tabClick(tabs,$index)">
+                      {{tabs.nodeName}}
+                    </li>
+                  </ul>
+                </i-col>
+              </Row>
+            </div>
+            <div class="layout-content">
+              <Row type="flex">
+                <i-col span="24">
+                  <keep-alive>
+                    <router-view></router-view>
+                  </keep-alive>
+                </i-col>
+              </Row>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <v-error></v-error>
+      </div>
   </div>
-</template>
 
+</template>
+<style>
+  @import '../../style/head.css';
+</style>
 <script>
-  import Bus from '@/module/eventBus.js';
-  import {ymzs} from '@/module/leftNav.js';
+  import Bus from '../../module/eventBus.js';
+  import vError from '../404.vue';
+  import ajax from '../../module/ajax.js';
+  import {ymzs} from '../../module/leftNav.js';
   export default {
     data: function () {
       return {
-        leftNav: ymzs.nav,
+        buttonName:"登录101",
+        leftNav:[],
         tab0: true,
         tab1: true,
         tab2: true,
         headTabs:[],
         isShow:false,
         active:true,
-        test:'p'
+        test:'p',
+        loginEn:true,
+        name:"",
+        password:""
       }
-    },methods: {
+    },
+    methods: {
+      login(){
+        console.log(this.name+"  "+this.password);
+        let param = new Object();
+        param.name = this.name;
+        param.password = this.password;
+        ajax.post('/login/loginsubmit.do',param).then(data => {
+          this.leftNav=ymzs.nav;
+          this.loginEn=false;
+          return true
+        }).catch(function (err) {
+          return err;
+        });
+      },
       checkTab(tabId){    //检查tab标签页是否已经选中
           var _Tabs=this['headTabs'];
           for(var i=0;i<_Tabs.length;i++){
@@ -101,21 +142,12 @@
         return this.$route.path.replace('/','');
       }
     },
-    created(){
-//      Bus.$on('getTarget',function(d){
-//          console.info(d)
-//      })
-    },
-    beforeMount: function () {
-      this['headTabs'].push(this['leftNav'][0].childrens[0]);
-    },
-    mounted: function () {
-        var data=this.leftNav;
+    computed:{
+
     },
     components:{
-          'curr-Template': {
-            template: '<div style="background: lemonchiffon;position: absolute;top: 0;bottom: 0;left: 0;right: 0;"></div>'
-          }
+      "v-error":vError
       }
   }
 </script>
+

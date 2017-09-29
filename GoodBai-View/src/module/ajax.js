@@ -10,13 +10,7 @@ const instance = Axios.create({
 instance.interceptors.response.use(function (response) {
     if (response.status == 200) {
         const data = response.data;
-        if (data.errCode == 0) {
-            return data
-        } else {
-            console.log(data);
-        }
-        msg.error(data.errMsg);
-        return Promise.reject(data);
+        return data
     }
     msg.error('服务器响应失败', 3);
     return Promise.reject(response);

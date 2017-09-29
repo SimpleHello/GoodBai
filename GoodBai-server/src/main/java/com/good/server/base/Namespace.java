@@ -3,4 +3,5 @@ package com.good.server.base;
 public class Namespace {
 	
 	public static String SYS_USER = "sys_user";
+	public static String SYS_MENU = "sys_menu";
 }
