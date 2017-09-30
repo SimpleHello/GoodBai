@@ -4,14 +4,16 @@
       <div class="layout-header">
         <div style="height: 10px;width: 100%"></div>
           <div v-show="!loginEn" >
-            <Alert type="success" class="showLogin width250">
-              <span class="span-font">欢迎 ： {{name}}  登录</span>
-            </Alert>
-            <Button class="showLogin" type="success" @click="loginOut">注销</Button>
+            <Row>
+              <Col span="4"><span class="span-font">欢迎 ： {{username}}  登录</span></Col>
+              <Col span="4" >
+                <Button class="showLogin" type="success" @click="loginOut">注销</Button>
+              </Col>
+            </Row>
           </div>
         <div v-show="loginEn" >
            <span class="showLogin" style="top:10px">
-            <Input  v-model="name" placeholder="用户名" style="width: 150px"></Input>
+            <Input  v-model="username" placeholder="用户名" style="width: 150px"></Input>
             <Input  v-model="password" placeholder="密码" style="width: 150px"></Input>
             <Button type="success" @click="login">登录</Button>
           </span>
@@ -24,7 +26,7 @@
           <div class="layout-slider">
             <Row type="flex">
               <i-col span="24" class="">
-                  <Menu  :active-name="leftNav[0].children[0].name"   theme="dark" width="auto" :open-names="[]">
+                  <Menu theme="dark" width="auto">
                     <div class="layout-logo-left"></div>
                     <Submenu :name="left.name" v-for="(left,$index) in leftNav" :key="left.name">
                       <template slot="title">
@@ -32,7 +34,8 @@
                         {{left.descript}}
                       </template>
                       <Menu-item :name="c_node.name" v-for="(c_node,$index) in left.children"
-                                 @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">{{c_node.descript}}
+                                 @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">
+                        {{c_node.descript}}1
                       </Menu-item>
                     </Submenu>
                   </Menu>
@@ -87,15 +90,15 @@
         active:true,
         test:'p',
         loginEn:true,
-        name:"",
+        username:"",
         password:""
       }
     },
     methods: {
       login(){
-        console.log(this.name+"  "+this.password);
+        console.log(this.username+"  "+this.password);
         let param = new Object();
-        param.name = this.name;
+        param.name = this.username;
         param.password = this.password;
         ajax.post('/login/loginsubmit.do',param).then(data => {
           if(data.error<0){
@@ -103,6 +106,7 @@
             return false;
          }else{
             this.leftNav= data.rows;
+            ymzs.nav = data.rows;
             this.loginEn=false;
             return true
          }
@@ -116,13 +120,15 @@
             this.isShow=false;
             this.active=true;
             this.loginEn=true;
-            this.name="";
+            this.username="";
             this.password="";
+            this.$router.push("/");
+            ymzs.nav = [];
       },
       checkTab(tabId){    //检查tab标签页是否已经选中
           var _Tabs=this['headTabs'];
           for(var i=0;i<_Tabs.length;i++){
-              if(_Tabs[i].nodeId==tabId){
+              if(_Tabs[i].name==tabId){
                   return false;
               }
           }
@@ -139,22 +145,21 @@
           this.changActive();
           var _select=!n.select;
           n.select=_select;
-          if(this.checkTab(n.nodeId)){  //如果导航没激活，添加选项卡
+          if(this.checkTab(n.name)){  //如果导航没激活，添加选项卡
             this['headTabs'].push(n);
           }
-          this.$router.push(n.reflink);
+          console.log(" 点击了:"+ n.url);
+          this.$router.push(n.url);
       },
       tabClick(n,i){
            this.changActive();
-           this.$router.push(n.reflink);
+           console.log(" 点击了2:"+ n.url);
+           this.$router.push(n.url);
            this.headTabs[i].select=!this.headTabs[i].select
       },
       hash(e){
         return this.$route.path.replace('/','');
       }
-    },
-    computed:{
-
     },
     components:{
       "v-error":vError
