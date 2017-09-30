@@ -23,4 +23,10 @@ public class MenuDaoImpl{
 		return readDao.query(Namespace.SYS_MENU, "getListByUser", user);
 	}
 
+	public List<MenuInfo> getListByUserName(String userName) throws Exception {
+		// TODO Auto-generated method stub
+		UserInfo user = new UserInfo();
+		user.setName(userName);
+		return readDao.query(Namespace.SYS_MENU, "getListByUserName", user);
+	}
 }

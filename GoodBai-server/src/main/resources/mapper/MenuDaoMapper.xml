@@ -5,8 +5,24 @@
 
 <mapper namespace="sys_menu">
 
-	<select id="getListByUser" resultType="com.good.server.entity.system.UserMenu" parameterType="com.good.server.entity.system.UserInfo">
-			<!--select id,name,password from sys_user-->
+	<select id="getListByUser" resultType="com.good.server.entity.system.MenuInfo" parameterType="com.good.server.entity.system.UserInfo">
+			SELECT * FROM sys_function t1
+				WHERE EXISTS(
+					SELECT 1 FROM sys_role_function t2
+					WHERE EXISTS(
+						SELECT 1 FROM sys_user_role t3 WHERE userId=#{id}
+						AND t3.roleId=t2.roleId
+						) AND t2.functionId = t1.id) AND type = 1 ORDER BY parentId
+	</select>
+
+	<select id="getListByUserName" resultType="com.good.server.entity.system.MenuInfo" parameterType="com.good.server.entity.system.UserInfo">
+		SELECT * FROM sys_function t1
+		WHERE EXISTS(
+		SELECT 1 FROM sys_role_function t2
+		WHERE EXISTS(
+		SELECT 1 FROM sys_user_role t3 WHERE userId IN (SELECT id FROM sys_user WHERE name=#{name})
+		AND t3.roleId=t2.roleId
+		) AND t2.functionId = t1.id) AND type = 1 ORDER BY parentId
 	</select>
 
 </mapper>
