@@ -19,6 +19,16 @@ public class MenuInfo extends IEntity{
     private String descript;
     private int type;//1 菜单 2 按钮
 
+    public MenuInfo() {
+
+    }
+
+    public MenuInfo(int id, String name, int parentId) {
+        super.setId(id);
+        this.name = name;
+        this.parentId = parentId;
+    }
+
     public int getParentId() {
         return parentId;
     }

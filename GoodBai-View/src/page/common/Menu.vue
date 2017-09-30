@@ -3,14 +3,20 @@
     <div class="layout">
       <div class="layout-header">
         <div style="height: 10px;width: 100%"></div>
-        <Alert type="success" v-show="!loginEn" class="showLogin width150">
-          <span class="span-font">欢迎 ： {{name}}</span>
-        </Alert>
-          <span class="showLogin" style="top:10px">
-            <Input v-show="loginEn" v-model="name" placeholder="用户名" style="width: 150px"></Input>
-            <Input v-show="loginEn" v-model="password" placeholder="密码" style="width: 150px"></Input>
-            <Button v-show="loginEn" type="success" @click="login">{{buttonName}}</Button>
+          <div v-show="!loginEn" >
+            <Alert type="success" class="showLogin width250">
+              <span class="span-font">欢迎 ： {{name}}  登录</span>
+            </Alert>
+            <Button class="showLogin" type="success" @click="loginOut">注销</Button>
+          </div>
+        <div v-show="loginEn" >
+           <span class="showLogin" style="top:10px">
+            <Input  v-model="name" placeholder="用户名" style="width: 150px"></Input>
+            <Input  v-model="password" placeholder="密码" style="width: 150px"></Input>
+            <Button type="success" @click="login">登录</Button>
           </span>
+        </div>
+
       </div>
     </div>
       <div v-if="leftNav.length>0">
@@ -18,15 +24,15 @@
           <div class="layout-slider">
             <Row type="flex">
               <i-col span="24" class="">
-                  <Menu  :active-name="leftNav[0].childrens[0].nodeId"   theme="dark" width="auto" :open-names="[]">
+                  <Menu  :active-name="leftNav[0].children[0].name"   theme="dark" width="auto" :open-names="[]">
                     <div class="layout-logo-left"></div>
-                    <Submenu :name="left.nodeId" v-for="(left,$index) in leftNav" :key="left.nodeId">
+                    <Submenu :name="left.name" v-for="(left,$index) in leftNav" :key="left.name">
                       <template slot="title">
                         <Icon type="ios-navigate"></Icon>
-                        {{left.nodeName}}
+                        {{left.descript}}
                       </template>
-                      <Menu-item :name="c_node.nodeId" v-for="(c_node,$index) in left.childrens"
-                                 @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">{{c_node.nodeName}}
+                      <Menu-item :name="c_node.name" v-for="(c_node,$index) in left.children"
+                                 @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">{{c_node.descript}}
                       </Menu-item>
                     </Submenu>
                   </Menu>
@@ -39,7 +45,7 @@
                 <i-col span="24">
                   <ul class="layout-tab-title">
                     <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" @click="tabClick(tabs,$index)">
-                      {{tabs.nodeName}}
+                      {{tabs.descript}}
                     </li>
                   </ul>
                 </i-col>
@@ -71,14 +77,11 @@
   import vError from '../404.vue';
   import ajax from '../../module/ajax.js';
   import {ymzs} from '../../module/leftNav.js';
+  import msg from 'iview/src/components/message';
   export default {
     data: function () {
       return {
-        buttonName:"登录101",
         leftNav:[],
-        tab0: true,
-        tab1: true,
-        tab2: true,
         headTabs:[],
         isShow:false,
         active:true,
@@ -95,12 +98,26 @@
         param.name = this.name;
         param.password = this.password;
         ajax.post('/login/loginsubmit.do',param).then(data => {
-          this.leftNav=ymzs.nav;
-          this.loginEn=false;
-          return true
+          if(data.error<0){
+            msg.error('获取列表失败', 3);
+            return false;
+         }else{
+            this.leftNav= data.rows;
+            this.loginEn=false;
+            return true
+         }
         }).catch(function (err) {
           return err;
         });
+      },
+      loginOut(){
+            this.leftNav=[];
+            this.headTabs=[];
+            this.isShow=false;
+            this.active=true;
+            this.loginEn=true;
+            this.name="";
+            this.password="";
       },
       checkTab(tabId){    //检查tab标签页是否已经选中
           var _Tabs=this['headTabs'];
@@ -127,16 +144,10 @@
           }
           this.$router.push(n.reflink);
       },
-      ntoggle(d,i) {
-          this.leftNav[i].isActive=!this.leftNav[i].isActive
-      },
       tabClick(n,i){
            this.changActive();
            this.$router.push(n.reflink);
            this.headTabs[i].select=!this.headTabs[i].select
-      },
-      changeSelect(n,i,p){
-
       },
       hash(e){
         return this.$route.path.replace('/','');

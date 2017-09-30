@@ -45,4 +45,9 @@ public class JsonResult {
 		this.message=message;
 		this.rows=null;
 	}
+	public JsonResult(Object rows){
+		this.error=0;
+		this.message="数据成功";
+		this.rows=rows;
+	}
 }
