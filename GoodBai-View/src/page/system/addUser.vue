@@ -2,8 +2,8 @@
 <Modal
   title="新增用户"
   :value="addUserTempModel"
-  @on-ok="xxxx"
-   @>
+  @on-ok="addUserSubmit"
+  @on-cancel="addUserCancel">
   <Form :model="formItem" :label-width="80">
     <FormItem label="输入框">
       <Input v-model="formItem.input" placeholder="请输入"></Input>
@@ -63,7 +63,6 @@
   export default{
     data () {
       return {
-        addUserTemp:this.addUserTempModel,
         formItem: {
           input: '',
           select: '',
@@ -78,7 +77,21 @@
       }
     },
     methods:{
-      xxxx(){
+      addUserSubmit(){
+        this.$emit("closeModelEvent","closeModelEvent");
+      },
+      addUserCancel(){
+        this.formItem={
+            input: '',
+            select: '',
+            radio: 'male',
+            checkbox: [],
+            switch: true,
+            date: '',
+            time: '',
+            slider: [20, 50],
+            textarea: ''
+          }
         this.$emit("closeModelEvent","closeModelEvent");
       }
     },
