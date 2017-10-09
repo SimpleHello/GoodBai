@@ -13,6 +13,7 @@ const routes = [{
   component:resolve=>require(['@/page/home.vue'],resolve),
   children:[
     {path:'/sys/userinfo', component:resolve=>require(['@/page/system/user.vue'],resolve),meta: {requiresAuth: true}},
+    {path:'/sys/addUser', component:resolve=>require(['@/page/system/addUser.vue'],resolve),meta: {requiresAuth: false}},
     {path:'*',component:resolve=>require(['@/page/404.vue'],resolve)}
   ]
 }
