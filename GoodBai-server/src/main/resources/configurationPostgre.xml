@@ -6,5 +6,6 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/MenuDaoMapper.xml" />
+		<mapper resource="mapper/RoleDaoMapper.xml" />
 	</mappers>
 </configuration>

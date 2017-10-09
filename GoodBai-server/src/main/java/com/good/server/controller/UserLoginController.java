@@ -13,12 +13,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
+@RequestMapping("/login")
 public class UserLoginController {
 
 	@Resource(name="menuService")
 	private MenuService menuService;
 
-	@RequestMapping("/login/loginsubmit.do")
+	@RequestMapping("/loginsubmit.do")
 	public @ResponseBody JsonResult  queryAll(@RequestBody UserInfo user) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("获取了数据:" + user.getName() + " password:" + user.getPassword());

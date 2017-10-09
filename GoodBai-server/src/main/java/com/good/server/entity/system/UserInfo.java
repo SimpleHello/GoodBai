@@ -12,6 +12,7 @@ public class UserInfo extends IEntity{
 
     private String name;
     private String password;
+    private int sex;
 
     public String getName() {
         return name;
@@ -27,6 +28,14 @@ public class UserInfo extends IEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
     }
 }
 
