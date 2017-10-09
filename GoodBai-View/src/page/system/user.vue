@@ -17,7 +17,7 @@
         </i-col>
         <i-col span="3" style="margin-left: 5px">
             <Button type="success">查询</Button>
-            <Button type="success">新增</Button>
+            <Button type="success" @click="addUserModel = true">新增</Button>
         </i-col>
       </Row>
     </Form>
@@ -25,12 +25,16 @@
     <Row>
       <Table border :context="self" :columns="columns4" :data="data1"></Table>
     </Row>
+    <v-addUser :addUserTempModel="addUserModel" v-on:closeModelEvent="closeAddUser"></v-addUser>
   </div>
 </template>
 <script>
+  import addUser from './addUser.vue';
+
   export default {
     data () {
       return {
+        addUserModel:false,
         self:this,
         flag:'lihoo',
         formItem: {
@@ -105,7 +109,7 @@
          }
         }
         ],
-        data1: [{name:"123"}]
+        data1: [{name:"123",sex:"男",tel:"110110110"}]
       }
     },
     methods:{
@@ -113,19 +117,18 @@
         debugger;
         alert('sdsd')
       },
+      closeAddUser(data){
+         console.log(data);
+         this.addUserModel=false;
+      },
       cc(name){
         debugger;
         alert(1)
       }
     },
-    activated(){
-//      this.sendrouter();
-    },created(){
-      debugger;
-      function Person(){
-
-      }
-      var person=new Person();
+    components:{
+      "v-addUser":addUser
     }
+
   }
 </script>
