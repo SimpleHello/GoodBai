@@ -7,5 +7,6 @@
 	<mappers>
 		<mapper resource="mapper/MenuDaoMapper.xml" />
 		<mapper resource="mapper/RoleDaoMapper.xml" />
+		<mapper resource="mapper/UserDaoMapper.xml" />
 	</mappers>
 </configuration>

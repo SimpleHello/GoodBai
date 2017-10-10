@@ -4,23 +4,39 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sys_user">
-	<!--<select id="saveUser" parameterType="com.good.entity.system.user.User">-->
-		<!--insert into sys_user(name,password,ctime,enable)-->
-		<!--values(-->
-			<!--#{name,jdbcType=VARCHAR},-->
-			<!--#{password,jdbcType=VARCHAR},-->
-			<!--now(),1)-->
-	<!--</select>-->
-	<!---->
-	<!--<select id="getUserList" resultType="com.good.entity.system.user.User" parameterType="com.good.entity.system.user.User">-->
-			<!--select id,name,password from sys_user-->
-	<!--</select>-->
-	<!---->
-	<!--<select id="getUserById" resultType="com.good.entity.system.user.User" parameterType="com.good.entity.system.user.User">-->
-			<!--select id,name,password from sys_user where id=#{id}-->
-	<!--</select>-->
-	<!---->
-	<!--<select id="getUserByName" resultType="com.good.entity.system.user.User" parameterType="com.good.entity.system.user.User">-->
-			<!--select id,name,password from sys_user where name=#{name}-->
-	<!--</select>-->
+	<select id="saveUser" parameterType="com.good.server.entity.system.UserInfo">
+		insert into sys_user(name,password,ctime,enable,sex,tel)
+		values(
+			#{name,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			now(),
+			#{enable,jdbcType=TINYINT},
+			#{sex,jdbcType=NUMERIC},
+			#{tel,jdbcType=VARCHAR})
+	</select>
+
+	<select id="getUserList" resultType="com.good.server.entity.system.UserInfo" parameterType="com.good.server.entity.system.UserInfo">
+			select id,name,password,tel,sex
+			from sys_user
+			<where>
+				<if test="name !=null and name !='' ">
+					<![CDATA[
+					   name like concat('%', #{name}, '%')
+					]]>
+				</if>
+				<if test="sex >= 0 ">
+					<![CDATA[
+					  AND sex =#{sex}
+					]]>
+				</if>
+			</where>
+	</select>
+
+	<select id="getUserById" resultType="com.good.server.entity.system.UserInfo" parameterType="com.good.server.entity.system.UserInfo">
+			select id,name,password,tel,sex from sys_user where id=#{id}
+	</select>
+
+	<select id="getUserByName" resultType="com.good.server.entity.system.UserInfo" parameterType="com.good.server.entity.system.UserInfo">
+			select id,name,password,tel,sex from sys_user where name=#{name}
+	</select>
 </mapper>
