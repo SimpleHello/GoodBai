@@ -65,5 +65,5 @@
 	<bean id="writeDaoHelper" class="com.good.server.base.DaoHelper">
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
-	 
+
 </beans>

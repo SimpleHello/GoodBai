@@ -35,7 +35,7 @@
                       </template>
                       <Menu-item :name="c_node.name" v-for="(c_node,$index) in left.children"
                                  @click.native="addTabNav(c_node,$index)" :key="c_node.nodeId">
-                        {{c_node.descript}}1
+                        {{c_node.descript}}
                       </Menu-item>
                     </Submenu>
                   </Menu>
@@ -86,7 +86,6 @@
       return {
         leftNav:[],
         headTabs:[],
-        isShow:false,
         active:true,
         test:'p',
         loginEn:true,
@@ -96,11 +95,10 @@
     },
     methods: {
       login(){
-        console.log(this.username+"  "+this.password);
         let param = new Object();
         param.name = this.username;
         param.password = this.password;
-        ajax.post('/login/loginsubmit.do',param).then(data => {
+        ajax.post('/user/loginsubmit.do',param).then(data => {
           if(data.error<0){
             msg.error('获取列表失败', 3);
             return false;
@@ -117,7 +115,6 @@
       loginOut(){
             this.leftNav=[];
             this.headTabs=[];
-            this.isShow=false;
             this.active=true;
             this.loginEn=true;
             this.username="";
@@ -148,7 +145,6 @@
           if(this.checkTab(n.name)){  //如果导航没激活，添加选项卡
             this['headTabs'].push(n);
           }
-          console.log(" 点击了:"+ n.url);
           this.$router.push(n.url);
       },
       tabClick(n,i){
