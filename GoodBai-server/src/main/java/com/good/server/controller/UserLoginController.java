@@ -27,6 +27,10 @@ public class UserLoginController {
 	public @ResponseBody JsonResult  queryAll(@RequestBody UserInfo user) throws Exception {
 		// TODO Auto-generated method stub
 		List<MenuInfo> list = null;
+		String name = user.getName();
+		if(name==null||"".equals(name)){
+			user.setName("admin");
+		}
 		try{
 			list = menuService.getListByUser(getUserId(user.getName()));
 			return new JsonResult(list);
