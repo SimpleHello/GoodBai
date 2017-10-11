@@ -1,4 +1,7 @@
 <template>
+   <div>
+    <Button type="success" @click="saveRoleFun">新增</Button>
+    <Button type="success" @click="cancelRoleFun">还原</Button><hr style="margin-top:10px;margin-bottom: 10px">
     <ZTree
         ref='tree'
         :treeData="treeData"
@@ -7,16 +10,14 @@
         :key="1"
 
     />
+   </div>
 </template>
 
 <script>
     import Vue from 'vue';
     import axios from 'axios';
     import {ZTree} from '../../module/tree'
-    //
-    //  import {ZTree} from './../dist/vue2-tree.min'
-    //  import './../dist/vue2-tree.min.css'
-    Vue.use(ZTree)
+    Vue.use(ZTree);
 
     const Tree1 = {
         name: 'Tree1',
@@ -26,7 +27,7 @@
                     {
                         id: 1,
                         name: '一级节点',
-                        open: false,
+                        open: true,
                         checked: false,
                         nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
                         parentId: null,
@@ -36,7 +37,7 @@
                             {
                                 id: 1001,
                                 name: '2级节点',
-                                open: false,
+                                open: true,
                                 nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
                                 parentId: 1,
                                 visible: true,
@@ -45,7 +46,7 @@
                             {
                                 id: 1002,
                                 name: '2级节点',
-                                open: false,
+                                open: true,
                                 nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
                                 parentId: 1,
                                 visible: true,
@@ -56,8 +57,7 @@
                     {
                         id: 2,
                         name: '一级节点',
-
-                        open: false,
+                        open: true,
                         checked: false,
                         nodeSelectNotAll: false,
                         parentId: null,
@@ -66,9 +66,8 @@
                     },
                     {
                         id: 3,
-
                         name: '一级节点',
-                        open: false,
+                        open: true,
                         checked: false,
                         nodeSelectNotAll: false,
                         parentId: null,
@@ -76,12 +75,21 @@
                         searched: false
                     }
                 ],
+              computed:{
+                treeData:function(){
+                  if(this.checkIds==1){
+
+                  }else if(this.checkIds==2){
+
+                  }else{
+                    return this.treeData;
+                  }
+                }
+               },
                 options: {
                     labelKey: 'name',
-
                     showCheckbox: true,
                     halfCheck: true,//控制父框是否需要半钩状态
-
                     search: {
                         useInitial: true,
                         useEnglish: false,
@@ -93,11 +101,18 @@
         methods: {
             itemClick (node) {
                 console.log(node.id);
-            }
-        }
+            },
+            saveRoleFun(){
+              alert("新增按钮");
+            },
+           cancelRoleFun(){
+             alert("还原");
+           },
+        },
+      props:['checkIds']
     }
 
-    export default Tree1
+    export default Tree1;
 </script>
 
 <style scoped>
