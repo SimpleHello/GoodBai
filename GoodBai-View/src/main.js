@@ -4,7 +4,6 @@ import Router from './config/routes';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
 
-
 Vue.use(iView);
 
 // 开启debug模式
