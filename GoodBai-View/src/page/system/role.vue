@@ -1,31 +1,42 @@
 <template>
   <div class="layout">
-    <Row  justify="center">
+    <Row>
       <Col span="12" class="layout-menu-left">
-         <Table :columns="columns1" :data="data1"></Table>
-      </Col>
-      <Col span="5" offset="1">
-        <Card style="width:350px">
-          <p slot="title">
-            功能列表
-          </p>
-          <Tree :data="baseData" show-checkbox></Tree>
+         <Card style="width:100%">
+           <p slot="title">
+             角色列表
+           </p>
+         <Table :columns="columns1"
+                :data="data1"
+                :highlight-row=true
+                height="600"
+                @on-row-click="clickRow"></Table>
         </Card>
       </Col>
       <Col span="5" offset="1">
-        <div style='width:280px;height:500px' v-if='ztreeDataSource.length>0'>
-          <vue-ztree :list='ztreeDataSource' :is-open='true'></vue-ztree>
-        </div>
+        <Card style="width:100%;height:600px">
+          <p slot="title">
+            功能列表
+          </p>
+          <Tree1 :key="1" :checkIds="checkIds"></Tree1>
+        </Card>
       </Col>
     </Row>
   </div>
 </template>
+<style scoped>
+  .ivu-table-body{
+    height: 800px;
+  }
+</style>
 <script>
   import vueZtree from '../../components/vue-ztree.vue'
+  import Tree1 from '../test/Tree1'
 
   export default {
     data () {
       return {
+        checkIds:0,
         ztreeDataSource:[],
         columns1: [
           {
@@ -62,32 +73,17 @@
             age: 26,
             address: '深圳市南山区深南大道'
           }
-        ],
-        baseData: [{
-          expand: true,
-          title: 'parent 1',
-          children: [{
-            title: 'parent 1-0',
-            expand: true,
-            children: [{
-              title: 'leaf',
-              checked: true
-            }, {
-              title: 'leaf',
-            }]
-          }, {
-            title: 'parent 1-1',
-            expand: true,
-            checked: true,
-            children: [{
-              title: 'leaf',
-            }]
-          }]
-        }]
+        ]
       }
     },
     methods:{
-
+      clickRow(data){
+        if(data.name="王小明"){
+            this.checkIds = 1;
+        }else{
+            this.checkIds = 2;
+        }
+      }
     },
   mounted (){
     // 异步获取数据操作
@@ -176,7 +172,8 @@
       }]
   },
    components:{
-      vueZtree
+      vueZtree,
+      Tree1
     },
   }
 </script>
