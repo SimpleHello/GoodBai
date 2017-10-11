@@ -15,7 +15,7 @@
     outline: none;
     position: absolute;
     top:4px;
-    background-color: transparent;
+    background-color:transparent;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-image: url("../images/ztree/zTreeStandard.png");
@@ -39,9 +39,11 @@
     font-size:12px; border:1px #7EC4CC solid; *border:0px}
   .ztree li span {line-height:16px; margin-right:2px; top: 3px; display: inline-block;}
   .ztree li span.button {line-height:0; margin:0; width:16px; height:16px; display: inline-block; vertical-align:middle;
-    border:0 none; cursor: pointer;outline:none;
-    background-color:transparent; background-repeat:no-repeat; background-attachment: scroll;
-    background-image:url("../images/ztree/zTreeStandard.png"); *background-image:url("../images/ztree/zTreeStandard.gif")}
+                          border:0 none; cursor: pointer;outline:none;
+                          background-color:transparent;
+                          background-repeat:no-repeat; background-attachment: scroll;
+                          background-image:url("../images/ztree/zTreeStandard.png");
+                          *background-image:url("../images/ztree/zTreeStandard.gif")}
   .ztree li span.button.chk {width:13px; height:13px; margin:0 3px 0 0; cursor: auto}
   .ztree li span.button.chk.checkbox_false_full {background-position:0 0}
   .ztree li span.button.chk.checkbox_false_full_focus {background-position:0 -14px}
@@ -265,7 +267,6 @@
           // 给（根 和 子树）赋值不同的样式
           rootClass(){
             var strRootClass = '';
-
             // 根判断
             if(this.root=='0'){
               strRootClass =  (this.num==0 && this.model.children.length==0) ? "roots_docu" : (this.nodes==1) || (this.num==0 && this.nodes!=this.num+1) ?
