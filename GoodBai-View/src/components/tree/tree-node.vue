@@ -184,7 +184,6 @@
                 this.$emit('handlecheckedChange', node)
             },
             handleNode (node) {
-                debugger
                 if (this.tree.last) {
                     if (this.tree.last.key === node.key) {
                         this.tree.store.last.checked = !this.tree.last.checked

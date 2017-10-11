@@ -10,15 +10,16 @@
                 :data="data1"
                 :highlight-row=true
                 height="600"
-                @on-row-click="clickRow"></Table>
+                @on-row-click="clickRow"
+                ></Table>
         </Card>
       </Col>
       <Col span="5" offset="1">
         <Card style="width:100%;height:600px">
           <p slot="title">
-            功能列表
+            权限列表
           </p>
-          <Tree1 :key="1" :checkIds="checkIds"></Tree1>
+          <Tree1 ref='Tree12' :key="1" :checkIds="checkIds"></Tree1>
         </Card>
       </Col>
     </Row>
@@ -37,6 +38,7 @@
     data () {
       return {
         checkIds:0,
+        roleName:'',
         ztreeDataSource:[],
         columns1: [
           {
@@ -78,11 +80,13 @@
     },
     methods:{
       clickRow(data){
-        if(data.name="王小明"){
+        if(data.name=="王小明"){
             this.checkIds = 1;
         }else{
             this.checkIds = 2;
         }
+        var _this=this;
+        _this.$refs.Tree12.roleInfoData(this.checkIds,data.name);
       }
     },
   mounted (){
