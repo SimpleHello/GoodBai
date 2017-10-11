@@ -219,15 +219,15 @@ i:nth-child(n+3){
 
 
 
-.line{
-  float: left;
-  width: 1px;
-  height: 400px;
-  margin-left: 50px;
-  margin-top: 100px;
-  background: #ddd;
-  box-shadow: 1px 0 2px #FFF;
-}
+/*.line{*/
+  /*float: left;*/
+  /*width: 1px;*/
+  /*height: 400px;*/
+  /*margin-left: 50px;*/
+  /*margin-top: 100px;*/
+  /*background: #ddd;*/
+  /*box-shadow: 1px 0 2px #FFF;*/
+/*}*/
 
 
 #content{

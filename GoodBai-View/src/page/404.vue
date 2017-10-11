@@ -26,7 +26,7 @@
   </div>
 </template>
 <style scoped>
- @import "../style/404.css";
+  @import url("../style/404.css");
 </style>
 <script>
   export default{

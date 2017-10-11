@@ -11,11 +11,16 @@
     <name>GoodBai-server Maven Webapp</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.smslib/smslib -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>org.smslib</groupId>
+            <artifactId>smslib</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.comm</groupId>
+            <artifactId>comm</artifactId>
+            <version>2.0</version>
         </dependency>
     </dependencies>
     <build>
