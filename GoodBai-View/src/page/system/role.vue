@@ -65,11 +65,7 @@
     },
     methods:{
       clickRow(data){
-        if(data.name=="王小明"){
-            this.checkIds = 1;
-        }else{
-            this.checkIds = 2;
-        }
+        this.checkIds = data.id;
         var _this=this;
         _this.$refs.Tree12.roleInfoData(this.checkIds,data.name);
       }

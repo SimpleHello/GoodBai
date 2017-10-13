@@ -185,7 +185,7 @@ export default class TreeStore {
                 }
             } else {
                 if (currentNode.nodeSelectNotAll) {
-                    return "half" 
+                    return "half"
                 }
             }
             return "none"

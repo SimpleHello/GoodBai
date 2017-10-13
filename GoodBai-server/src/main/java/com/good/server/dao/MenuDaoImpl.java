@@ -35,7 +35,7 @@ public class MenuDaoImpl{
 		// TODO Auto-generated method stub
 		RoleInfo role = new RoleInfo();
 		role.setId(roleId);
-		return readDao.query(Namespace.SYS_MENU, "getListByUserName", role);
+		return readDao.query(Namespace.SYS_MENU, "getListByRoleId", role);
 	}
 
 	public List<MenuInfo> getList() throws Exception {

@@ -14,7 +14,7 @@ public class FunctionTreeInfo extends IEntity{
     private String name;
     private boolean open = true;
     private boolean checked = false;
-    private boolean nodeSelectNotAll = true;//新增参数，表示父框可以半钩状态
+    private boolean nodeSelectNotAll = false;//新增参数，表示父框可以半钩状态
     private int parentId;
     private boolean visible = true;
     private boolean searched = false;

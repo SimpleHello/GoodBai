@@ -88,7 +88,7 @@
     },
     created(){
       let param = new Object();
-      ajax.post('/role/getList.do',param).then(data => {
+      ajax.post('/role/getFunTree.do',param).then(data => {
         if(data.error<0){
             msg.error('获取列表失败', 3);
             return false;
