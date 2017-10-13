@@ -1,6 +1,7 @@
 package com.good.server.service;
 
 import com.good.server.entity.system.MenuInfo;
+import com.good.server.entity.system.FunctionTreeInfo;
 
 import java.util.List;
 
@@ -10,4 +11,12 @@ import java.util.List;
 public interface MenuService {
 
     List<MenuInfo> getListByUser(int userId) throws Exception;
+
+    List<MenuInfo> getListByRoleId(int roleId) throws Exception ;
+
+    List<MenuInfo> getList() throws Exception ;
+
+    List<FunctionTreeInfo> getFunTree() throws Exception ;
+
+    List<Integer> getFunByRoleId(int roleId) throws Exception ;
 }
