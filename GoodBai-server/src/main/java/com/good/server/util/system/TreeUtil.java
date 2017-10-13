@@ -41,6 +41,7 @@ public class TreeUtil {
         FunctionTreeInfo fun = new FunctionTreeInfo();
         fun.setId(0);
         fun.setParentId(-1);
+        fun.setVisible(true);
         fun.setName("XXXX权限----");
         fun.setChildren(getFunTree(list,0,check));
         value.add(fun);

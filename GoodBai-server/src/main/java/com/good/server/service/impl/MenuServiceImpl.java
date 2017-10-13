@@ -45,13 +45,13 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Integer> getFunByRoleId(int roleId) throws Exception {
         List<MenuInfo> list = getListByRoleId(roleId);
-        List<String> value = new ArrayList<>();
+        List<Integer> value = new ArrayList<>();
         if(list !=null && list.size()>0){
             for(MenuInfo info:list){
-                value.s
+                value.add(info.getId());
             }
         }
-        return null;
+        return value;
     }
 
 

@@ -25,63 +25,66 @@
 
 <script>
     import Vue from 'vue';
-    import axios from 'axios';
-    import {ZTree} from '../../module/tree'
+    import ajax from '../../module/ajax.js';
+    import msg from 'iview/src/components/message';
+    import {ZTree} from '../../module/tree';
     Vue.use(ZTree);
-    const treeValue =  [
-      {
-        id: 1,
-        name: '一级节点',
-        open: true,
-        checked: false,
-        nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
-        parentId: null,
-        visible: true,
-        searched: false,
-        children: [
-          {
-            id: 1001,
-            name: '2级节点',
-            open: true,
-            checked: false,
-            nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
-            parentId: 1,
-            visible: true,
-            searched: false
-          },
-          {
-            id: 1002,
-            name: '2级节点',
-            open: true,
-            checked: false,
-            nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
-            parentId: 1,
-            visible: true,
-            searched: false
-          }
-        ]
-      },
-      {
-        id: 2,
-        name: '一级节点',
-        open: true,
-        checked: false,
-        nodeSelectNotAll: false,
-        parentId: null,
-        visible: true,
-        searched: false
-      },
-      {
-        id: 3,
-        name: '一级节点',
-        open: true,
-        checked: false,
-        nodeSelectNotAll: false,
-        parentId: null,
-        visible: true,
-        searched: false
-      }
-    ];
+//    const treeValue11 =  [
+//      {
+//        id: 1,
+//        name: '一级节点',
+//        open: true,
+//        checked: false,
+//        nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
+//        parentId: null,
+//        visible: true,
+//        searched: false,
+//        children: [
+//          {
+//            id: 1001,
+//            name: '2级节点',
+//            open: true,
+//            checked: false,
+//            nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
+//            parentId: 1,
+//            visible: true,
+//            searched: false
+//          },
+//          {
+//            id: 1002,
+//            name: '2级节点',
+//            open: true,
+//            checked: false,
+//            nodeSelectNotAll: false,//新增参数，表示父框可以半钩状态
+//            parentId: 1,
+//            visible: true,
+//            searched: false
+//          }
+//        ]
+//      },
+//      {
+//        id: 2,
+//        name: '一级节点',
+//        open: true,
+//        checked: false,
+//        nodeSelectNotAll: false,
+//        parentId: null,
+//        visible: true,
+//        searched: false
+//      },
+//      {
+//        id: 3,
+//        name: '一级节点',
+//        open: true,
+//        checked: false,
+//        nodeSelectNotAll: false,
+//        parentId: null,
+//        visible: true,
+//        searched: false
+//      }
+//    ];
+    var roleId = 0;
+    var treeValue = [];
     const roleTree = {
         name: 'Tree1',
         data: function () {
@@ -102,39 +105,69 @@
         },
       methods: {
             itemClick (node) {
-                console.log(node.id);
+              var _this=this;
+              _this.$refs.roleTree.handlecheckedChange(node);
             },
             saveRoleFun(){
               var _this=this;
               let nodes = _this.$refs.roleTree.getSelectedNodeIds();
-              console.log(nodes);//选中的值
+              msg.info(nodes+"  >> roleId:"+roleId);//选中的值
             },
            cancelRoleFun(){
-             alert("还原");
+             this.initDate();
            },
            roleInfoData(checkIds,roleName){
-             let data = treeValue;
-             var recurFunc = (datax,arr) => {
-               datax.forEach((i)=>{
+             roleId = checkIds;
+             this.treeData = treeValue;
+             var recurFunc = (treedata,arr) => {
+               debugger;
+               treedata.forEach((i)=>{
+                 console.log(i+"  >> "+i.id+" >> "+arr.indexOf(i.id));
                  if(arr.indexOf(i.id)>=0){
-                 i.checked = true;
-               }else {
-                 i.checked = false;
-               }
+                   i.checked = true;
+                 }else {
+                   console.log(">> false");
+                   i.checked = false;
+                }
                if(i.children && i.children.length>0){
                  recurFunc(i.children,arr);
                }
              });
              }
-             if(checkIds==1){
-               recurFunc(data,[1001,1002]);
-             }else if(checkIds==2){
-               recurFunc(data,[3]);
-             }
-             this.roleName = roleName;
-             this.treeData = data;
-           }
+             let parms = {"id":checkIds};
+             console.log("触发时间"+checkIds);
+             ajax.post('/role/getFunByRoleId.do',parms).then(data => {
+               if(data.error<0){
+                 msg.error('获取列表失败', 3);
+                 return false;
+               }else{
+                   let arr = data.rows;
+                   recurFunc(this.treeData,arr);
+                   this.roleName = roleName;
+                   return true;
+               }
+             }).catch(function (err) {
+                 return err;
+               });
+             return true;
+           },
+        initDate(){
+          ajax.post('/role/getFunTree.do',{}).then(data => {
+            if(data.error<0){
+            msg.error('获取列表失败', 3);
+              }else{
+                this.treeData = data.rows;
+                treeValue = data.rows;
+              }
+            }).catch(function (err) {
+                return err;
+          });
         }
+        },
+      created(){
+          this.initDate();
+
+      }
     }
 
     export default roleTree;

@@ -28,4 +28,9 @@
 	<select id="getList" resultType="com.good.server.entity.system.MenuInfo">
 		SELECT * FROM sys_function t1 ORDER BY parentId
 	</select>
+
+	<select id="getListByRoleId" resultType="com.good.server.entity.system.MenuInfo" parameterType="com.good.server.entity.system.RoleInfo">
+		SELECT functionid as id FROM sys_role_function t1 where roleid=#{id}
+	</select>
+
 </mapper>
