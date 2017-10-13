@@ -25,4 +25,7 @@
 		) AND t2.functionId = t1.id) AND type = 1 ORDER BY parentId
 	</select>
 
+	<select id="getList" resultType="com.good.server.entity.system.MenuInfo">
+		SELECT * FROM sys_function t1 ORDER BY parentId
+	</select>
 </mapper>
