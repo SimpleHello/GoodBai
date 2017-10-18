@@ -18,7 +18,16 @@ public class MessageController {
     @RequestMapping("/sendMessage.do")
     public @ResponseBody
     JsonResult getList(@RequestBody MessageInfo message) throws Exception {
+        return setMessageInfo(message);
+    }
+
+    @RequestMapping("/sendMessageNew.do")
+    public @ResponseBody  JsonResult sendMessageNew(@RequestBody MessageInfo message) throws Exception {
         // TODO Auto-generated method stub
+        return setMessageInfo(message);
+    }
+
+    private JsonResult setMessageInfo(MessageInfo message){
         try{
             SmsUtil.sendMessage(message.getPhone(),message.getMessgae());
             return new JsonResult("发送成功");
@@ -27,4 +36,5 @@ public class MessageController {
             return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
         }
     }
+
 }
