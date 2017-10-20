@@ -336,5 +336,6 @@
         <module>GoodBai-Shiro</module>
         <module>GoodBai-netty</module>
         <module>GoodBai-server</module>
+        <module>GoodBai-rubbish</module>
     </modules>
 </project>

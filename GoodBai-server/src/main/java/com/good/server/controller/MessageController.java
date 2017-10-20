@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by John on 2017/10/18.
  */
@@ -15,22 +18,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/message")
 public class MessageController {
 
+    private final List<MessageInfo> list = new ArrayList<>();
+
     @RequestMapping("/sendMessage.do")
     public @ResponseBody
     JsonResult getList(@RequestBody MessageInfo message) throws Exception {
-        return setMessageInfo(message);
-    }
-
-    @RequestMapping("/sendMessageNew.do")
-    public @ResponseBody  JsonResult sendMessageNew(@RequestBody MessageInfo message) throws Exception {
-        // TODO Auto-generated method stub
-        return setMessageInfo(message);
-    }
-
-    private JsonResult setMessageInfo(MessageInfo message){
         try{
-            SmsUtil.sendMessage(message.getPhone(),message.getMessgae());
-            return new JsonResult("发送成功");
+            list.add(message);
+            boolean flag = SmsUtil.sendMessage(message.getPhone(),message.getMessgae());
+            if(flag){
+                return new JsonResult("发送成功");
+            }else{
+                return new JsonResult(-1,"短信信息发送失败",null);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
