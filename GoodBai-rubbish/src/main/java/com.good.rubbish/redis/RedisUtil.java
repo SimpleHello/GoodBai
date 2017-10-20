@@ -1,14 +1,13 @@
-package com.good.server.redis;
+package com.good.rubbish.redis;
 
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.CollectionUtils;
 
 
 /**
@@ -135,7 +134,7 @@ public class RedisUtil {
      * 递增
      * @param key 键
      * @param delta by 要增加几(大于0)
-     * @return
+     * @return long
      */
     public long incr(String key, long delta){
         if(delta<0){
@@ -147,7 +146,7 @@ public class RedisUtil {
     /**
      * 递减
      * @param key 键
-     * @param by 要减少几(小于0)
+     * @param delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta){
@@ -184,13 +183,7 @@ public class RedisUtil {
      * @return true 成功 false 失败
      */
     public boolean hmset(String key, Map<String,Object> map){
-        try {
-            redisTemplate.opsForHash().putAll(key, map);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+       return  hmset(key,map,0);
     }
 
     /**
@@ -221,13 +214,7 @@ public class RedisUtil {
      * @return true 成功 false失败
      */
     public boolean hset(String key,String item,Object value) {
-        try {
-            redisTemplate.opsForHash().put(key, item, value);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return hset(key, item, value,0);
     }
 
     /**
@@ -329,12 +316,7 @@ public class RedisUtil {
      * @return 成功个数
      */
     public long sSet(String key, Object...values) {
-        try {
-            return redisTemplate.opsForSet().add(key, values);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        return sSetAndTime(key,0,values);
     }
 
     /**
@@ -391,7 +373,7 @@ public class RedisUtil {
      * @param key 键
      * @param start 开始
      * @param end 结束  0 到 -1代表所有值
-     * @return
+     * @return List
      */
     public List<Object> lGet(String key,long start, long end){
         try {
@@ -405,7 +387,7 @@ public class RedisUtil {
     /**
      * 获取list缓存的长度
      * @param key 键
-     * @return
+     * @return long
      */
     public long lGetListSize(String key){
         try {
@@ -420,7 +402,7 @@ public class RedisUtil {
      * 通过索引 获取list中的值
      * @param key 键
      * @param index 索引  index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推
-     * @return
+     * @return boolean
      */
     public Object lGetIndex(String key,long index){
         try {
@@ -435,7 +417,7 @@ public class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @return
+     * @return boolean
      */
     public boolean lSet(String key, Object value) {
         try {
@@ -452,7 +434,7 @@ public class RedisUtil {
      * @param key 键
      * @param value 值
      * @param time 时间(秒)
-     * @return
+     * @return boolean
      */
     public boolean lSet(String key, Object value, long time) {
         try {
@@ -469,7 +451,7 @@ public class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @return
+     * @return boolean
      */
     public boolean lSet(String key, List<Object> value) {
         try {
@@ -486,7 +468,7 @@ public class RedisUtil {
      * @param key 键
      * @param value 值
      * @param time 时间(秒)
-     * @return
+     * @return boolean
      */
     public boolean lSet(String key, List<Object> value, long time) {
         try {
@@ -504,7 +486,7 @@ public class RedisUtil {
      * @param key 键
      * @param index 索引
      * @param value 值
-     * @return
+     * @return boolean
      */
     public boolean lUpdateIndex(String key, long index,Object value) {
         try {
@@ -533,17 +515,4 @@ public class RedisUtil {
         }
     }
 
-    public boolean lpubish(String channel,String message){
-        try{
-            //其中channel必须为string，而且“序列化”策略也是StringSerializer
-            //消息内容，将会根据配置文件中指定的valueSerializer进行序列化
-            //本例中，默认全部采用StringSerializer
-            //那么在消息的subscribe端也要对“发序列化”保持一致。
-            redisTemplate.convertAndSend(channel, message);
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-        return  false;
-    }
 }
