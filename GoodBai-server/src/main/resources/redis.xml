@@ -104,4 +104,25 @@
         <property name="redisTemplate" ref="redisTemplate" />
     </bean>
 
+    <bean id="topicMessageListener" class="com.good.server.redis.TopicMessageListener">
+        <property name="redisTemplate" ref="redisTemplate"></property>
+    </bean>
+
+    <bean id="topicContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer" destroy-method="destroy">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="taskExecutor"><!-- 此处有个奇怪的问题，无法正确使用其他类型的Executor -->
+            <bean class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+                <property name="poolSize" value="3"></property>
+            </bean>
+        </property>
+        <property name="messageListeners">
+            <map>
+                <entry key-ref="topicMessageListener">
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="user:topic"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>
