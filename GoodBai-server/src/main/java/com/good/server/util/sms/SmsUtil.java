@@ -12,20 +12,21 @@ public class SmsUtil {
      * @param phone
      * @param message
      */
-    public static void sendMessage(String phone,String message)  throws Exception{
+    public static boolean sendMessage(String phone,String message)  throws Exception{
         String osName = CmdUtil.getOS();//获取当前系统
         if(osName.startsWith("Windows")){//windows下调用系统命令
             System.out.print("windows下的短信功能 尚未完成");
         }else if(osName.startsWith("Linux")||osName.startsWith("Unix")){//Linux下调用系统命令
             System.out.print(osName+"  >> liunx环境下 发送短信猫");
-            sendMessageLinux(phone,message);
+            return sendMessageLinux(phone,message);
         }
+        return false;
     }
 
 
-    public static void sendMessageLinux(String phone,String message) throws Exception{
+    public static boolean sendMessageLinux(String phone,String message) throws Exception{
         String commond = "echo -n \""+message+"\" | gnokii --sendsms "+ phone;
-        CmdUtil.execCmd(commond);
+        return CmdUtil.execCmd(commond);
     }
 
 
