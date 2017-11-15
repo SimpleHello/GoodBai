@@ -12,8 +12,6 @@ public class TestSubscribe {
         jedis.auth("admin");
         RedisMsgPubSubListener listener = new RedisMsgPubSubListener();
         jedis.subscribe(listener, "redisChatTest","123");
-
-        //other code
     }
 
     public static void main(String[] args)  throws Exception{

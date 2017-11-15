@@ -1,19 +1,13 @@
 package com.good.netty.io.decode;
 
-import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
-
+import com.good.netty.entity.packet.InterfaceMessage;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.good.netty.common.SyncWriteMap;
-import com.good.netty.entity.packet.InterfaceMessage;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.CompositeByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import java.nio.ByteOrder;
 
 /**
  * Created by mag 
@@ -45,32 +39,6 @@ public class ClientDecoder extends LengthFieldBasedFrameDecoder {
 		try {
 			if (in == null) {
 				logger.debug("get the message:> ByteBuf in is null");
-			}
-			String magic = in.getCharSequence(0, 10, StandardCharsets.UTF_8).toString().trim();
-			int length = (int) in.getUnsignedInt(10);
-			int byteBuf  = in.writerIndex();
-			if("#dlhjtxxy#".equals(magic) && byteBuf < length){
-				SyncWriteMap.ByteBufMap.put("lostBuf", in);
-				SyncWriteMap.ByteBufLengthMap.put("lostBuf",length);
-				logger.equals("发现 分包=== 保存到数据库中:"+length);
-				return null;
-			}
-			if(!"#dlhjtxxy#".equals(magic) && SyncWriteMap.ByteBufMap.containsKey("lostBuf")){
-				logger.equals("发现 遗失的 分包=== 进行合并操作");
-				CompositeByteBuf compositeByteBuf = Unpooled.compositeBuffer();
-				compositeByteBuf.addComponents(true, SyncWriteMap.ByteBufMap.get("lostBuf"), in);
-				int succlen = SyncWriteMap.ByteBufLengthMap.get("lostBuf");
-				in = compositeByteBuf.asReadOnly();
-				if(SyncWriteMap.ByteBufMap.get("lostBuf").writerIndex()+byteBuf==succlen){
-					SyncWriteMap.ByteBufMap.remove("lostBuf");
-					SyncWriteMap.ByteBufLengthMap.remove("lostBuf");
-					in = compositeByteBuf.asReadOnly();
-					logger.equals("合并遗失的包完成=== 进行合并操作 合并之后的包:"+in);
-				}else{
-					logger.equals("不够---- 发现 遗失的 分包=== 进行合并操作 合并之后的包:"+in);
-					SyncWriteMap.ByteBufMap.put("lostBuf", in);
-					return null;
-				}
 			}
 			logger.info(" msg:"+ in);
 			msg = new InterfaceMessage(in);

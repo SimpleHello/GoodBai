@@ -19,7 +19,6 @@ public abstract class Body {
      * @return false - 报文解析有误
      */
     public abstract boolean parseFrame(ByteBuf frame);
-    //public abstract boolean parseFrameLE(ByteBuf frame);
     public abstract void packFrame(ByteBuf frame);
     public abstract void packFrameLE(ByteBuf frame);
     public abstract String toString();
