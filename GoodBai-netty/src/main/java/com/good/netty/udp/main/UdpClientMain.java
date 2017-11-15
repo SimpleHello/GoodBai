@@ -33,8 +33,8 @@ public class UdpClientMain {
 						byte subDevAddr = 0x03;
 						byte ver = 0x10;
 						byte adr = 0x01;
-						factory.OpenDoor(descAddr,srcAddr,subDevAddr,ver,adr);
-						System.out.println("");
+						String str  = factory.OpenDoor(descAddr,srcAddr,subDevAddr,ver,adr);
+						System.out.println("hello:"+ str);
 						break;
 					case "bye":
 						flag = false;

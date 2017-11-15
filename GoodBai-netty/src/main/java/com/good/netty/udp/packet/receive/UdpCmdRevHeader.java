@@ -38,7 +38,7 @@ public class UdpCmdRevHeader {
         this.rtnCid2 = getByteHexString(frame);
         short lth01 = getShortByteHexString(frame);//高四位数据
         short lth02 = getShortByteHexString(frame);//低四位数据
-        this.lth = (short)((lth01 & 0xF0)|(lth02 & 0x0F));
+        this.lth = (short)((lth01 >>12)|lth02);
 //        this.lenId = getByteHexString(frame);
         if(this.lth !=0){
             this.comGroup = getByteHexString(frame);

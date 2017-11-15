@@ -3,12 +3,12 @@ package com.good.netty.udp.io;
 import com.good.netty.entity.body.Body;
 import com.good.netty.udp.common.UdpConfigInit;
 import com.good.netty.udp.entity.OpenDoor;
+import com.good.netty.udp.future.SynW;
 import com.good.netty.udp.packet.UdpCmdHeader;
 import com.good.netty.udp.packet.UdpCmdMessage;
 import com.good.netty.udp.packet.send.UdpDoorSendHeader;
 import com.good.netty.udp.packet.send.UdpDoorSendMessage;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioDatagramChannel;
@@ -122,29 +122,37 @@ public final class UdpClient implements Runnable {
 	 * @param adr
      * @throws Exception
      */
-	public void OpenDoor(String descAddr, String srcAddr, byte subDevAddr,byte ver, byte adr) throws Exception {
+	public String OpenDoor(String descAddr, String srcAddr, byte subDevAddr,byte ver, byte adr) throws Exception {
 		byte cid1 = (byte)0x80;
 		byte cid2=(byte)0x49;
 		byte lenId = 0x06;
 		byte comGroup = (byte)0xF1;
 		byte type = (byte)0xED;
 		OpenDoor dor = new OpenDoor();
-		setMessage(descAddr,srcAddr,subDevAddr,ver,adr,cid1,cid2,lenId,comGroup,type,dor);
+		return setMessage(descAddr,srcAddr,subDevAddr,ver,adr,cid1,cid2,lenId,comGroup,type,dor);
 	}
 
-	private void setMessage(String descAddr, String srcAddr, byte subDevAddr,
+	private String setMessage(String descAddr, String srcAddr, byte subDevAddr,
 							byte ver, byte adr, byte cid1,byte rtnCid2, byte lenId,byte comGroup,byte type,
 							Body body) throws Exception {
 		UdpCmdHeader cmdheader = new UdpCmdHeader(ver,adr,cid1,rtnCid2,lenId,comGroup,type);
 		UdpCmdMessage cmdMessage = new UdpCmdMessage(cmdheader,body);
-		setMessage(descAddr,srcAddr,subDevAddr,cmdMessage);
+		return setMessage(descAddr,srcAddr,subDevAddr,cmdMessage);
 	}
 
-	private void setMessage(String descAddr, String srcAddr, byte subDevAddr,UdpCmdMessage body) throws Exception {
+//	private void setMessage(String descAddr, String srcAddr, byte subDevAddr,UdpCmdMessage body) throws Exception {
+//		UdpDoorSendHeader header = new UdpDoorSendHeader(descAddr,srcAddr,subDevAddr, (short)body.getLength());
+//		UdpDoorSendMessage msg = new UdpDoorSendMessage(header, body);
+//		ByteBuf packFrame =  msg.packFrame();
+//		channel.writeAndFlush(packFrame);
+//	}
+
+	private String setMessage(String descAddr, String srcAddr, byte subDevAddr,UdpCmdMessage body) throws Exception {
 		UdpDoorSendHeader header = new UdpDoorSendHeader(descAddr,srcAddr,subDevAddr, (short)body.getLength());
 		UdpDoorSendMessage msg = new UdpDoorSendMessage(header, body);
-		ByteBuf packFrame =  msg.packFrame();
-		channel.writeAndFlush(packFrame);
+		SynW s = new SynW();
+		String sx = s.writeInSync(channel, msg.packFrame(), 1000, "login");
+		return sx;
 	}
 
 
