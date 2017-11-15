@@ -17,9 +17,9 @@ public class UdpFactory {
 	/**
 	 * 远程控制开门
 	 */
-	public boolean OpenDoor(String descAddr, String srcAddr, byte subDevAddr,byte ver, byte adr)  throws Exception{
-		client.OpenDoor(descAddr,srcAddr,subDevAddr,ver,adr);
-		return true;
+	public String OpenDoor(String descAddr, String srcAddr, byte subDevAddr,byte ver, byte adr)  throws Exception{
+		String str = client.OpenDoor(descAddr,srcAddr,subDevAddr,ver,adr);
+		return str;
 	}
 		
 }

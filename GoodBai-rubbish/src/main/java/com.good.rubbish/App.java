@@ -5,9 +5,11 @@ package com.good.rubbish;
  */
 public class App {
     public static void main(String[] args) {
-        String str = "5101072000001";
-        System.out.println(str.substring(0,6));
-        System.out.println(str.substring(6,7));
-        System.out.println(str.substring(9));
+        short lth01 = 1;
+        short lth02 = 1;
+        short x0 = (short)(lth01 << 12);
+        short x1 = (short)((lth01 << 12)&(lth02 | 0x0F));
+        System.out.println(lth01 << 12);
+        System.out.println(x0);
     }
 }

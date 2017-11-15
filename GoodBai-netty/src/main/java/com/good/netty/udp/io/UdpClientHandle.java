@@ -1,5 +1,7 @@
 package com.good.netty.udp.io;
 
+import com.good.netty.udp.future.SyncWriteFuture;
+import com.good.netty.udp.future.SyncWriteMap;
 import com.good.netty.udp.packet.receive.UdpCmdRevHeader;
 import com.good.netty.udp.packet.receive.UdpCmdRevTail;
 import com.good.netty.udp.packet.receive.UdpDoorRevHeader;
@@ -56,6 +58,10 @@ public class UdpClientHandle extends SimpleChannelInboundHandler<DatagramPacket>
 			UdpCmdRevTail tail = new UdpCmdRevTail(in);
 			System.out.println(cmdRevHeader.toString());
 			System.out.println(tail.toString());
+			SyncWriteFuture future = (SyncWriteFuture) SyncWriteMap.writeRecords.get("getResult");
+			if (future != null) {
+				future.setResponse(tail.toString());
+			}
 		}else if(commType==2){//FSU透传通道心跳
 
 		}else{
