@@ -14,11 +14,9 @@
                 ></Table>
         </Card>
       </Col>
-      <Col span="5" offset="1">
-        <Card style="width:100%;height:600px">
-          <p slot="title">
-            权限列表
-          </p>
+      <Col span="8" offset="1">
+        <Card style="width:100%;height:680px;">
+          <p slot="title">权限列表</p>
           <roleTree ref='Tree12' :key="1" :checkIds="checkIds"></roleTree>
         </Card>
       </Col>

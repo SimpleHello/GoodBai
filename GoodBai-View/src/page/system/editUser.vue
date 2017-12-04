@@ -21,7 +21,7 @@
           <Radio label="0">女</Radio>
         </RadioGroup>
       </FormItem>
-      <FormItem label="权限分组" prop="auth">
+      <FormItem label="权限分组" prop="auth" >
         <Select v-model="formItem.auth" placeholder="请选择用户权限" :multiple="true">
           <Option v-for="item in auth" :value="item.id" :key="item.id">{{item.name}}</Option>
         </Select>
@@ -39,6 +39,11 @@
   import ajax from '../../module/ajax.js';
   import msg from 'iview/src/components/message';
   export default{
+    data: function () {
+      return {
+        auth:[]
+      }
+    },
     methods:{
       editUserSubmit(){
         let map = this.formItem;
