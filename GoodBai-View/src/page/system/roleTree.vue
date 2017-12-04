@@ -65,11 +65,18 @@
             cancelRoleFun(){
               this.initDate();
             },
-            qingkongRoleFun(){
-              debugger;
-              var _this=this;
-              _this.$refs.roleTree.dealTreeData();
-//              this.treeData = treeValue;
+            checkNodeByCodes: function (treeId, codes) {
+              var treeObj = $.fn.zTree.getZTreeObj(treeId);
+              treeObj.checkAllNodes(false);
+              if(codes === null || codes.length === 0){
+                return;
+              }
+              var nodes = treeObj.getNodesByFilter(function (node) {
+                return codes.containsObj(node);
+              }, false);
+              nodes.forEach(function (node) {
+                treeObj.checkNode(node, true, true, true);
+              });
             },
            roleInfoData(checkIds,roleName){
 //             this.initDate();//初始化一下
