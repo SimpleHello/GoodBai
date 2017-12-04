@@ -13,11 +13,14 @@
        </Row>
        <hr style="margin-top:10px;margin-bottom: 10px">
      </div>
-     <div class="tree-box" style="height:550px;position:relative;overflow-y:auto">
-       <div class="zTreeDemoBackground left">
-         <ul id="roleTree" class="ztree"></ul>
-       </div>
-     </div>
+    <ZTree
+        ref='roleTree'
+        :treeData="treeData"
+        :options="options"
+        @node-click="itemClick"
+        :key="1"
+
+    />
    </div>
 </template>
 
@@ -25,37 +28,32 @@
     import Vue from 'vue';
     import ajax from '../../module/ajax.js';
     import msg from 'iview/src/components/message';
+    import {ZTree} from '../../module/tree';
+    Vue.use(ZTree);
     var roleId = 0;
     var treeValue = [];
     const roleTree = {
-      name: 'Tree1',
-      data:function(){
-        return{
-          roleName:"",
-          setting:{
-            check: {
-              enable: true,
-              nocheckInherit: false
-            },
-            view: {
-              showIcon: true
-            },
-            data: {
-              simpleData: {
-                enable: true
-              }
-            },
-            callback:{
-              onClick:this.itemClick
+        name: 'Tree1',
+        data: function () {
+            return {
+                treeData: treeValue,
+                roleName:'',
+                options: {
+                    labelKey: 'name',
+                    showCheckbox: true,
+                    halfCheck: true,//控制父框是否需要半钩状态
+                    search: {
+                        useInitial: true,
+                        useEnglish: false,
+                        customFilter: null
+                    }
+                },
             }
-          },
-          zNodes:treeValue
-        }
-      },
+        },
       methods: {
-            itemClick (event, treeId, treeNode, clickFlag) {
-              console.log(treeNode);
-              alert("选择了:"+treeId);
+            itemClick (node) {
+              var _this=this;
+              _this.$refs.roleTree.handlecheckedChange(node);
             },
             saveRoleFun(){
               var _this=this;
@@ -110,7 +108,7 @@
             if(data.error<0){
             msg.error('获取列表失败', 3);
               }else{
-                 $.fn.zTree.init($("#roleTree"), this.setting,data.rows);
+                this.treeData = data.rows;
                 treeValue = data.rows;
               }
             }).catch(function (err) {
@@ -127,6 +125,6 @@
     export default roleTree;
 </script>
 
-<style>
-  @import url('../../zTree/css/zTreeStyle/zTreeStyle.css');
+<style scoped>
+
 </style>

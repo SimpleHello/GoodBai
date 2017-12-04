@@ -1,5 +1,7 @@
 <template>
   <div id="checkTree">
+    <Button type="success" @click="saveRoleFun">赋值</Button>
+    <Button type="success" @click="cancelRoleFun">点击</Button>
     <div class="tree-box">
       <div class="zTreeDemoBackground left">
         <ul id="treeDemo" class="ztree"></ul>
@@ -100,7 +102,9 @@
       }
     },
     methods:{
-
+      saveRoleFun(){
+        this.nodes
+      }
     },
     mounted(){
       $.fn.zTree.init($("#treeDemo"), this.setting, this.zNodes);

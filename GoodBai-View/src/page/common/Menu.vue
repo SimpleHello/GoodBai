@@ -47,9 +47,11 @@
               <Row type="flex">
                 <i-col span="24">
                   <ul class="layout-tab-title">
-                    <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" @click="tabClick(tabs,$index)">
-                      {{tabs.descript}}
+                    <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" >
+                      <span @click="tabClick(tabs,$index)">{{tabs.descript}}</span>
+                      <Icon type="close-circled"></Icon>
                     </li>
+
                   </ul>
                 </i-col>
               </Row>
@@ -152,6 +154,10 @@
            console.log(" 点击了2:"+ n.url);
            this.$router.push(n.url);
            this.headTabs[i].select=!this.headTabs[i].select
+      },
+      tabDelClick(){
+       alert("123123");
+        console.log(" 点击了22222:"+ n.url);
       },
       hash(e){
         return this.$route.path.replace('/','');

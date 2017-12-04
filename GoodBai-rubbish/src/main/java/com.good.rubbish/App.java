@@ -5,11 +5,10 @@ package com.good.rubbish;
  */
 public class App {
     public static void main(String[] args) {
-        short lth01 = 1;
-        short lth02 = 1;
-        short x0 = (short)(lth01 << 12);
-        short x1 = (short)((lth01 << 12)&(lth02 | 0x0F));
-        System.out.println(lth01 << 12);
-        System.out.println(x0);
+        String str = "330102000101700030217002001";
+        String code = "0"+str.substring(19,24);
+        String lastthee = code.substring(3);
+        System.out.println(code);
+        System.out.println(lastthee);
     }
 }

@@ -16,6 +16,7 @@ public class FunctionTreeInfo extends IEntity{
     private boolean checked = false;
     private boolean nodeSelectNotAll = false;//新增参数，表示父框可以半钩状态
     private int parentId;
+    private int pid;
     private boolean visible = true;
     private boolean searched = false;
 
@@ -83,5 +84,13 @@ public class FunctionTreeInfo extends IEntity{
 
     public void setChildren(List<FunctionTreeInfo> children) {
         this.children = children;
+    }
+
+    public int getPid() {
+        return parentId;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 }
