@@ -6,8 +6,8 @@
            <p style="font-size: 14px;font-weight: 900">角色: {{roleName}}</p>
          </i-col>
          <i-col span="12">
-           <Button type="success" @click="saveRoleFun">新增</Button>
-           <Button type="success" @click="cancelRoleFun">返回</Button>
+           <Button type="success" @click="saveRoleFun">保存</Button>
+           <Button type="success" @click="cancelRoleFun">清空</Button>
          </i-col>
        </Row>
        <hr style="margin-top:10px;margin-bottom: 10px">
@@ -45,7 +45,7 @@
               }
             },
             callback:{
-              onClick:this.itemClick
+//              onClick:this.itemClick
             }
           },
           zNodes:treeValue
@@ -66,7 +66,7 @@
                 }
                 selectIds.push(nodes[i].id);
               }
-              msg.info("  >> roleId:"+selectIds);//选中的值
+              msg.success("  >> roleId:"+roleId+" 选中的树ID值:"+selectIds);//选中的值
             },
             cancelRoleFun(){
               this.initDate();
@@ -112,6 +112,8 @@
               }else{
                  $.fn.zTree.init($("#roleTree"), this.setting,data.rows);
                 treeValue = data.rows;
+                roleId = 0;
+                this.roleName = "";
               }
             }).catch(function (err) {
                 return err;

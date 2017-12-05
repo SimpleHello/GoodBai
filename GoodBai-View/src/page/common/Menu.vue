@@ -48,10 +48,9 @@
                 <i-col span="24">
                   <ul class="layout-tab-title">
                     <li v-for="(tabs,$index) in headTabs" :class="{'layout-tab-actived' : tabs.select}" >
-                      <span @click="tabClick(tabs,$index)">{{tabs.descript}}</span>
-                      <Icon type="close-circled"></Icon>
+                      <span @click="tabClick(tabs,$index)">{{tabs.descript}}</span>1
+                      <Button type="dashed" icon="close-circled" size="small" @click="tabDelClick(tabs,$index)"></Button>
                     </li>
-
                   </ul>
                 </i-col>
               </Row>
@@ -155,9 +154,18 @@
            this.$router.push(n.url);
            this.headTabs[i].select=!this.headTabs[i].select
       },
-      tabDelClick(){
-       alert("123123");
-        console.log(" 点击了22222:"+ n.url);
+      tabDelClick(n,i){
+        if(this['headTabs'].length==1){
+          this['headTabs'] = [];
+          this.$router.push("/");
+          return ;
+        }
+        if(i>0){
+          this.tabClick(this['headTabs'][0],0);
+        }else {
+          this.tabClick(this['headTabs'][1],1);
+        }
+        this['headTabs'].splice(i,1);
       },
       hash(e){
         return this.$route.path.replace('/','');
