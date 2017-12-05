@@ -8,7 +8,6 @@
          <i-col span="12">
            <Button type="success" @click="saveRoleFun">新增</Button>
            <Button type="success" @click="cancelRoleFun">返回</Button>
-           <Button type="success" @click="qingkongRoleFun">清空1</Button>
          </i-col>
        </Row>
        <hr style="margin-top:10px;margin-bottom: 10px">
@@ -65,6 +64,16 @@
             cancelRoleFun(){
               this.initDate();
             },
+            ifContinue(infoType,arrDisable){
+              debugger;
+              if($.inArray(infoType, arrDisable)){
+                console.log('包含');
+                return true;
+              }else{
+                console.log('不包含');
+                return false;
+              }
+            },
             checkNodeByCodes: function (treeId, codes) {
               var treeObj = $.fn.zTree.getZTreeObj(treeId);
               treeObj.checkAllNodes(false);
@@ -72,38 +81,25 @@
                 return;
               }
               var nodes = treeObj.getNodesByFilter(function (node) {
-                return codes.containsObj(node);
+                return codes.includes(node.id);
               }, false);
+              debugger;
               nodes.forEach(function (node) {
                 treeObj.checkNode(node, true, true, true);
               });
             },
            roleInfoData(checkIds,roleName){
-//             this.initDate();//初始化一下
              roleId = checkIds;
-             this.treeData = treeValue;
-             var recurFunc = (treedata,arr) => {
-               treedata.forEach((i)=>{
-                 console.log(i+"  >> "+i.id+" >> "+arr.indexOf(i.id));
-                 if(arr.indexOf(i.id)>=0){
-                   i.checked = true;
-                 }else {
-                  i.checked = false;
-                }
-               if(i.children && i.children.length>0){
-                 recurFunc(i.children,arr);
-               }
-             });
-             }
              let parms = {"id":checkIds};
-             console.log("触发时间"+checkIds);
+             console.log("点击了角色的ID:"+checkIds);
              ajax.post('/role/getFunByRoleId.do',parms).then(data => {
                if(data.error<0){
                  msg.error('获取列表失败', 3);
                  return false;
                }else{
+                  console.log("获取 角色的ID:"+checkIds+"的信息成功!");
                    let arr = data.rows;
-                   recurFunc(this.treeData,arr);
+                   this.checkNodeByCodes("roleTree",arr);
                    this.roleName = roleName;
                    return true;
                }
