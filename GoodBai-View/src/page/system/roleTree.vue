@@ -57,22 +57,19 @@
               alert("选择了:"+treeId);
             },
             saveRoleFun(){
-              var _this=this;
-              let nodes = _this.$refs.roleTree.getSelectedNodeIds();
-              msg.info(nodes+"  >> roleId:"+roleId);//选中的值
+              var treeObj = $.fn.zTree.getZTreeObj("roleTree");
+              var nodes =treeObj.getCheckedNodes(true);
+              var selectIds = new Array();
+              for(var i=0;i<nodes.length;i++){
+                if(nodes[i].id==0){
+                  continue;
+                }
+                selectIds.push(nodes[i].id);
+              }
+              msg.info("  >> roleId:"+selectIds);//选中的值
             },
             cancelRoleFun(){
               this.initDate();
-            },
-            ifContinue(infoType,arrDisable){
-              debugger;
-              if($.inArray(infoType, arrDisable)){
-                console.log('包含');
-                return true;
-              }else{
-                console.log('不包含');
-                return false;
-              }
             },
             checkNodeByCodes: function (treeId, codes) {
               var treeObj = $.fn.zTree.getZTreeObj(treeId);
