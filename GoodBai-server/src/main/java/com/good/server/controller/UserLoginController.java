@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -24,7 +25,7 @@ public class UserLoginController {
 	private UserService userService;
 
 	@RequestMapping("/loginsubmit.do")
-	public @ResponseBody JsonResult  queryAll(@RequestBody UserInfo user) throws Exception {
+	public @ResponseBody JsonResult  queryAll(@RequestBody UserInfo user,HttpServletRequest request) throws Exception {
 		// TODO Auto-generated method stub
 		List<MenuInfo> list = null;
 		String name = user.getName();
@@ -32,6 +33,7 @@ public class UserLoginController {
 			user.setName("admin");
 		}
 		try{
+			request.getSession().setAttribute("user",user);
 			list = menuService.getListByUser(getUserId(user.getName()));
 			return new JsonResult(list);
 		}catch (Exception e){
