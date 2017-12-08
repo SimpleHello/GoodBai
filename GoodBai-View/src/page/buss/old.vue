@@ -16,11 +16,11 @@
       },
       width: {
         type: String,
-        default: '500px'
+        default: '400px'
       },
       height: {
         type: String,
-        default: '500px'
+        default: '300px'
       }
     },
     data() {
@@ -47,7 +47,7 @@
           tooltip: {
             trigger: 'axis',
             axisPointer: { // 坐标轴指示器，坐标轴触发有效
-              type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+              type: 'line' // 默认为直线，可选为：'line' | 'shadow'
             }
           },
           grid: {
@@ -67,7 +67,7 @@
             type: 'value'
           }],
           series: [{
-            name: '直接访问',
+            name: '直接访问2',
             type: 'bar',
             barWidth: '60%',
             data: [10, 52, 200, 334, 390, 330, 220]

@@ -28,7 +28,7 @@
     height: 800px;
   }
 </style>
-<script>
+<script type="text/ecmascript-6">
   import vueZtree from '../../components/vue-ztree.vue'
   import roleTree from './roleTree.vue'
   import ajax from '../../module/ajax.js';

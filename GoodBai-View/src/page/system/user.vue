@@ -4,7 +4,7 @@
       <Row>
         <i-col span="4">
           <Form-item label="姓名">
-            <Input v-model="formItem.queryName" placeholder="请输入"></Input>
+            <Input v-model="formItem.queryName" placeholder="请输入" />
           </Form-item>
         </i-col>
         <i-col span="3">
@@ -29,7 +29,7 @@
     <v-editUser :editUserTempModel="editUserModel" :formItem="editDate" v-on:closeEditModelEvent="closeEditUser"></v-editUser>
   </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
   import addUser from './addUser.vue';
   import editUser from './editUser.vue';
   import msg from 'iview/src/components/message';

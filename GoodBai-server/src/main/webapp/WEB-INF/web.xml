@@ -22,6 +22,9 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+	<listener>
+		<listener-class>com.good.server.base.listen.MySessionListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>spring</servlet-name>
@@ -37,6 +40,12 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
+	<!-- 设置会话超时时间(分钟) -->
+	<session-config>
+		<session-timeout>
+			1
+		</session-timeout>
+	</session-config>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

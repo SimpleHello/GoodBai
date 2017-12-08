@@ -35,7 +35,7 @@
     </Form>
   </Modal>
 </template>
-<script>
+<script type="text/ecmascript-6">
   import ajax from '../../module/ajax.js';
   import msg from 'iview/src/components/message';
   export default{

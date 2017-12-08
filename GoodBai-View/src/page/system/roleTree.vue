@@ -20,7 +20,7 @@
    </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
     import Vue from 'vue';
     import ajax from '../../module/ajax.js';
     import msg from 'iview/src/components/message';
