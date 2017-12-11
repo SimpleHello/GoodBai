@@ -12,7 +12,7 @@ public class ServerMain {
 
         try {
             CInterfaceConfigServer config = new CInterfaceConfigServer();
-            config.initServer("10.0.6.135",1234);
+            config.initServer("10.0.5.35",1234);
             config.enbaleServer();
         } catch (Exception e) {
             e.printStackTrace();

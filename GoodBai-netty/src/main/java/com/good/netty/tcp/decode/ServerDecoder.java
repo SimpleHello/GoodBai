@@ -1,19 +1,17 @@
 package com.good.netty.tcp.decode;
 
-import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.good.netty.tcp.common.SyncWriteMap;
 import com.good.netty.tcp.entity.packet.InterfaceMessage;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -43,7 +41,8 @@ public class ServerDecoder extends LengthFieldBasedFrameDecoder{
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
     	InterfaceMessage msg = null;
-    	try{
+		System.out.println("===========================================================");
+		try{
     		String magic = in.getCharSequence(0, 10, StandardCharsets.UTF_8).toString().trim();
 			int length = (int) in.getUnsignedInt(10);
 			int byteBuf  = in.writerIndex();

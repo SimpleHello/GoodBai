@@ -1,17 +1,15 @@
 package com.good.netty.tcp.handle;
 
-import java.util.concurrent.ScheduledFuture;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.good.netty.tcp.entity.packet.Header;
 import com.good.netty.tcp.entity.packet.InterfaceMessage;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.UnsupportedMessageTypeException;
 import io.netty.util.AttributeKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * Created by mag on 2017/07/14. C1 接口业务相关接口处理
@@ -63,7 +61,7 @@ public class ClientHandle extends ChannelInboundHandlerAdapter {
 		switch (message.getHeader().getType()) {
 		// 102 登陆响应 => 直接等待响应获取
 		case LOGIN_ACK:
-			System.out.println("得到返回信息");
+			System.out.println("LOGIN_ACK ==>得到返回信息");
 			break;
 		case UNKNOWN:
 			// 收到错误的报文类型，这些报文不应该在服务端收到，抛出错误

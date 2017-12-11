@@ -48,7 +48,7 @@ public class InterfaceMessage {
         this.body = bodyClass.newInstance();
         this.body.parseFrame(frame.readBytes((int)this.header.getLength() - Header.BYTE_LEN));
         this.crc = new CRC(frame.readBytes(2));
-        LOGGER.info("[CI] Frame recieved. " + this);
+//        LOGGER.info("[CI] Frame recieved. " + this);
     }
 
 

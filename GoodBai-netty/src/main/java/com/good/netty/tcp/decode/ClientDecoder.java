@@ -40,7 +40,7 @@ public class ClientDecoder extends LengthFieldBasedFrameDecoder {
 			if (in == null) {
 				logger.debug("get the message:> ByteBuf in is null");
 			}
-			logger.info(" msg:"+ in);
+//			logger.info(" msg:"+ in);
 			msg = new InterfaceMessage(in);
 			logger.debug("message received: {}", msg);
 		} catch (Exception e) {

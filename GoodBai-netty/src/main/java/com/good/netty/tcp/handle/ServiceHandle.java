@@ -15,6 +15,9 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.UnsupportedMessageTypeException;
 import io.netty.util.AttributeKey;
 
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+
 /**
  * Created by mag on 2017/07/14.
  * C1 接口业务相关接口处理
@@ -42,6 +45,14 @@ public class ServiceHandle extends ChannelInboundHandlerAdapter {
         System.out.println(">>:"+message.toString());
         Header header = null;
         InterfaceMessage messageAck =null;
+        try {
+            SocketAddress remoteAddress = ctx.channel().remoteAddress();
+            InetSocketAddress isa = (InetSocketAddress) remoteAddress;
+            String ipInfo = "remote ip :" + isa.getAddress() + ";hostName:" + isa.getHostName() + ";port:" + isa.getPort();
+            System.out.println(ipInfo);
+        }catch (Exception e){
+
+        }
         switch (message.getHeader().getType()) {
             // 101 登路
             case LOGIN:
