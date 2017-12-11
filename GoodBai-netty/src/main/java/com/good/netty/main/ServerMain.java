@@ -1,6 +1,6 @@
 package com.good.netty.main;
 
-import com.good.netty.common.CInterfaceConfigServer;
+import com.good.netty.tcp.common.CInterfaceConfigServer;
 
 /**
  * Created by mag on 2017/07/14.

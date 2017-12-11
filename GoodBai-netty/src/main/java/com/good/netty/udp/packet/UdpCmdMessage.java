@@ -1,6 +1,6 @@
 package com.good.netty.udp.packet;
 
-import com.good.netty.entity.body.Body;
+import com.good.netty.tcp.entity.body.Body;
 import io.netty.buffer.ByteBuf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

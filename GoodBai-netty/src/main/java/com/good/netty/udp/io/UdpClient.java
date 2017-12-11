@@ -1,6 +1,6 @@
 package com.good.netty.udp.io;
 
-import com.good.netty.entity.body.Body;
+import com.good.netty.tcp.entity.body.Body;
 import com.good.netty.udp.common.UdpConfigInit;
 import com.good.netty.udp.entity.OpenDoor;
 import com.good.netty.udp.future.SynW;

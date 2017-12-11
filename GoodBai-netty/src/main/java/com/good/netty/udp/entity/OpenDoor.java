@@ -1,6 +1,6 @@
 package com.good.netty.udp.entity;
 
-import com.good.netty.entity.body.Body;
+import com.good.netty.tcp.entity.body.Body;
 import com.good.netty.util.ByteUtil;
 import io.netty.buffer.ByteBuf;
 
