@@ -110,7 +110,7 @@ body{ height: 100%}
         </Row>
     </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
 import { mapGetters } from 'vuex';
 import sidebarItem from './layout/sidebarItem';
 export default {
