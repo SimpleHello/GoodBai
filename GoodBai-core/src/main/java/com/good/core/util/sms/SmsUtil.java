@@ -1,4 +1,4 @@
-package com.good.server.util.sms;
+package com.good.core.util.sms;
 
 /**
  * Created by John on 2017/10/18.

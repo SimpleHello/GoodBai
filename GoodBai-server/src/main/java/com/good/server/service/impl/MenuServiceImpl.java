@@ -4,7 +4,7 @@ import com.good.server.dao.MenuDaoImpl;
 import com.good.server.entity.system.MenuInfo;
 import com.good.server.entity.system.FunctionTreeInfo;
 import com.good.server.service.MenuService;
-import com.good.server.util.system.TreeUtil;
+import com.good.core.util.system.TreeUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

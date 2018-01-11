@@ -1,4 +1,4 @@
-package com.good.server.util.sms;
+package com.good.core.util.sms;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

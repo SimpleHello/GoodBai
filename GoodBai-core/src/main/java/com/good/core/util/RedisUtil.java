@@ -1,14 +1,13 @@
-package com.good.server.redis;
+package com.good.core.util;
 
+
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.util.CollectionUtils;
 
 
 /**
@@ -147,7 +146,6 @@ public class RedisUtil {
     /**
      * 递减
      * @param key 键
-     * @param by 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta){
@@ -437,9 +435,9 @@ public class RedisUtil {
      * @param value 值
      * @return
      */
-    public boolean lSet(String key, Object value) {
+    public boolean llSet(String key, Object value) {
         try {
-            redisTemplate.opsForList().rightPush(key, value);
+            redisTemplate.opsForList().leftPush(key, value);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -451,20 +449,35 @@ public class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return
      */
-    public boolean lSet(String key, Object value, long time) {
+    public boolean lrSet(String key, Object value) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
-            if (time > 0) expire(key, time);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-
+    public Object lrGet(String key) {
+        try {
+            Object str = redisTemplate.opsForList().rightPop(key);
+            return str;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public Object llGet(String key) {
+        try {
+            Object str = redisTemplate.opsForList().leftPop(key);
+            return str;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 将list放入缓存
      * @param key 键

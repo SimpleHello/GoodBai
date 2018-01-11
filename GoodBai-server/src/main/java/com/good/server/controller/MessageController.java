@@ -2,7 +2,7 @@ package com.good.server.controller;
 
 import com.good.server.base.JsonResult;
 import com.good.server.entity.MessageInfo;
-import com.good.server.util.sms.SmsUtil;
+import com.good.core.util.sms.SmsUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

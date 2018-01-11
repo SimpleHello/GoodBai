@@ -1,4 +1,4 @@
-package com.good.server.util.sms;
+package com.good.core.util.sms;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

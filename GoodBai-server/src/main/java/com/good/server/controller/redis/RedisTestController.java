@@ -2,7 +2,7 @@ package com.good.server.controller.redis;
 
 import com.good.server.base.JsonResult;
 import com.good.server.entity.RedisInfo;
-import com.good.server.redis.RedisUtil;
+import com.good.core.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

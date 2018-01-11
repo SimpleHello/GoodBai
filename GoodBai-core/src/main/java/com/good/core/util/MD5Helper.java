@@ -1,4 +1,4 @@
-package com.good.rubbish.util;
+package com.good.core.util;
 
 import java.security.MessageDigest;
 

@@ -1,4 +1,4 @@
-package com.good.server.util.system;
+package com.good.core.util.system;
 
 import com.good.server.entity.system.MenuInfo;
 import com.good.server.entity.system.FunctionTreeInfo;

@@ -29,5 +29,10 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.6.Final</version>
         </dependency>
+        <dependency>
+            <groupId>GoodBai-all</groupId>
+            <artifactId>GoodBai-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

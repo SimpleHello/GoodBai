@@ -42,7 +42,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>1.7.2.RELEASE</version>
+            <version>2.0.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.jasypt</groupId>
@@ -273,6 +273,12 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.2.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+            <version>3.2.0</version>
+        </dependency>
         <!--
         <dependency>
             <groupId>com.vteba</groupId>
@@ -337,5 +343,6 @@
         <module>GoodBai-netty</module>
         <module>GoodBai-server</module>
         <module>GoodBai-rubbish</module>
+        <module>GoodBai-core</module>
     </modules>
 </project>

@@ -1,4 +1,4 @@
-package com.good.server.util;
+package com.good.core.util;
 
 /**
  * Created by John on 2017/10/12.

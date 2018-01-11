@@ -40,7 +40,11 @@
             <artifactId>okhttp</artifactId>
             <version>3.6.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>GoodBai-all</groupId>
+            <artifactId>GoodBai-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>GoodBai-server</finalName>
