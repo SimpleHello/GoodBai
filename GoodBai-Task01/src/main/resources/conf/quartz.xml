@@ -10,14 +10,13 @@
 	<bean id="oneTask" class="com.good.task01.job.JobOne" />
 
 	<!-- 配置MethodInvokingJobDetailFactoryBean -->
-	<bean id="oneTaskMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="oneTaskMethod" class="com.good.task01.quartz.JobDetailProxyBean">
 		<property name="targetObject" ref="oneTask" />
 		<property name="targetMethod" value="run" />
-		<property name="concurrent" value="false" />
 	</bean>
 
 	<!-- 配置定时表达式 -->
-	<bean id="oneTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	<bean id="oneTaskTrigger" class="com.good.task01.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="oneTaskMethod" />
 		<!-- 1小时执行1次 -->
 		<property name="cronExpression" value="0/10 * * * * ?" />
@@ -27,28 +26,34 @@
 	<bean id="twoTask" class="com.good.task01.job.JobTwo" />
 
 	<!-- 配置MethodInvokingJobDetailFactoryBean -->
-	<bean id="twoTaskMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="twoTaskMethod" class="com.good.task01.quartz.JobDetailProxyBean">
 		<property name="targetObject" ref="twoTask" />
 		<property name="targetMethod" value="run" />
-		<property name="concurrent" value="false" />
 	</bean>
 
 	<!-- 配置定时表达式 -->
-	<bean id="twoTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	<bean id="twoTaskTrigger" class="com.good.task01.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="twoTaskMethod" />
 		<!-- 1小时执行1次 -->
 		<property name="cronExpression" value="0/5 * * * * ?" />
 	</bean>
 
+	<!--zk配置-->
+	<bean id="zooKeeperFactory" class="com.good.task01.quartz.ZookeeperFactory">
+		<property name="hosts" value="10.0.5.36:2181"/>
+		<property name="sessionTimeOut" value="15000"/>
+		<property name="nameSpace" value="zk-scheduling"/>
+	</bean>
+
 	<!-- 配置调度工厂 -->
-	<bean id="schedulerFactoryBean"
-		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<bean id="schedulerFactoryBean"  class="com.good.task01.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="oneTaskTrigger" />
 				<ref bean="twoTaskTrigger" />
 			</list>
 		</property>
+		<property name="zooKeeperFactory" ref="zooKeeperFactory"/>
 	</bean>
 
 </beans>

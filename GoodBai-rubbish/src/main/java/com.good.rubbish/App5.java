@@ -1,21 +1,33 @@
 package com.good.rubbish;
 
+import com.good.rubbish.other.Father;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Hello world!
  */
 public class App5 {
+
+    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+
     public static void main(String[] args) throws Exception {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date();
-//        int outTime = 61;
-//        System.out.println("当前时间:"+sdf.format(date));
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(new Date());
-//        calendar.add(Calendar.MINUTE,-outTime);//当前时间往前推
-//        System.out.println(sdf.format(calendar.getTime()));
-        int[] riskint = new int[3];
-        for (int j:riskint){
-            System.out.println(j);
+        List<Father> list = new ArrayList<>();
+        list.add(new Father("张三",1));
+        list.add(new Father("李四",2));
+        list.add(new Father("王武",3));
+        for(Father father:list){
+            final String name = father.getName();
+            final int age = father.getAge();
+            fixedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println(name+age);
+                }
+            });
         }
     }
 }

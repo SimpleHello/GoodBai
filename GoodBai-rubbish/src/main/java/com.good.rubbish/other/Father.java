@@ -5,13 +5,22 @@ package com.good.rubbish.other;
  */
 public class Father {
     private  String name;
-    private  String age;
+    private  int age;
 
-    public String getAge() {
+    public Father(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public Father() {
+
+    }
+
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
