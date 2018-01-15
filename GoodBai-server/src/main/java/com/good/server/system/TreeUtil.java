@@ -1,7 +1,7 @@
-package com.good.core.util.system;
+package com.good.server.system;
 
-import com.good.server.entity.system.MenuInfo;
 import com.good.server.entity.system.FunctionTreeInfo;
+import com.good.server.entity.system.MenuInfo;
 
 import java.util.ArrayList;
 import java.util.List;

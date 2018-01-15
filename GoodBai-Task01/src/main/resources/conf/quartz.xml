@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+
+	<!-- 实例化bean FSU状态统计 1小时执行1次-->
+	<bean id="oneTask" class="com.good.task01.job.JobOne" />
+
+	<!-- 配置MethodInvokingJobDetailFactoryBean -->
+	<bean id="oneTaskMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="oneTask" />
+		<property name="targetMethod" value="run" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<!-- 配置定时表达式 -->
+	<bean id="oneTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="oneTaskMethod" />
+		<!-- 1小时执行1次 -->
+		<property name="cronExpression" value="0/10 * * * * ?" />
+	</bean>
+
+	<!-- 服务器性能告警 1分钟执行1次-->
+	<bean id="twoTask" class="com.good.task01.job.JobTwo" />
+
+	<!-- 配置MethodInvokingJobDetailFactoryBean -->
+	<bean id="twoTaskMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="twoTask" />
+		<property name="targetMethod" value="run" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<!-- 配置定时表达式 -->
+	<bean id="twoTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="twoTaskMethod" />
+		<!-- 1小时执行1次 -->
+		<property name="cronExpression" value="0/5 * * * * ?" />
+	</bean>
+
+	<!-- 配置调度工厂 -->
+	<bean id="schedulerFactoryBean"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="oneTaskTrigger" />
+				<ref bean="twoTaskTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

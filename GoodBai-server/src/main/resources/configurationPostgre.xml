@@ -8,5 +8,6 @@
 		<mapper resource="mapper/MenuDaoMapper.xml" />
 		<mapper resource="mapper/RoleDaoMapper.xml" />
 		<mapper resource="mapper/UserDaoMapper.xml" />
+		<mapper resource="mapper/RedisTestDaoMapper.xml" />
 	</mappers>
 </configuration>

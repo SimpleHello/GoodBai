@@ -134,7 +134,7 @@ public class RedisUtil {
      * 递增
      * @param key 键
      * @param delta by 要增加几(大于0)
-     * @return
+     * @return long珂ux
      */
     public long incr(String key, long delta){
         if(delta<0){
@@ -430,10 +430,10 @@ public class RedisUtil {
     }
 
     /**
-     * 将list放入缓存
+     * 将list 左放入缓存
      * @param key 键
      * @param value 值
-     * @return
+     * @return boolean类
      */
     public boolean llSet(String key, Object value) {
         try {
@@ -446,10 +446,10 @@ public class RedisUtil {
     }
 
     /**
-     * 将list放入缓存
+     * 将list 右 放入缓存
      * @param key 键
      * @param value 值
-     * @return
+     * @return  boolean类
      */
     public boolean lrSet(String key, Object value) {
         try {
@@ -460,10 +460,10 @@ public class RedisUtil {
             return false;
         }
     }
+
     public Object lrGet(String key) {
         try {
-            Object str = redisTemplate.opsForList().rightPop(key);
-            return str;
+            return  redisTemplate.opsForList().rightPop(key);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -471,8 +471,7 @@ public class RedisUtil {
     }
     public Object llGet(String key) {
         try {
-            Object str = redisTemplate.opsForList().leftPop(key);
-            return str;
+            return redisTemplate.opsForList().leftPop(key);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -482,7 +481,7 @@ public class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @return
+     * @return boolean类
      */
     public boolean lSet(String key, List<Object> value) {
         try {
@@ -499,7 +498,7 @@ public class RedisUtil {
      * @param key 键
      * @param value 值
      * @param time 时间(秒)
-     * @return
+     * @return boolean类
      */
     public boolean lSet(String key, List<Object> value, long time) {
         try {
@@ -517,7 +516,7 @@ public class RedisUtil {
      * @param key 键
      * @param index 索引
      * @param value 值
-     * @return
+     * @return boolean类
      */
     public boolean lUpdateIndex(String key, long index,Object value) {
         try {
@@ -538,8 +537,7 @@ public class RedisUtil {
      */
     public long lRemove(String key,long count,Object value) {
         try {
-            Long remove = redisTemplate.opsForList().remove(key, count, value);
-            return remove;
+            return redisTemplate.opsForList().remove(key, count, value);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="redis_test">
+	<select id="saveRedisTest" parameterType="com.good.server.entity.Student">
+		insert into student01(name,age,threadName,ctime)
+		values(
+			#{name,jdbcType=VARCHAR},
+			#{age,jdbcType=NUMERIC},
+			#{threadName,jdbcType=VARCHAR},
+			now())
+	</select>
+
+</mapper>

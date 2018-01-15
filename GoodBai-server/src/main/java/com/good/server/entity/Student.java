@@ -1,12 +1,18 @@
 package com.good.server.entity;
 
+import com.good.server.base.IEntity;
+
+import java.util.Date;
+
 /**
  * Created by Mg on 2018/1/11.
  */
-public class Student {
+public class Student extends IEntity{
     private int id;
     private String name;
     private int age;
+    private String threadName;
+    private Date ctime;
 
     public Student() {
     }
@@ -39,6 +45,22 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getThreadName() {
+        return threadName;
+    }
+
+    public void setThreadName(String threadName) {
+        this.threadName = threadName;
+    }
+
+    public Date getCtime() {
+        return ctime;
+    }
+
+    public void setCtime(Date ctime) {
+        this.ctime = ctime;
     }
 
     @Override
