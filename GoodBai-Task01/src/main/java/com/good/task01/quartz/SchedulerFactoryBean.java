@@ -64,7 +64,12 @@ public class SchedulerFactoryBean implements InitializingBean {
 //                System.out.println("SimpleTriggerBean");
             }
         }
-
+        boolean fa = false;
+        try {
+            logger.info("权限:"+this.getZooKeeperFactory().getMonopolyLock());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         scheduler.start();
         logger.info("调度器已启动");
     }

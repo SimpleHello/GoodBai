@@ -31,7 +31,7 @@
     
 
     <!--<import resource="mongo.xml" />-->
-    <import resource="quartz.xml" />
+    <import resource="quartz-job.xml" />
     <aop:aspectj-autoproxy/>
     
 </beans>

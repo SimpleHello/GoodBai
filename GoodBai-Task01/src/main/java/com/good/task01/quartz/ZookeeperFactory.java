@@ -1,8 +1,5 @@
 package com.good.task01.quartz;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.good.task01.util.Constant;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -15,6 +12,9 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
 import org.springframework.beans.factory.InitializingBean;
+
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -158,10 +158,14 @@ public class ZookeeperFactory implements InitializingBean{
         boolean flag = false;
         if(connectionState != null && (connectionState.equals("CONNECTED") || connectionState.equals("RECONNECTED"))){
             List<String> nodes = zkTools.getChildren().watched().forPath(Constant.MONOPOLY);
+            logger.info("节点:"+nodes.size());
             if(nodes.size() > 0){
                 Collections.sort(nodes);
+                String first = Constant.SEPARATOR + Constant.MONOPOLY + Constant.SEPARATOR + nodes.get(0);
+                logger.info("第一个节点:"+ first);
+                logger.info("当前节点节点:"+ monopolyQueueNode);
                 //判断当前应用是否在队列的第一位
-                if((Constant.SEPARATOR + Constant.MONOPOLY + Constant.SEPARATOR + nodes.get(0)).equals(monopolyQueueNode)){
+                if((first).equals(monopolyQueueNode)){
                     flag = true;
                 }
             }
