@@ -29,7 +29,7 @@
                        ...lib
                        ...generateImportCarSql.jar
                  -->
-                <targetPath>${project.build.directory}/config</targetPath>
+                <!--<targetPath>${project.build.directory}/config</targetPath>-->
             </resource>
         </resources>
         <plugins>

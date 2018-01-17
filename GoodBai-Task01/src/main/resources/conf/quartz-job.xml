@@ -19,5 +19,5 @@
 				registry-center-ref="regCenter" cron="0/5 * * * * ?"
 				sharding-total-count="1"
 				overwrite="true"
-				job-parameter="this is param"/>
+				job-parameter="${paramdemo}"/>
 </beans>
