@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,8 +27,12 @@ import java.util.Random;
 @ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class Test01 {
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static SimpleDateFormat sdff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     private static Date start = null;
     private static Date end = null;
+
+    private static final Logger logger = LoggerFactory.getLogger(Test01.class);
+
     @Before
     public void setUp() {
         start = new Date();
@@ -64,12 +70,12 @@ public class Test01 {
     @Test
     public void alarmTest02() {
         try {
-            for(int i=0;i<100;i++){
+            for(int i=0;i<1;i++){
                 final int j = i;
                 Student student = new Student(j,"name"+j,(int)getRandom(16,49));
                 String json = JSONObject.toJSONString(student);
                 redisUtil.lrSet("student01",json);
-                System.out.println(">> "+ student.toString());
+                System.out.println(sdff.format(new Date())+">> "+ student.toString());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,15 +88,25 @@ public class Test01 {
         public void run() {
             try{
                 String threadName = Thread.currentThread().getName();
+                if(getNum()<=0){
+                    logger.info("threadName:"+threadName+" 未获取到数据!");
+                    return;
+                }
                 String json = String.valueOf(redisUtil.llGet("student01"));
+                logger.info("threadName:"+threadName+" 未获取到数据! json:"+json);
                 if(json ==null){
+                    logger.info("threadName:"+threadName+" 未获取到数据! json 是 null 啊 !!");
                     return;
                 }
                 Student student = JSON.parseObject(json,Student.class);
+                if(student==null){
+                    logger.info("threadName:"+threadName+" 未获取到数据! 但是还是 进来了!!!!");
+                    return;
+                }
                 student.setThreadName(threadName);
                 redisTest.saveRedisTest(student);
+                System.out.println(sdff.format(new Date())+"threadName:"+threadName+">>"+student.toString());
                 Thread.sleep(2000);//执行2秒
-                System.out.println(">>"+student.toString());
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -100,13 +116,19 @@ public class Test01 {
     @Test
     public void alarmTest03() {
         try {
-            while(redisUtil.lGetListSize("student01")>0){
-                taskExecutor.execute(new MyTest());
+            while(true){
+                if(getNum()>0){
+                    taskExecutor.execute(new MyTest());
+                }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+    public synchronized long getNum() {
+        return redisUtil.lGetListSize("student01");
     }
 
     @Test

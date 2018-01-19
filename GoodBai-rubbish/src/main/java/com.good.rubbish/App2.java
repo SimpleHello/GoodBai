@@ -4,12 +4,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Created by Mg on 2017/11/23.
  */
 public class App2 {
     public static void main(String[] args) throws  Exception{
-        getRandom(75,50);
+//        getRandom(75,50);
+        int i = 0;
+        while (true){
+            System.out.println("开始打印:"+i);
+            sleep(10);
+            i = i+1;
+        }
     }
 
     private  static void Sxx()  throws  Exception{

@@ -43,7 +43,7 @@
 	<!-- 设置会话超时时间(分钟) -->
 	<session-config>
 		<session-timeout>
-			1
+			60
 		</session-timeout>
 	</session-config>
 
