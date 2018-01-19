@@ -398,5 +398,6 @@
         <module>GoodBai-rubbish</module>
         <module>GoodBai-core</module>
         <module>GoodBai-Task01</module>
+        <module>GoodBai-Task02</module>
     </modules>
 </project>

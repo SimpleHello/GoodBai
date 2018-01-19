@@ -70,11 +70,11 @@ public class Test01 {
     @Test
     public void alarmTest02() {
         try {
-            for(int i=0;i<1;i++){
+            for(int i=0;i<1000;i++){
                 final int j = i;
                 Student student = new Student(j,"name"+j,(int)getRandom(16,49));
                 String json = JSONObject.toJSONString(student);
-                redisUtil.lrSet("student01",json);
+                redisUtil.lrSet("niu",json);
                 System.out.println(sdff.format(new Date())+">> "+ student.toString());
             }
         } catch (Exception e) {
