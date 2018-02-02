@@ -478,6 +478,14 @@ public class RedisUtil {
         }
     }
 
+    public Object llSaveGet(String key,String k2) {
+        try {
+            return redisTemplate.opsForList().rightPopAndLeftPush(key,k2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * 将list放入缓存
      * @param key 键

@@ -132,12 +132,4 @@
         </property>
     </bean>
 
-    <bean id="redisProcess" class="com.good.server.redis.RedisProcess"  init-method="execute">
-        <!-- redis List key -->
-        <property name="key" value="niu" />
-        <property name="redisUtil" ref="redisUtil" />
-        <property name="redisTest" ref="redisTestDaoImpl">
-        </property>
-        <property name="taskExecutor" ref="taskExecutor" />
-    </bean>
 </beans>

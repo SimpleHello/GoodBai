@@ -3,8 +3,8 @@ package com.good.rubbish;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
-
-import static java.lang.Thread.sleep;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Mg on 2017/11/23.
@@ -12,12 +12,17 @@ import static java.lang.Thread.sleep;
 public class App2 {
     public static void main(String[] args) throws  Exception{
 //        getRandom(75,50);
-        int i = 0;
-        while (true){
-            System.out.println("开始打印:"+i);
-            sleep(10);
-            i = i+1;
-        }
+        String regEx = "^[0-9]{10}(006|007|015|016|181|182|183|184)[0-9]{4}$";
+        // 要验证的字符串
+        String str = "11010100011810001";
+        // 编译正则表达式
+        Pattern pattern = Pattern.compile(regEx);
+        // 忽略大小写的写法
+        // Pattern pat = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(str);
+        // 字符串是否与正则表达式相匹配
+        boolean rs = matcher.matches();
+        System.out.println(rs);
     }
 
     private  static void Sxx()  throws  Exception{
