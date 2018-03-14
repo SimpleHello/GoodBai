@@ -6,3 +6,4 @@
 *.log
 target
 /target/
+src/main/resources/config.properties
