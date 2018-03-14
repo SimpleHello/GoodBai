@@ -20,14 +20,23 @@
 	<bean id="oneTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="oneTaskMethod" />
 		<!-- 1小时执行1次 -->
-		<property name="cronExpression" value="0 0 * * * ?" />
+		<property name="cronExpression" value="0 10 8,9,12,14,15,18,20 * * ?" />
 	</bean>
+
+	<!-- 配置定时表达式 -->
+	<bean id="oneTaskTriggerSo" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="oneTaskMethod" />
+		<property name="startDelay" value="3000" /><!-- 调度工厂实例化后，经过5秒开始执行调度 -->
+		<property name="repeatInterval" value="100002000" /><!-- 每2秒调度一次 -->
+
+	</bean>
+
 	<!-- 配置调度工厂 -->
 	<bean id="schedulerFactoryBean"
 		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="oneTaskTrigger" />
+				<ref bean="oneTaskTriggerSo" />
 			</list>
 		</property>
 	</bean>

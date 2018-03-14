@@ -125,7 +125,9 @@ public class DaoHelper extends SqlSessionDaoSupport {
 	
 	public  int count(String nameSpace, String sqlID, IEntity paramObject) throws Exception{
 		try{
-			return Integer.valueOf(String.valueOf(sqlSessionTemplate.selectOne(getStatement(nameSpace, sqlID), paramObject)));
+			Object t = sqlSessionTemplate.selectOne(getStatement(nameSpace, sqlID), paramObject);
+			String str = String.valueOf(t);
+			return Integer.valueOf(str);
 		}
 		catch(Exception ex){
 			throw ex;

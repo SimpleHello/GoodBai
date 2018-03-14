@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Share_ths_ai_detail">
+
+	<select id="getChangeList" resultType="com.good.task01.entity.ShareDetailEntity" parameterType="com.good.task01.entity.ShareQuery">
+			SELECT id,type FROM
+            (SELECT t8.id, t8.share,t8.code,t89.code AS amm,-1 AS type
+              FROM (SELECT * FROM Share_ths_ai_detail WHERE noDay=#{startDay} AND noHour=#{startHour}) t8
+            LEFT join (SELECT code,name FROM Share_ths_ai_detail t89 WHERE noDay=#{endDay} AND noHour=#{endHour}) t89
+            ON  t89.name=t8.name AND t89.code =t8.code) t WHERE amm IS null
+            UNION all
+            SELECT id,type FROM
+            (SELECT t8.id, t8.share,t8.code,t89.code AS amm,1 AS type
+               FROM (SELECT * FROM Share_ths_ai_detail WHERE noDay=#{endDay} AND noHour=#{endHour}) t8
+            LEFT join (SELECT code,name FROM Share_ths_ai_detail t89 WHERE noDay=#{startDay} AND noHour=#{startHour} ) t89
+            ON  t89.name=t8.name AND t89.code =t8.code) t WHERE amm IS null
+	</select>
+
+	<update id="updateDelType" parameterType="com.good.task01.entity.ShareQuery">
+        update Share_ths_ai_detail set deltype=-1,ctime = ctime
+        WHERE id IN
+        <foreach collection="ids" index="index" item="item"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</update>
+
+	<update id="updateAddType"  parameterType="com.good.task01.entity.ShareQuery">
+        update Share_ths_ai_detail set addtype=1,ctime = ctime
+        WHERE id IN
+        <foreach collection="ids" index="index" item="item"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</update>
+
+	<select id="getEndDetail" resultType="Integer" parameterType="com.good.task01.entity.ShareQuery">
+		SELECT count(1) FROM Share_ths_ai_detail t1 where noDay=#{endDay} AND noHour=#{endHour}
+	</select>
+
+</mapper>
