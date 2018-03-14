@@ -9,10 +9,6 @@
 
     <artifactId>GoodBai-Task01</artifactId>
     <packaging>jar</packaging>
-
-    <name>GoodBai-Task01</name>
-    <url>http://maven.apache.org</url>
-
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
