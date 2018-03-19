@@ -18,7 +18,8 @@ import java.util.List;
  * Created by Mg on 2018/1/15.
  */
 public class JobOne {
-    private static int[] hours = {8,9,12,14,15,18,20};
+
+    private String hours;
 
     @Resource(name="shareChangeDao")
     private ShareChangeDaoImpl shareChangeDao;
@@ -27,8 +28,16 @@ public class JobOne {
 
     public  void run(){
         try{
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date time = new Date();
-            dealMessage(time);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(time);
+            int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+            if(week==0 || week==6){
+                LOGGER.info("时间:{} 双休日 不做定时任务--- !!",sdf.format(time));
+            }else{
+                dealMessage(time);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -90,17 +99,18 @@ public class JobOne {
         shareChangeDao.updateDelType(query);
     }
 
-    private static int[] getIndex(int num){
+    private int[] getIndex(int num){
+        int[] hourList = getHourList();
         int[] value = new int[2];
-        int len = hours.length;
+        int len = hourList.length;
         for(int i=0;i<len;i++){
-            if(hours[i]==num){
+            if(hourList[i]==num){
                 if(i==0){
-                    value[0] = hours[len-1];
+                    value[0] = hourList[len-1];
                     value[1] = -1;
                     return value;
                 }else{
-                    value[0] = hours[i-1];
+                    value[0] = hourList[i-1];
                     value[1] = 0;
                     return value;
                 }
@@ -108,5 +118,29 @@ public class JobOne {
         }
         value[0] = -1;
         return value;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+    private int[] getHourList(){
+        int[] value = {9,12,15,18};
+        if(hours==null||hours.equals("")){
+            return value;
+        }
+        String[] init = hours.split(",");
+        int[] result = new int[init.length];
+        try{
+            for(int i=0;i<init.length;i++){
+                result[i] = Integer.valueOf(init[i]);
+            }
+            return result;
+        }catch (Exception e){
+            return value;
+        }
+
+    }
+    public void setHours(String hours) {
+        this.hours = hours;
     }
 }

@@ -406,5 +406,6 @@
         <module>GoodBai-core</module>
         <module>GoodBai-Task01</module>
         <module>GoodBai-Task02</module>
+        <module>GoodBai-Task03</module>
     </modules>
 </project>
