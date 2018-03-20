@@ -1,4 +1,4 @@
-package com.good.server.dao;
+package com.good.server.dao.system;
 
 
 import com.good.server.base.DaoHelper;

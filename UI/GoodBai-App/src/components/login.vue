@@ -13,8 +13,8 @@
 			<li :class='[{"icon-eye1":showPwd},{"icon-eye2":!showPwd}]'>
 				<label>
 					<span>密码</span>
-					<input type="password" placeholder="请输入6-12位密码" v-model.trim='pwd' v-if='showPwd' >
-					<input type="text" placeholder="请输入6-12位密码" v-model.trim='pwd' v-if='!showPwd'>
+					<input type="password" placeholder="请输入6位密码" v-model.trim='pwd' v-if='showPwd' >
+					<input type="text" placeholder="请输入6位密码" v-model.trim='pwd' v-if='!showPwd'>
 					<i @click='showPwd = !showPwd'></i>
 				</label>
 			</li>
@@ -30,7 +30,9 @@
 		</transition>
 	</div>
 </template>
-<script>
+<script type="text/ecmascript-6">
+	import ajax from '../config/ajax.js';
+	import {ymzs} from '../config/auth.js';
 	export default {
 	    data () {
 	        return {
@@ -44,15 +46,29 @@
 	    },
 	    methods :{
 	        logIn () {
-	        	var checkName = /^[1][3578][0-9]{9}$/,
-	        		checkPwd = /^[\d\D]{6,12}$/;
-	        	//先做一些简单的判断再提交ajax
+	        	var checkName = /^[1][0-9]{5}$/,
+	        		checkPwd = /^[1][0-9]{5}$/;
+//	        	//先做一些简单的判断再提交ajax
 	        	if( checkName.test(this.name) == false )		this.callDialog('帐号不正确');
 	        	else if( checkPwd.test(this.pwd) == false )		this.callDialog('密码不正确');
-	        	else if( this.code.toUpperCase() !== this.canvasCode.codeNums.toUpperCase() )	this.callDialog('验证码不正确');
+//	        	else if( this.code.toUpperCase() !== this.canvasCode.codeNums.toUpperCase() )	this.callDialog('验证码不正确');
 	        	else{
-	        		//先跳到借款首页暂代，后期ajax
-	        		this.$router.push('/loan'); 
+					let param = new Object();
+					param.name = this.name;
+					param.password = this.pwd;
+					ajax.post('/user/loginsubmit.do',param).then(data => {
+						if(data.error<0){
+						this.callDialog('获取列表失败');
+						return false;
+					}else{
+						this.leftNav= data.rows;
+						ymzs.nav = data.rows;
+						this.callDialog(data.message);
+						return true
+					}
+				}).catch(function (err) {
+						return err;
+					});
 	        	}
 	        },
 	        goCancel () {

@@ -5,9 +5,10 @@
 	<typeAliases>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mapper/MenuDaoMapper.xml" />
-		<mapper resource="mapper/RoleDaoMapper.xml" />
-		<mapper resource="mapper/UserDaoMapper.xml" />
+		<mapper resource="mapper/system/MenuDaoMapper.xml" />
+		<mapper resource="mapper/system/RoleDaoMapper.xml" />
+		<mapper resource="mapper/system/UserDaoMapper.xml" />
 		<mapper resource="mapper/RedisTestDaoMapper.xml" />
+		<mapper resource="mapper/share/ShareDaoMapper.xml" />
 	</mappers>
 </configuration>

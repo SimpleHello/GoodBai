@@ -1,8 +1,8 @@
-package com.good.server.service.impl;
+package com.good.server.service.system.impl;
 
-import com.good.server.dao.UserDaoImpl;
+import com.good.server.dao.system.UserDaoImpl;
 import com.good.server.entity.system.UserInfo;
-import com.good.server.service.UserService;
+import com.good.server.service.system.UserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

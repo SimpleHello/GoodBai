@@ -1,4 +1,4 @@
-package com.good.server.service;
+package com.good.server.service.system;
 
 import com.good.server.entity.system.RoleInfo;
 import com.good.server.entity.system.UserInfo;

@@ -76,7 +76,7 @@
 <style>
   @import '../../style/head.css';
 </style>
-<script>
+<script type="text/ecmascript-6">
   import Bus from '../../module/eventBus.js';
   import vError from '../404.vue';
   import ajax from '../../module/ajax.js';

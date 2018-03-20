@@ -1,4 +1,4 @@
-package com.good.server.controller;
+package com.good.server.controller.share;
 
 import com.good.server.base.JsonResult;
 import com.good.server.entity.system.FunctionTreeInfo;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/role")
-public class RoleController {
+public class ShareController {
 
 	@Resource(name = "roleService")
 	private RoleService roleService;

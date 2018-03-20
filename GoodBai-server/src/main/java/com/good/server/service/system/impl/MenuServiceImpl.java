@@ -1,9 +1,9 @@
-package com.good.server.service.impl;
+package com.good.server.service.system.impl;
 
-import com.good.server.dao.MenuDaoImpl;
+import com.good.server.dao.system.MenuDaoImpl;
 import com.good.server.entity.system.MenuInfo;
 import com.good.server.entity.system.FunctionTreeInfo;
-import com.good.server.service.MenuService;
+import com.good.server.service.system.MenuService;
 import com.good.server.system.TreeUtil;
 import org.springframework.stereotype.Service;
 
