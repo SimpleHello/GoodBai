@@ -21,4 +21,4 @@ function getUrl(arr){
   })
   return ymzs.url;
 }
-export {ymzs,getUrl};
+export {ymzs,getUrl}

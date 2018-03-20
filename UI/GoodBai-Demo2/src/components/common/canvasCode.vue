@@ -34,8 +34,8 @@
 		},
 		mounted:function(){
 			//判断标题和占位符是否传递
-			this.title = this.$options.propsData.name === undefined ? '验证码' : this.$options.propsData.name;
-			this.deVal = this.$options.propsData.placeh === undefined ? '请输入图形验证码' : this.$options.propsData.placeh;
+			this.title = this.$options.propsData.name === undefined ? '验证码1' : this.$options.propsData.name;
+			this.deVal = this.$options.propsData.placeh === undefined ? '请输入图形验证码2swq' : this.$options.propsData.placeh;
 			this.inputCls = this.$options.propsData.iCls === undefined ? '': this.$options.propsData.iCls;
 			this.canCls = this.$options.propsData.cCls === undefined ? 'code-img' : this.$options.propsData.cCls;
 			if(this.$options.propsData.isTit === 'false') this.titShow = false;
