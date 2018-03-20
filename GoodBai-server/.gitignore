@@ -7,3 +7,4 @@
 target
 /target
 src/main/resources/conf/config.properties
+/src/main/resources/conf/config.properties
