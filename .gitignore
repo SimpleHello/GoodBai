@@ -4,3 +4,4 @@
 .classpath
 *.iml
 *.log
+/GoodBai-server/src/main/resources/conf/config.properties
