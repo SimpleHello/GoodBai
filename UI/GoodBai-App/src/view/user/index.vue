@@ -1,40 +1,36 @@
 <template>
 <div class="container">
-	<topComponent title='草根金融' :showLeft='false'></topComponent>
+	<topComponent title='数据查询' :showLeft='false'></topComponent>
 	<dl class="userInfo">
 		<dt>
 			<p class="user-logo"></p>
-			<p class="user-tel">您好<span>{{data.userMobile | filterPhone}}</span></p>
+			<p class="user-tel">您好<span>日:{{data.noDay}} 时:{{data.noHour}}</span></p>
 			<p class="user-tag">
-				<span class="mLevel">{{data.levelName}}</span>
-				<span class="mName">{{data.levelTitle}}</span>
+				<span class="mLevel">菜逼</span>
+				<span class="mName">屌丝</span>
 			</p>
 		</dt>
-		<dd>申请借款<span>{{data.orderApply}}笔</span></dd>
-		<dd>待还借款<span>{{data.orderRepay}}笔</span></dd>
+		<dd>总推荐:<span>{{data.id}}</span></dd>
+		<dd>新增推荐:<span>{{data.addtype}}</span></dd>
 	</dl>
 	<ul class="listCom list-arrow list-icon mt20">
 		<listComponent v-for='item in items' @click="$router.push(item.push)" :class='item.cls' :title='item.tit'></listComponent>
 	</ul>
-	<p class="signOut mt20" @click='loginOut'>退出登陆</p>
 	<footComponent :idx='2'></footComponent>
 </div>
 </template>
-<script>
-	//引入页面数据
-	import data from '../../data/user/get_info_new.json';
+<script type="text/ecmascript-6">
+
+	import ajax from '../../config/ajax.js';
 
 	export default {
 	    data () {
 	        return {
 	        	data:{},
 	        	items:[
-	        		{cls:"icon-jiekuan",	push:"/user/borrowList",	tit:"我的借款"},
-	        		{cls:"icon-huankuan",	push:"/user/repayList",		tit:"我的还款"},
-	        		{cls:"icon-jiangli",	push:"/user/rewardList",	tit:"我的奖励"},
-	        		{cls:"icon-help",		push:"/user/helpList",		tit:"帮助中心"},
-	        		{cls:"icon-yijian",		push:"/user/feedback",		tit:"意见反馈"},
-	        		{cls:"icon-about",		push:"/user/aboutUs",		tit:"关于我们"}
+					{cls:"icon-jiangli",	push:"/share/detail/ga/5",	tit:"最近5天统计"},
+					{cls:"icon-huankuan",	push:"/share/detail/ga/3",		tit:"最近3天统计"},
+	        		{cls:"icon-jiekuan",	push:"/share/detail",	tit:"最近推荐"}
 	        	]
 	        }
 	    },
@@ -44,10 +40,21 @@
 	        },
 	        
 	    },
-	    mounted:function(){
+		created(){
+			this.callDialog('获取列表失败');
 	    	document.body.scrollTop = 0;
-	    	//页面加载时拉取数据
-	    	this.data = data.data.userInfo;
+			ajax.post('/share/getDetailIndex.do').then(data => {
+				if(data.error<0){
+				this.callDialog('获取列表失败');
+				return false;
+			}else{
+				this.data = data.rows;
+				return true
+			}
+		}).catch(function (err) {
+				return err;
+			});
+
 	    }
 	}
 </script>

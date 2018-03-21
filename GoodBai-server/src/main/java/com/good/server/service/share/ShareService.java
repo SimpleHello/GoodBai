@@ -23,5 +23,11 @@ public interface ShareService {
      * @throws Exception
      */
     List<ShareReportInfo> getShareReportInfo(int type)  throws Exception;
-
+    /**
+     * 取得 当前最新数据 汇总
+     *
+     * @return
+     * @throws Exception
+     */
+     ShareDetailInfo getShareDetailIndex() throws Exception;
 }

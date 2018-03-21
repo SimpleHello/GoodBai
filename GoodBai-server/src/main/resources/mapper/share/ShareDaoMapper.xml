@@ -6,23 +6,30 @@
 <mapper namespace="Share_ths_ai_detail">
 
 	<select id="getShareDetail" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
-			SELECT id, name, share, code, amm, noDay, noHour
+			SELECT id, name, share, code,noEnd, amm, noDay, noHour,deltype,addtype
 				FROM Share_ths_ai_detail t
-				WHERE EXISTS ( SELECT 1 FROM
-										(SELECT noDay,noHour
-										FROM Share_ths_ai_detail t1
-										WHERE id =(SELECT max(id) FROM Share_ths_ai_detail)) t2
-								WHERE  t.noHour = t2.noHour AND t.noDay=t2.noDay)
+				WHERE  t.noHour = #{noHour} AND t.noDay= #{noDay}
   			  order by name,amm
 	</select>
 
+	<select id="getShareDetailIndex" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
+		SELECT noDay, noHour,count(1) AS id ,sum(deltype) as deltype,sum(addtype) as addtype
+		FROM Share_ths_ai_detail t
+		WHERE  t.noHour = #{noHour} AND t.noDay= #{noDay}
+		GROUP by noDay, noHour
+	</select>
 	<select id="getShareReportInfo" resultType="com.good.server.entity.share.ShareReportInfo" parameterType="com.good.server.entity.share.ShareReportInfo">
-		SELECT * FROM ()
+		SELECT * FROM (
 		select name, share, code ,sum(1) as num
 		from Share_ths_ai_detail
 		where noDay >= ${noDay}
-		group by name, share, code ) ORDER  BY num
+		group by name, share, code ) t ORDER  BY num desc
 	</select>
 
+	<select id="getShareDetailTime" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
+		SELECT noDay,noHour
+		FROM Share_ths_ai_detail t1
+		WHERE id =(SELECT max(id) FROM Share_ths_ai_detail)
+	</select>
 
 </mapper>

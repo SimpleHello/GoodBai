@@ -16,6 +16,9 @@ import delayTime from "./popup/delay";			//delay(黑底转圈)
 import borrowTitle from './borrow/title';		//borrow-title
 import borrowList from './borrow/list';			//borrow-list
 
+import shareTitle from './share/title';		//borrow-title
+import shareList from './share/list';			//borrow-list
+import shareGaList from './share/reportlist';			//borrow-list
 import rewardTitle from './reward/title';		//reward-title
 import rewardList from './reward/list';			//reward-list
 
@@ -41,7 +44,10 @@ export default {
 	
 	borrowTitle,
 	borrowList,
-	
+	shareTitle,
+	shareList,
+	shareGaList,
+
 	rewardTitle,
 	rewardList,
 	

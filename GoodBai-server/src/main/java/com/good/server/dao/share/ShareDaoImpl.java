@@ -23,7 +23,11 @@ public class ShareDaoImpl {
 	 * @throws Exception
 	 */
 	public List<ShareDetailInfo> getShareDetail() throws Exception {
-		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", null);
+		ShareDetailInfo info = getShareDetailTime();
+		if(info==null){
+			return  null;
+		}
+		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", info);
 	}
 
 	/**
@@ -37,4 +41,30 @@ public class ShareDaoImpl {
 
 		return readDao.query(Namespace.SHARE_DETAIL, "getShareReportInfo", info);
 	}
+
+	/**
+	 * 取得 当前最新数据 汇总
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public ShareDetailInfo getShareDetailIndex() throws Exception {
+		ShareDetailInfo info = getShareDetailTime();
+		if(info==null){
+			return  null;
+		}
+		return readDao.getOne(Namespace.SHARE_DETAIL, "getShareDetailIndex", info);
+	}
+
+	/**
+	 * 取得 当前最新数据 汇总
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public ShareDetailInfo getShareDetailTime() throws Exception {
+		ShareDetailInfo info = new ShareDetailInfo();
+		return readDao.getOne(Namespace.SHARE_DETAIL, "getShareDetailTime", info);
+	}
+
 }

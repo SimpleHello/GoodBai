@@ -51,4 +51,15 @@ public class ShareServiceImpl implements ShareService{
         info.setNoDay(noDay);
         return shareDao.getShareReportInfo(info);
     }
+
+    /**
+     * 取得 当前最新数据 汇总
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public ShareDetailInfo getShareDetailIndex() throws Exception {
+        return shareDao.getShareDetailIndex();
+    }
 }

@@ -6,7 +6,9 @@ package com.good.server.entity.share;
 public class ShareDetailInfo extends ShareBaseInfo {
 
     private static final long serialVersionUID = 8573243899721136474L;
-
+    private Float noStart;
+    private Float noEnd;
+    private Float amm;
     private int deltype;
     private int addtype;
     private int noDay;
@@ -43,6 +45,30 @@ public class ShareDetailInfo extends ShareBaseInfo {
 
     public void setNoHour(int noHour) {
         this.noHour = noHour;
+    }
+
+    public Float getNoStart() {
+        return noStart;
+    }
+
+    public void setNoStart(Float noStart) {
+        this.noStart = noStart;
+    }
+
+    public Float getNoEnd() {
+        return noEnd;
+    }
+
+    public void setNoEnd(Float noEnd) {
+        this.noEnd = noEnd;
+    }
+
+    public Float getAmm() {
+        return amm;
+    }
+
+    public void setAmm(Float amm) {
+        this.amm = amm;
     }
 
     @Override

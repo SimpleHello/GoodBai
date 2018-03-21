@@ -63,7 +63,7 @@
 					}else{
 						this.leftNav= data.rows;
 						ymzs.nav = data.rows;
-						this.callDialog(data.message);
+						this.$router.push("/share")
 						return true
 					}
 				}).catch(function (err) {

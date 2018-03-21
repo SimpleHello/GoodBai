@@ -1,11 +1,9 @@
 package com.good.server.controller.share;
 
 import com.good.server.base.JsonResult;
-import com.good.server.entity.system.FunctionTreeInfo;
-import com.good.server.entity.system.RoleInfo;
-import com.good.server.entity.system.UserInfo;
-import com.good.server.service.system.MenuService;
-import com.good.server.service.system.RoleService;
+import com.good.server.entity.share.ShareDetailInfo;
+import com.good.server.entity.share.ShareReportInfo;
+import com.good.server.service.share.ShareService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,21 +13,27 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Controller
-@RequestMapping("/role")
+@RequestMapping("/share")
 public class ShareController {
 
-	@Resource(name = "roleService")
-	private RoleService roleService;
+	@Resource(name = "shareService")
+	private ShareService shareService;
 
-	@Resource(name="menuService")
-	private MenuService menuService;
-
-	@RequestMapping("/getList.do")
-	public @ResponseBody JsonResult  getList(@RequestBody UserInfo user) throws Exception {
-		// TODO Auto-generated method stub
-		List<RoleInfo> list;
+	@RequestMapping("/getDetailIndex.do")
+	public @ResponseBody JsonResult  getDetailIndex() throws Exception {
 		try{
-			list = roleService.getRoleList(null);
+			ShareDetailInfo info = shareService.getShareDetailIndex();
+			return new JsonResult(info);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
+		}
+	}
+
+	@RequestMapping("/getDetail.do")
+	public @ResponseBody JsonResult  getDetail() throws Exception {
+		try{
+			List<ShareDetailInfo> list = shareService.getShareDetail();
 			return new JsonResult(list);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -37,25 +41,10 @@ public class ShareController {
 		}
 	}
 
-	@RequestMapping("/getFunTree.do")
-	public @ResponseBody JsonResult  getFunTree() throws Exception {
-		// TODO Auto-generated method stub
-		List<FunctionTreeInfo> list ;
+	@RequestMapping("/getShareReport.do")
+	public @ResponseBody JsonResult  getShareReportInfo(@RequestBody ShareReportInfo info) throws Exception {
 		try{
-			list = menuService.getFunTree();
-			return new JsonResult(list);
-		}catch (Exception e){
-			e.printStackTrace();
-			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
-		}
-	}
-
-	@RequestMapping("/getFunByRoleId.do")
-	public @ResponseBody JsonResult  getFunByRoleId(@RequestBody RoleInfo roleInfo) throws Exception {
-		// TODO Auto-generated method stub
-		List<Integer> list ;
-		try{
-			list = menuService.getFunByRoleId(roleInfo.getId());
+			List<ShareReportInfo>  list = shareService.getShareReportInfo(info.getNum());
 			return new JsonResult(list);
 		}catch (Exception e){
 			e.printStackTrace();
