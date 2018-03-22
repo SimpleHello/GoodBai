@@ -1,6 +1,6 @@
 <template>
 	<div class="userBorrow">
-		<shareTitle :idx='0'></shareTitle>
+		<shareTitle :idx='12' :code="code"></shareTitle>
 		<shareInfoList v-if='hasBorrow' :items='list'></shareInfoList>
 		<pageError v-if='!hasBorrow' :msg='borrowMsg' :class='borrowCls'></pageError>
 		<noMore v-if='!hasMore'></noMore>
@@ -13,6 +13,7 @@
 	export default {
 	    data () {
 	        return {
+				code:'',
 	            hasBorrow:true,	//开关
 	            hasMore:true,	//开关-提示-->没有更多
 	            borrowMsg:'当前没有任何数据',
@@ -25,6 +26,7 @@
 			var code = this.$route.params.code;
 			var noDay = this.$route.params.noDay;
 			param.code = code;
+			this.code = code;
 			param.noDay = noDay;
 			ajax.post('/share/getDetailList.do',param).then(data => {
 				if(data.error<0){

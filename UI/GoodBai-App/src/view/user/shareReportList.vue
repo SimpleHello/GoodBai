@@ -24,7 +24,7 @@
 	    mounted:function(){
 			//需要根据订单id来查询该页面详情[通过参数已传递过来]
 			var pId = this.$route.params.id;
-			this.titlePid = '数据查看'+pId;
+			this.titlePid = pId;
 			let param = new Object();
 			param.num = pId;
 			ajax.post('/share/getShareReport.do',param).then(data => {

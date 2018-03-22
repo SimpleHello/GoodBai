@@ -1,5 +1,6 @@
 <template>
     <div>
+        <shareTitle :idx='77' :code="code"></shareTitle>
         <div class="charts" id="id" :style="{width:width, height:height}" style="top: 20px" ref="myEchart">
         </div>
         <ul class="borrowList">
@@ -20,7 +21,7 @@
                 name:'',
                 code:'',
                 width: document.documentElement.clientWidth + 'px',
-                height: document.documentElement.clientHeight * 0.7 + 'px'
+                height: document.documentElement.clientHeight * 0.5 + 'px'
             }
         },
         mounted() {
@@ -109,10 +110,14 @@
                     }
                     this.chart.setOption({        //加载数据图表
                         title: {
-                            text:param.code+"历史曲线"
+                            text:param.code
                         },
                         xAxis: {
-                            data: dates
+                            data: dates,
+                            min: 'dataMin'*0.9
+                        },
+                        yAxis: {
+                            max: 'dataMax'*1.2
                         },
                         series: [{
                             // 根据名字对应到相应的系列
