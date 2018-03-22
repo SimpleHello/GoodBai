@@ -4,6 +4,7 @@ package com.good.server.dao.share;
 import com.good.server.base.DaoHelper;
 import com.good.server.base.Namespace;
 import com.good.server.entity.share.ShareDetailInfo;
+import com.good.server.entity.share.ShareHisInfo;
 import com.good.server.entity.share.ShareReportInfo;
 import org.springframework.stereotype.Repository;
 
@@ -22,12 +23,23 @@ public class ShareDaoImpl {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<ShareDetailInfo> getShareDetail() throws Exception {
-		ShareDetailInfo info = getShareDetailTime();
-		if(info==null){
+	public List<ShareDetailInfo> getShareDetail(ShareDetailInfo info) throws Exception {
+		ShareDetailInfo query = getShareDetailTime();
+		if(query==null){
 			return  null;
 		}
-		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", info);
+		query.setDeltype(info.getDeltype());
+		query.setAddtype(info.getAddtype());
+		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", query);
+	}
+	/**
+	 * 取得 当前最新数据
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShareDetailInfo> getShareDetailx(ShareDetailInfo info) throws Exception {
+		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetailList", info);
 	}
 
 	/**
@@ -67,4 +79,14 @@ public class ShareDaoImpl {
 		return readDao.getOne(Namespace.SHARE_DETAIL, "getShareDetailTime", info);
 	}
 
+	/**
+	 * 取得 历史数据
+	 *
+	 * @param info 数据
+	 * @return
+	 * @throws Exception
+	 */
+	public List<ShareHisInfo> getShareHisInfo(ShareHisInfo info) throws Exception {
+		return readDao.query(Namespace.SHARE_DETAIL, "getShareHisInfo", info);
+	}
 }

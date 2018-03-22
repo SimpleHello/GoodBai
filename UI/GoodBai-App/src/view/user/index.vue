@@ -4,19 +4,19 @@
 	<dl class="userInfo">
 		<dt>
 			<p class="user-logo"></p>
-			<p class="user-tel">您好<span>日:{{data.noDay}} 时:{{data.noHour}}</span></p>
+			<p class="user-tel">Hello world</p>
 			<p class="user-tag">
-				<span class="mLevel">菜逼</span>
-				<span class="mName">屌丝</span>
+				<span class="mLevel">{{data.noDay}}</span>
+				<span class="mName">{{data.noHour}}</span>
 			</p>
 		</dt>
 		<dd>总推荐:<span>{{data.id}}</span></dd>
-		<dd>新增推荐:<span>{{data.addtype}}</span></dd>
+		<dd  @click="$router.push('/share/detail/add')">新增推荐:<span>{{data.addtype}}</span></dd>
 	</dl>
 	<ul class="listCom list-arrow list-icon mt20">
 		<listComponent v-for='item in items' @click="$router.push(item.push)" :class='item.cls' :title='item.tit'></listComponent>
 	</ul>
-	<footComponent :idx='2'></footComponent>
+	<!--<footComponent :idx='2'></footComponent>-->
 </div>
 </template>
 <script type="text/ecmascript-6">
@@ -28,9 +28,10 @@
 	        return {
 	        	data:{},
 	        	items:[
+					{cls:"icon-jiangli",	push:"/share/detail/ga/10",	tit:"最近10天统计"},
 					{cls:"icon-jiangli",	push:"/share/detail/ga/5",	tit:"最近5天统计"},
-					{cls:"icon-huankuan",	push:"/share/detail/ga/3",		tit:"最近3天统计"},
-	        		{cls:"icon-jiekuan",	push:"/share/detail",	tit:"最近推荐"}
+					{cls:"icon-jiangli",	push:"/share/detail/ga/3",		tit:"最近3天统计"},
+	        		{cls:"icon-jiangli",	push:"/share/detail",	tit:"最近推荐"}
 	        	]
 	        }
 	    },

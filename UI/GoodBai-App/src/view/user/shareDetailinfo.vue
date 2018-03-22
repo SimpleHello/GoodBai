@@ -1,7 +1,7 @@
 <template>
 	<div class="userBorrow">
 		<shareTitle :idx='0'></shareTitle>
-		<shareList v-if='hasBorrow' :items='list'></shareList>
+		<shareInfoList v-if='hasBorrow' :items='list'></shareInfoList>
 		<pageError v-if='!hasBorrow' :msg='borrowMsg' :class='borrowCls'></pageError>
 		<noMore v-if='!hasMore'></noMore>
 	</div>
@@ -22,7 +22,11 @@
 	    },
 	    mounted:function(){
 			let param = new Object();
-			ajax.post('/share/getDetail.do',param).then(data => {
+			var code = this.$route.params.code;
+			var noDay = this.$route.params.noDay;
+			param.code = code;
+			param.noDay = noDay;
+			ajax.post('/share/getDetailList.do',param).then(data => {
 				if(data.error<0){
 					this.callDialog('获取列表失败');
 					this.hasBorrow = false;

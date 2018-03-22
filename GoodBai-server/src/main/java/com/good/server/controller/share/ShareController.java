@@ -2,6 +2,7 @@ package com.good.server.controller.share;
 
 import com.good.server.base.JsonResult;
 import com.good.server.entity.share.ShareDetailInfo;
+import com.good.server.entity.share.ShareHisInfo;
 import com.good.server.entity.share.ShareReportInfo;
 import com.good.server.service.share.ShareService;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,20 @@ public class ShareController {
 	}
 
 	@RequestMapping("/getDetail.do")
-	public @ResponseBody JsonResult  getDetail() throws Exception {
+	public @ResponseBody JsonResult  getDetail(@RequestBody ShareDetailInfo info) throws Exception {
 		try{
-			List<ShareDetailInfo> list = shareService.getShareDetail();
+			List<ShareDetailInfo> list = shareService.getShareDetail(info);
+			return new JsonResult(list);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
+		}
+	}
+
+	@RequestMapping("/getDetailList.do")
+	public @ResponseBody JsonResult  getDetailList(@RequestBody ShareDetailInfo info) throws Exception {
+		try{
+			List<ShareDetailInfo> list = shareService.getShareDetailx(info);
 			return new JsonResult(list);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -45,6 +57,17 @@ public class ShareController {
 	public @ResponseBody JsonResult  getShareReportInfo(@RequestBody ShareReportInfo info) throws Exception {
 		try{
 			List<ShareReportInfo>  list = shareService.getShareReportInfo(info.getNum());
+			return new JsonResult(list);
+		}catch (Exception e){
+			e.printStackTrace();
+			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
+		}
+	}
+
+	@RequestMapping("/getShareHis.do")
+	public @ResponseBody JsonResult  getShareHis(@RequestBody ShareHisInfo info) throws Exception {
+		try{
+			List<ShareHisInfo>  list = shareService.getShareHisInfo(info);
 			return new JsonResult(list);
 		}catch (Exception e){
 			e.printStackTrace();

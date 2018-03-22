@@ -1,6 +1,6 @@
 <template>
 	<div class="userBorrow">
-		<shareTitle :idx='0'></shareTitle>
+		<shareTitle :idx='titlePid'></shareTitle>
 		<shareGaList v-if='hasBorrow' :items='list'></shareGaList>
 		<pageError v-if='!hasBorrow' :msg='borrowMsg' :class='borrowCls'></pageError>
 		<noMore v-if='!hasMore'></noMore>

@@ -6,12 +6,34 @@
 <mapper namespace="Share_ths_ai_detail">
 
 	<select id="getShareDetail" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
+		SELECT t1.*,t4.tol FROM (
 			SELECT id, name, share, code,noEnd, amm, noDay, noHour,deltype,addtype
 				FROM Share_ths_ai_detail t
-				WHERE  t.noHour = #{noHour} AND t.noDay= #{noDay}
-  			  order by name,amm
+				WHERE  t.noHour =#{noHour}  AND t.noDay= #{noDay}
+					<if test="deltype!=0">
+						and deltype=-1
+					</if>
+					<if test="addtype!=0">
+						and addtype=1
+					</if>
+			) t1 LEFT JOIN (
+					SELECT name,sum(succ) AS succ FROM Share_ths_ai_succ GROUP BY name
+			) t2 ON t1.name = t2.name
+			LEFT JOIN
+				(SELECT name , share,code,count(1) AS tol FROM Share_ths_ai_detail t3 GROUP BY name , share,code) t4
+				ON t1.name = t4.name AND t1.share=t4.share AND t4.code = t4.code
+		ORDER BY t2.succ DESC, t4.tol DESC,t1.addtype ASC,t1.deltype desc
 	</select>
 
+	<select id="getShareDetailList" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
+		SELECT *
+		FROM Share_ths_ai_detail t
+		WHERE  t.code = #{code}
+		<if test="noDay!=0">
+			noDay >= #{noDay}
+		</if>
+		order by noDay, noHour
+	</select>
 	<select id="getShareDetailIndex" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
 		SELECT noDay, noHour,count(1) AS id ,sum(deltype) as deltype,sum(addtype) as addtype
 		FROM Share_ths_ai_detail t
@@ -20,7 +42,7 @@
 	</select>
 	<select id="getShareReportInfo" resultType="com.good.server.entity.share.ShareReportInfo" parameterType="com.good.server.entity.share.ShareReportInfo">
 		SELECT * FROM (
-		select name, share, code ,sum(1) as num
+		select name, share, code ,sum(1) as num,${noDay} as noDay
 		from Share_ths_ai_detail
 		where noDay >= ${noDay}
 		group by name, share, code ) t ORDER  BY num desc
@@ -30,6 +52,15 @@
 		SELECT noDay,noHour
 		FROM Share_ths_ai_detail t1
 		WHERE id =(SELECT max(id) FROM Share_ths_ai_detail)
+	</select>
+
+	<select id="getShareHisInfo" resultType="com.good.server.entity.share.ShareHisInfo" parameterType="com.good.server.entity.share.ShareHisInfo">
+		SELECT code,day,en as value
+		FROM Share_ths_ai_his t1 where code = #{code}
+		<if test="day!=0">
+			day >= #{day}
+		</if>
+		order by day
 	</select>
 
 </mapper>

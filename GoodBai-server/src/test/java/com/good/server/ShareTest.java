@@ -56,7 +56,8 @@ public class ShareTest {
      */
     @Test
     public void getShareDetail() throws Exception {
-        List<ShareDetailInfo> list = shareService.getShareDetail();
+        ShareDetailInfo query = new ShareDetailInfo();
+        List<ShareDetailInfo> list = shareService.getShareDetail(query);
         for(ShareDetailInfo info:list){
             System.out.println(info.toString());
         }

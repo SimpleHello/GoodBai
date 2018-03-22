@@ -13,4 +13,5 @@ public interface UserService {
 
     void saveUser(UserInfo userInfo) throws  Exception;
 
+    UserInfo getLoginUser(UserInfo userInfo) throws  Exception;
 }

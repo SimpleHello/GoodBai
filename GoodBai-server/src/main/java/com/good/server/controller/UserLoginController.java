@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("/user")
@@ -41,6 +43,55 @@ public class UserLoginController {
 			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
 		}
 	}
+
+	@RequestMapping("/login.do")
+	public @ResponseBody JsonResult  login(@RequestBody UserInfo user,HttpServletRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		String name = user.getName();
+		Pattern pattern = Pattern.compile("[369][0-9]{5}");
+		Matcher matcher = pattern.matcher(name);
+		// 字符串是否与正则表达式相匹配
+		boolean rs = matcher.matches();
+		if(name==null||"".equals(name)||!rs){
+			return new JsonResult(-1,"用户名或密码错误",null);
+		}
+		if(!checkName(name)){
+			return new JsonResult(-1,"用户名或密码错误",null);
+		}
+		try{
+			UserInfo info = userService.getLoginUser(user);
+			if(info==null){
+				return new JsonResult(-1,"用户名或密码错误",null);
+			}
+			request.getSession().setAttribute("user",info);
+			return new JsonResult("欢迎登录");
+		}catch (Exception e){
+			e.printStackTrace();
+			return new JsonResult(-1,"出现异常:"+e.getMessage(),null);
+		}
+	}
+
+	private  boolean checkName(String name){
+		try{
+			if("330683".equals(name)){
+				return  true;
+			}
+			int i2 = Integer.valueOf(name.substring(1,2));
+			int i3 = Integer.valueOf(name.substring(2,3));
+			int i5 = Integer.valueOf(name.substring(4,5));
+			int i6 = Integer.valueOf(name.substring(5,6));
+			if(i2!=(i5*2)){
+				return false;
+			}else if(i3 !=((i5+i6)*2)){
+				return  false;
+			}else{
+				return  true;
+			}
+		}catch (Exception e){
+			return  false;
+		}
+	}
+
 
 	@RequestMapping("/getUserList.do")
 	public @ResponseBody JsonResult  getUserList(@RequestBody UserInfo user) throws Exception {

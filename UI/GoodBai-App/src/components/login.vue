@@ -46,17 +46,16 @@
 	    },
 	    methods :{
 	        logIn () {
-	        	var checkName = /^[1][0-9]{5}$/,
-	        		checkPwd = /^[1][0-9]{5}$/;
+
 //	        	//先做一些简单的判断再提交ajax
-	        	if( checkName.test(this.name) == false )		this.callDialog('帐号不正确');
-	        	else if( checkPwd.test(this.pwd) == false )		this.callDialog('密码不正确');
+	        	if( ""==this.name ||this.name ==null )		this.callDialog('帐号不正确');
+	        	else if( ""==this.pwd ||this.pwd ==null)		this.callDialog('密码不正确');
 //	        	else if( this.code.toUpperCase() !== this.canvasCode.codeNums.toUpperCase() )	this.callDialog('验证码不正确');
 	        	else{
 					let param = new Object();
 					param.name = this.name;
 					param.password = this.pwd;
-					ajax.post('/user/loginsubmit.do',param).then(data => {
+					ajax.post('/user/login.do',param).then(data => {
 						if(data.error<0){
 						this.callDialog('获取列表失败');
 						return false;

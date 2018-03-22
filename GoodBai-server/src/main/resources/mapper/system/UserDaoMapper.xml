@@ -39,4 +39,10 @@
 	<select id="getUserByName" resultType="com.good.server.entity.system.UserInfo" parameterType="com.good.server.entity.system.UserInfo">
 			select id,name,password,tel,sex from sys_user where name=#{name}
 	</select>
+
+	<select id="getLoginUser" resultType="com.good.server.entity.system.UserInfo" parameterType="com.good.server.entity.system.UserInfo">
+		select id,name,password,tel,sex from sys_user where name=#{name} and password=#{password}
+	</select>
+
+
 </mapper>

@@ -25,4 +25,8 @@ public class UserDaoImpl {
 		readDao.insert(Namespace.SYS_USER,"saveUser",userInfo);
 	}
 
+	public UserInfo getLoginUser(UserInfo userInfo) throws Exception {
+		return readDao.getOne(Namespace.SYS_USER,"getLoginUser",userInfo);
+	}
+
 }

@@ -13,7 +13,7 @@ public class ShareDetailInfo extends ShareBaseInfo {
     private int addtype;
     private int noDay;
     private int noHour;
-
+    private int tol;
 
     public int getDeltype() {
         return deltype;
@@ -69,6 +69,14 @@ public class ShareDetailInfo extends ShareBaseInfo {
 
     public void setAmm(Float amm) {
         this.amm = amm;
+    }
+
+    public int getTol() {
+        return tol;
+    }
+
+    public void setTol(int tol) {
+        this.tol = tol;
     }
 
     @Override

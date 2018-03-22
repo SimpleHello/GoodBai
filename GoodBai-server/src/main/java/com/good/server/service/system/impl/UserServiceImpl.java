@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
     public void saveUser(UserInfo userInfo) throws Exception {
         userDao.saveUser(userInfo);
     }
+
+    @Override
+    public UserInfo getLoginUser(UserInfo userInfo) throws Exception {
+        return userDao.getLoginUser(userInfo);
+    }
 }

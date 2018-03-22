@@ -11,7 +11,7 @@
 			<p class="w60P col6">当前价格:<span>{{data.noEnd}}</span></p>
 			<p class="col6">类型:<span>{{data.name}}</span></p>
 			<p class="w60P col6">涨幅:<span>{{data.amm}}</span></p>
-			<p class="col6" @click='goDetail(data.code)'>历史推荐:<span>{{data.tol}}</span></p>
+			<p class="col6">时间:<span>{{data.noDay}}-{{data.noHour}}</span></p>
 		</li>
 	</ul>
 </template>
@@ -22,11 +22,7 @@
 	    	goChart(code,name){
 	    		//根据转入id跳转到相应的详情页面
 	    		this.$router.push('/share/detail/chart/'+code+"/"+name);
-	    	},
-			goDetail(code){
-				//根据转入id跳转到相应的详情页面
-	    		this.$router.push('/share/detail/info/'+code+"/"+0);
-			}
+	    	}
 	    }
 	}
 </script>

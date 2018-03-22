@@ -2,6 +2,7 @@ package com.good.server.service.share.impl;
 
 import com.good.server.dao.share.ShareDaoImpl;
 import com.good.server.entity.share.ShareDetailInfo;
+import com.good.server.entity.share.ShareHisInfo;
 import com.good.server.entity.share.ShareReportInfo;
 import com.good.server.service.share.ShareService;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,19 @@ public class ShareServiceImpl implements ShareService{
      * @throws Exception
      */
     @Override
-    public List<ShareDetailInfo> getShareDetail() throws Exception {
-        return shareDao.getShareDetail();
+    public List<ShareDetailInfo> getShareDetail(ShareDetailInfo info) throws Exception {
+        return shareDao.getShareDetail(info);
+    }
+
+    /**
+     * 取得 当前最新数据
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ShareDetailInfo> getShareDetailx(ShareDetailInfo info) throws Exception {
+        return shareDao.getShareDetailx(info);
     }
 
     /**
@@ -61,5 +73,17 @@ public class ShareServiceImpl implements ShareService{
     @Override
     public ShareDetailInfo getShareDetailIndex() throws Exception {
         return shareDao.getShareDetailIndex();
+    }
+
+    /**
+     * 取得 历史数据
+     *
+     * @param info 数据
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<ShareHisInfo> getShareHisInfo(ShareHisInfo info) throws Exception {
+        return shareDao.getShareHisInfo(info);
     }
 }

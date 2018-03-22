@@ -1,14 +1,12 @@
 <template>
 	<div class="userBorrow">
-		<shareTitle :idx='0'></shareTitle>
+		<shareTitle :idx='99'></shareTitle>
 		<shareList v-if='hasBorrow' :items='list'></shareList>
 		<pageError v-if='!hasBorrow' :msg='borrowMsg' :class='borrowCls'></pageError>
 		<noMore v-if='!hasMore'></noMore>
 	</div>
 </template>
 <script type="text/ecmascript-6">
-	//引入data json
-//	import data from '../../data/order/list1.json';
 	import ajax from '../../config/ajax.js';
 	export default {
 	    data () {
@@ -22,6 +20,7 @@
 	    },
 	    mounted:function(){
 			let param = new Object();
+			param.addtype=1;
 			ajax.post('/share/getDetail.do',param).then(data => {
 				if(data.error<0){
 					this.callDialog('获取列表失败');
