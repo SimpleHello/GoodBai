@@ -24,13 +24,18 @@ public class ShareDaoImpl {
 	 * @throws Exception
 	 */
 	public List<ShareDetailInfo> getShareDetail(ShareDetailInfo info) throws Exception {
-		ShareDetailInfo query = getShareDetailTime();
-		if(query==null){
-			return  null;
+		String code = info.getCode();
+		if(code!=null&&!"".equals(code)){
+			return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", info);
+		}else{
+			ShareDetailInfo query = getShareDetailTime();
+			if(query==null){
+				return  null;
+			}
+			query.setDeltype(info.getDeltype());
+			query.setAddtype(info.getAddtype());
+			return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", query);
 		}
-		query.setDeltype(info.getDeltype());
-		query.setAddtype(info.getAddtype());
-		return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", query);
 	}
 	/**
 	 * 取得 当前最新数据

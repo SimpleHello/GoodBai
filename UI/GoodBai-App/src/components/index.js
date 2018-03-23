@@ -20,6 +20,8 @@ import shareTitle from './share/title';		//borrow-title
 import shareList from './share/list';			//borrow-list
 import shareGaList from './share/reportlist';			//borrow-list
 import shareInfoList from './share/infolist';			//borrow-list
+import shareInfoNoList from './share/infolistNo';			//borrow-list
+
 import rewardTitle from './reward/title';		//reward-title
 import rewardList from './reward/list';			//reward-list
 
@@ -49,6 +51,7 @@ export default {
 	shareList,
 	shareGaList,
 	shareInfoList,
+	shareInfoNoList,
 	rewardTitle,
 	rewardList,
 	

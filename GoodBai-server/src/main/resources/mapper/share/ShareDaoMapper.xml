@@ -9,9 +9,15 @@
 		SELECT t1.*,t4.tol FROM (
 			SELECT id, name, share, code,noEnd, amm, noDay, noHour,deltype,addtype
 				FROM Share_ths_ai_detail t
-				WHERE  t.noHour =#{noHour}  AND t.noDay= #{noDay}
+				WHERE  t.noDay= #{noDay}
+					<if test="noHour!=0">
+						and  t.noHour =#{noHour}
+					</if>
 					<if test="deltype!=0">
 						and deltype=-1
+					</if>
+					<if test="code!=null and code!='' ">
+						and code=#{code}
 					</if>
 					<if test="addtype!=0">
 						and addtype=1
@@ -55,12 +61,14 @@
 	</select>
 
 	<select id="getShareHisInfo" resultType="com.good.server.entity.share.ShareHisInfo" parameterType="com.good.server.entity.share.ShareHisInfo">
-		SELECT code,day,en as value
-		FROM Share_ths_ai_his t1 where code = #{code}
-		<if test="day!=0">
-			day >= #{day}
-		</if>
-		order by day
+		SELECT code,day,value,id FROM (
+			SELECT code,day,en as value FROM Share_ths_ai_his WHERE code = #{code}
+			<if test="day!=0">
+				day >= #{day}
+			</if>
+			) t1 LEFT JOIN (
+			SELECT noDay,count(1) AS id FROM Share_ths_ai_detail t2 WHERE code = #{code} GROUP BY noDay) t3
+		ON t1.day = t3.noDay ORDER BY t1.day
 	</select>
 
 </mapper>
