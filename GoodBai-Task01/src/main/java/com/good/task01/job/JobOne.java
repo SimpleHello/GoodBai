@@ -44,11 +44,18 @@ public class JobOne {
         LOGGER.info(" 定时任务 执行 完成 !!");
     }
 
-    public void Test(){
+    public void runCount(){
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date time =sdf.parse("2018-03-14 18:00:00");
-            dealMessage(time);
+            Date time = new Date();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(time);
+            int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+            if(week==0 || week==6){
+                LOGGER.info("时间:{}  双休日 不做定时任务--- !!",sdf.format(time));
+            }else{
+                dealMessage(time);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
