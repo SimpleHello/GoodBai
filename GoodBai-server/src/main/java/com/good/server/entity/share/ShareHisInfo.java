@@ -8,17 +8,17 @@ import com.good.server.base.IEntity;
 public class ShareHisInfo extends IEntity {
 
     private static final long serialVersionUID = -2687072725219105440L;
-    private String share;
+    private String name;
     private String code;
     private int day;
     private float value;
 
-    public String getShare() {
-        return share;
+    public String getName() {
+        return name;
     }
 
-    public void setShare(String share) {
-        this.share = share;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {

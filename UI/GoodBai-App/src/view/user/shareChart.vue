@@ -119,7 +119,7 @@
                             maskNode.xAxis=result[i].day+'';
                             maskNode.yAxis=result[i].value;
                             maskNode.code = code;
-                            maskNode.noDay = result[i].day;
+                            maskNode.day = result[i].day;
                             mask.push(maskNode)
                         }
                     }

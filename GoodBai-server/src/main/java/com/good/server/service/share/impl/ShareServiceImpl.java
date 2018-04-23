@@ -60,7 +60,7 @@ public class ShareServiceImpl implements ShareService{
             calendar.add(Calendar.DATE,-type);
         }
         int noDay = Integer.valueOf(sdf.format(calendar.getTime()));
-        info.setNoDay(noDay);
+        info.setDay(noDay);
         return shareDao.getShareReportInfo(info);
     }
 

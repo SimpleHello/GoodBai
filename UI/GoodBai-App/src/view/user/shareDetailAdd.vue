@@ -20,7 +20,7 @@
 	    },
 	    mounted:function(){
 			let param = new Object();
-			param.addtype=1;
+			param.push=1;
 			ajax.post('/share/getDetail.do',param).then(data => {
 				if(data.error<0){
 					this.callDialog('获取列表失败');

@@ -7,27 +7,27 @@
 
 	<select id="getShareDetail" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
 		SELECT t1.*,t4.tol FROM (
-			SELECT id, type,name, code,ends, amm, day, hour,pop,push
+			SELECT id, type,name,code,ends,ranges,day,hour,pop,push
 				FROM Share_ths_ai_detail t
-				WHERE  t.noDay= #{noDay}
-					<if test="noHour!=0">
-						and  t.noHour =#{noHour}
+				WHERE  t.day= #{day}
+					<if test="hour!=0">
+						and  t.hour =#{hour}
 					</if>
-					<if test="deltype!=0">
+					<if test="pop!=0">
 						and pop=1
 					</if>
 					<if test="code!=null and code!='' ">
 						and code=#{code}
 					</if>
-					<if test="addtype!=0">
+					<if test="push!=0">
 						and push=1
 					</if>
 			) t1 LEFT JOIN (
 					SELECT name,sum(succ) AS succ FROM Share_ths_ai_succ GROUP BY name
 			) t2 ON t1.name = t2.name
 			LEFT JOIN
-				(SELECT name , share,code,count(1) AS tol FROM Share_ths_ai_detail t3 GROUP BY name , share,code) t4
-				ON t1.name = t4.name AND t1.share=t4.share AND t4.code = t4.code
+				(SELECT name,type,code,count(1) AS tol FROM Share_ths_ai_detail t3 GROUP BY name,type,code) t4
+				ON t1.name = t4.name AND t1.type=t4.type AND t4.code = t4.code
 		ORDER BY t2.succ DESC, t4.tol DESC,t1.push ASC,t1.pop desc
 	</select>
 
@@ -35,23 +35,23 @@
 		SELECT *
 		FROM Share_ths_ai_detail t
 		WHERE  t.code = #{code}
-		<if test="noDay!=0">
-			day >= #{noDay}
+		<if test="day!=0">
+			day >= #{day}
 		</if>
 		order by day, hour
 	</select>
 	<select id="getShareDetailIndex" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
-		SELECT day, hour,count(1) AS id ,sum(pop) as deltype,sum(push) as addtype
+		SELECT day, hour,count(1) AS id ,sum(pop) as pop,sum(push) as push
 		FROM Share_ths_ai_detail t
-		WHERE  t.hour = #{noHour} AND t.day= #{noDay}
+		WHERE  t.hour = #{hour} AND t.day= #{day}
 		GROUP by day, hour
 	</select>
 	<select id="getShareReportInfo" resultType="com.good.server.entity.share.ShareReportInfo" parameterType="com.good.server.entity.share.ShareReportInfo">
 		SELECT * FROM (
-		select name, share, code ,sum(1) as num,${noDay} as noDay
+		select name, type, code ,sum(1) as num,${day} as day
 		from Share_ths_ai_detail
-		where day >= ${noDay}
-		group by name, share, code ) t ORDER  BY num desc
+		where day >= ${day}
+		group by name, type, code ) t ORDER  BY num desc
 	</select>
 
 	<select id="getShareDetailTime" resultType="com.good.server.entity.share.ShareDetailInfo" parameterType="com.good.server.entity.share.ShareDetailInfo">
@@ -61,8 +61,8 @@
 	</select>
 
 	<select id="getShareHisInfo" resultType="com.good.server.entity.share.ShareHisInfo" parameterType="com.good.server.entity.share.ShareHisInfo">
-		SELECT code,day,value,id FROM (
-			SELECT code,day,en as value FROM Share_ths_ai_his WHERE code = #{code}
+		SELECT code,t1.day,value,id FROM (
+			SELECT code,day,ends as value FROM Share_ths_ai_his WHERE code = #{code}
 			<if test="day!=0">
 				day >= #{day}
 			</if>

@@ -24,10 +24,10 @@
 	    mounted:function(){
 			let param = new Object();
 			var code = this.$route.params.code;
-			var noDay = this.$route.params.noDay;
+			var day = this.$route.params.day;
 			param.code = code;
 			this.code = code;
-			param.noDay = noDay;
+			param.day = day;
 			ajax.post('/share/getDetailList.do',param).then(data => {
 				if(data.error<0){
 					this.callDialog('获取列表失败');

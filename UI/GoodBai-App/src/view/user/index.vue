@@ -6,12 +6,12 @@
 			<p class="user-logo"></p>
 			<p class="user-tel">Hello world</p>
 			<p class="user-tag">
-				<span class="mLevel">{{data.noDay}}</span>
-				<span class="mName">{{data.noHour}}</span>
+				<span class="mLevel">{{data.day}}</span>
+				<span class="mName">{{data.hour}}</span>
 			</p>
 		</dt>
 		<dd>总推荐:<span>{{data.id}}</span></dd>
-		<dd  @click="$router.push('/share/detail/add')">新增推荐:<span>{{data.addtype}}</span></dd>
+		<dd  @click="$router.push('/share/detail/add')">新增推荐:<span>{{data.pop}}</span></dd>
 	</dl>
 	<ul class="listCom list-arrow list-icon mt20">
 		<listComponent v-for='item in items' @click="$router.push(item.push)" :class='item.cls' :title='item.tit'></listComponent>

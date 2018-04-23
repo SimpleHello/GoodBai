@@ -6,69 +6,69 @@ package com.good.server.entity.share;
 public class ShareDetailInfo extends ShareBaseInfo {
 
     private static final long serialVersionUID = 8573243899721136474L;
-    private Float noStart;
-    private Float noEnd;
-    private Float amm;
-    private int deltype;
-    private int addtype;
-    private int noDay;
-    private int noHour;
+    private Float opens;
+    private Float ends;
+    private Float ranges;
+    private int pop;
+    private int push;
+    private int day;
+    private int hour;
     private int tol;
 
-    public int getDeltype() {
-        return deltype;
+    public Float getOpens() {
+        return opens;
     }
 
-    public void setDeltype(int deltype) {
-        this.deltype = deltype;
+    public void setOpens(Float opens) {
+        this.opens = opens;
     }
 
-    public int getAddtype() {
-        return addtype;
+    public Float getEnds() {
+        return ends;
     }
 
-    public void setAddtype(int addtype) {
-        this.addtype = addtype;
+    public void setEnds(Float ends) {
+        this.ends = ends;
     }
 
-    public int getNoDay() {
-        return noDay;
+    public Float getRanges() {
+        return ranges;
     }
 
-    public void setNoDay(int noDay) {
-        this.noDay = noDay;
+    public void setRanges(Float ranges) {
+        this.ranges = ranges;
     }
 
-    public int getNoHour() {
-        return noHour;
+    public int getPop() {
+        return pop;
     }
 
-    public void setNoHour(int noHour) {
-        this.noHour = noHour;
+    public void setPop(int pop) {
+        this.pop = pop;
     }
 
-    public Float getNoStart() {
-        return noStart;
+    public int getPush() {
+        return push;
     }
 
-    public void setNoStart(Float noStart) {
-        this.noStart = noStart;
+    public void setPush(int push) {
+        this.push = push;
     }
 
-    public Float getNoEnd() {
-        return noEnd;
+    public int getDay() {
+        return day;
     }
 
-    public void setNoEnd(Float noEnd) {
-        this.noEnd = noEnd;
+    public void setDay(int day) {
+        this.day = day;
     }
 
-    public Float getAmm() {
-        return amm;
+    public int getHour() {
+        return hour;
     }
 
-    public void setAmm(Float amm) {
-        this.amm = amm;
+    public void setHour(int hour) {
+        this.hour = hour;
     }
 
     public int getTol() {
@@ -82,10 +82,14 @@ public class ShareDetailInfo extends ShareBaseInfo {
     @Override
     public String toString() {
         return "ShareDetailInfo{" +
-                "deltype=" + deltype +
-                ", addtype=" + addtype +
-                ", noDay=" + noDay +
-                ", noHour=" + noHour +
+                "opens=" + opens +
+                ", ends=" + ends +
+                ", ranges=" + ranges +
+                ", pop=" + pop +
+                ", push=" + push +
+                ", day=" + day +
+                ", hour=" + hour +
+                ", tol=" + tol +
                 "} " + super.toString();
     }
 }

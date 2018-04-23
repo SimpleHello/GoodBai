@@ -2142,6 +2142,10 @@ h2.title {
     width: 60%
 }
 
+.borrowList li p.w40P {
+    width: 40%
+}
+
 .borrowList li p span {
     padding-left: 0.3125rem
 }

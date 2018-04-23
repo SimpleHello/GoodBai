@@ -32,8 +32,8 @@ public class ShareDaoImpl {
 			if(query==null){
 				return  null;
 			}
-			query.setDeltype(info.getDeltype());
-			query.setAddtype(info.getAddtype());
+			query.setPop(info.getPop());
+			query.setPush(info.getPush());
 			return readDao.query(Namespace.SHARE_DETAIL, "getShareDetail", query);
 		}
 	}

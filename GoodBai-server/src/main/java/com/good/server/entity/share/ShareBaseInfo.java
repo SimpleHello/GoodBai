@@ -7,8 +7,8 @@ import com.good.server.base.IEntity;
  */
 public class ShareBaseInfo extends IEntity {
 
+    private String type;
     private String name;
-    private String share;
     private String code;
 
     public String getName() {
@@ -19,12 +19,12 @@ public class ShareBaseInfo extends IEntity {
         this.name = name;
     }
 
-    public String getShare() {
-        return share;
+    public String getType() {
+        return type;
     }
 
-    public void setShare(String share) {
-        this.share = share;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCode() {
@@ -39,7 +39,7 @@ public class ShareBaseInfo extends IEntity {
     public String toString() {
         return "ShareBaseInfo{" +
                 "name='" + name + '\'' +
-                ", share='" + share + '\'' +
+                ", type='" + type + '\'' +
                 ", code='" + code + '\'' +
                 "} " + super.toString();
     }
