@@ -38,7 +38,7 @@
 	</update>
 
 	<select id="getEndDetail" resultType="Integer" parameterType="com.good.task01.entity.ShareQuery">
-		SELECT count(1) FROM Share_ths_ai_detail t1 where day=#{endDay} AND hour=#{endHour}
+		SELECT count(1) FROM ${} t1 where day=#{endDay} AND hour=#{endHour}
 	</select>
 
 </mapper>

@@ -16,6 +16,7 @@ const routes = [{
     {path:'/sys/roleinfo', component:resolve=>require(['@/page/system/role.vue'],resolve),meta: {requiresAuth: true}},
     {path:'/buss/newinfo', component:resolve=>require(['@/page/buss/new.vue'],resolve),meta: {requiresAuth: true}},
     {path:'/buss/oldinfo', component:resolve=>require(['@/page/buss/old.vue'],resolve),meta: {requiresAuth: true}},
+    {path:'/buss/uploadInfo', component:resolve=>require(['@/page/buss/upload.vue'],resolve),meta: {requiresAuth: true}},
     {path:'*',component:resolve=>require(['@/page/404.vue'],resolve)}
   ]
 }
