@@ -18,7 +18,7 @@ public class UdpClientMain {
 		String input = null;
 		try {
 			UdpClientConfig config = new UdpClientConfig();
-			UdpConfigInit init = new UdpConfigInit("10.0.6.17", 8000);
+			UdpConfigInit init = new UdpConfigInit("10.0.6.111", 1331);
 			config.initServer(init);
 			config.enbaleServer();
 			UdpFactory factory = config.getUdpFactory();
@@ -28,7 +28,7 @@ public class UdpClientMain {
 				try {
 					switch (input) {
 					case "001":
-						String descAddr = "FSUID123";//20bytes	目标设备地址
+						String descAddr = "";//20bytes	目标设备地址
 						String srcAddr ="00";//8byte	源设备地址
 						byte subDevAddr = 0x03;
 						byte ver = 0x10;
