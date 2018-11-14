@@ -9,7 +9,7 @@
 			</p>
 			<p>编码:<span class="blue">{{data.code}}</span></p>
 			<p class="w60P col6">类型:<span>{{data.type}}</span></span></p>
-			<p class="col6">当前价格:<span>{{data.ends}}</p>
+			<p class="col6">当前价格:<span>{{data.ends}}</span></p>
 			<p class="w60P col6">涨幅:<span>{{data.ranges}}</span></p>
 			<p class="col6">时间:<span>{{data.day}}-{{data.hour}}</span></p>
 		</li>
